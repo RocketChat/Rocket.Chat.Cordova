@@ -1,5 +1,6 @@
 body {
     background-color: #04436a;
+    margin: 0px;
 }
 
 .logo {
@@ -36,4 +37,5 @@ body {
 
 #serverFrame {
     height: 100vh;
+    border: 0px;
 }
