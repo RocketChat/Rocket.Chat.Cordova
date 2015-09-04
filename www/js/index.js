@@ -1,4 +1,5 @@
 var currentView = 'startView';
+var serverListVisible = false;
 
 function connectServer () {
 
@@ -25,3 +26,17 @@ function changeView (view) {
     curr.style.display = 'none';
     next.style.display = 'block';
 }
+
+function toggleServerList () {
+    if (serverListVisible) {
+        serverListVisible = false;
+
+        document.querySelector("#serverList").style.left = '-64px';
+    } else {
+        serverListVisible = true;
+
+        document.querySelector("#serverList").style.left = '0px';
+    }
+}
+
+document.querySelector("#serverList .toggle").addEventListener("click", toggleServerList);
