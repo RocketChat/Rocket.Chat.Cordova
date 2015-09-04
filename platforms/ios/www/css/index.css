@@ -42,9 +42,30 @@ body {
     -webkit-transition: all 1s ease-in-out;
 }
 
+#serverList ul {
+    list-style: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 5px;
+}
+
+#serverList ul li {
+    background-color: #04436A;
+    display: block;
+    border-radius: 7px;
+    text-align: center;
+    line-height: 50px;
+    width: 50px;
+    margin-bottom: 5px;
+    font-size: 32px;
+    color: rgba(255, 255, 255, 0.77);
+    cursor: pointer;
+}
+
 #serverList .toggle {
-    top: 50%;
-    position: relative;
+    bottom: 100px;
+    position: absolute;
     transform: rotate(90deg);
     background-color: #7D1F22;
     left: 28px;
@@ -54,6 +75,7 @@ body {
     border-top-right-radius: 9px;
     border-top-left-radius: 9px;
     cursor: pointer;
+    text-align: center;
 }
 
 #serverView {
