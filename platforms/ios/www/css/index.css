@@ -1,0 +1,39 @@
+body {
+    background-color: #04436a;
+}
+
+.logo {
+    text-align: center;
+}
+
+.server-enter {
+    text-align: center;
+}
+
+.server-enter input {
+    padding: 4px;
+    text-align: center;
+    border-radius: 10px;
+    border: 0px;
+    font-size: 23px;
+}
+
+.connect-button {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.connect-button button {
+    height: 40px;
+    width: 142px;
+    font-size: 25px;
+    border-radius: 15px;
+}
+
+#serverView {
+    display: none;
+}
+
+#serverFrame {
+    height: 100vh;
+}
