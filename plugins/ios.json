@@ -9,6 +9,9 @@
     "installed_plugins": {
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "chat.rocket.cordova"
+        },
+        "cordova-plugin-crosswalk-webview": {
+            "PACKAGE_NAME": "chat.rocket.cordova"
         }
     },
     "dependent_plugins": {}

@@ -5,6 +5,10 @@
         <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
         <param name="onload" value="true" />
     </feature>
+    <preference name="webView" value="org.crosswalk.engine.XWalkWebViewEngine" />
+    <preference default="14+" name="xwalkVersion" />
+    <preference default="--disable-pull-to-refresh-effect" name="xwalkCommandLine" />
+    <preference default="embedded" name="xwalkMode" />
     <allow-intent href="market:*" />
     <name>Rocket.Chat.Cordova</name>
     <description>
@@ -22,4 +26,7 @@
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
     <icon src="www/icons/icon.png" />
+    <preference name="xwalkVersion" value="14+" />
+    <preference name="xwalkCommandLine" value="--disable-pull-to-refresh-effect" />
+    <preference name="xwalkMode" value="embedded" />
 </widget>
