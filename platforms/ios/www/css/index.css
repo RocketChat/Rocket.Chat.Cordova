@@ -5,41 +5,61 @@ body {
 
 .logo {
     text-align: center;
+    margin-top: 80px;
+}
+
+.logo img {
+    width: 100px;
 }
 
 .server-enter {
     text-align: center;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 0 6px 10px rgba(0,0,0,0.1);
+    border-radius: 2px;
+    margin: 20px;
 }
 
 .server-enter input {
     padding: 4px;
-    text-align: center;
-    border-radius: 10px;
     border: 0px;
-    font-size: 23px;
+    font-size: 20px;
+    border-radius: 0px;
+    border-bottom: 1px solid #dfdfdf;
+    width: 100%;
 }
 
 .connect-button {
     text-align: center;
-    margin-top: 50px;
+    margin-top: 20px;
 }
 
 .connect-button button {
-    height: 40px;
-    width: 142px;
-    font-size: 25px;
-    border-radius: 15px;
+    color: rgba(255,255,255,0.85);
+    background-color: #13679a;
+    padding: 9px 12px;
+    font-weight: 500;
+    font-size: 13px;
+    margin: 4px;
+    text-transform: uppercase;
+    word-spacing: 0;
+    box-shadow: 1px 1px 0 rgba(0,0,0,0.125);
+    border: none;
+    line-height: 16px;
+    position: relative;
+    cursor: pointer;
 }
 
 #serverList {
     position: absolute;
     top: 0;
-    left: -64px;
+    left: -62px;
     height: 100%;
     width: 60px;
-    background-color: #0F354C;
-    box-shadow: 1px 3px 5px #000000;
-    -webkit-transition: all 1s ease-in-out;
+    background-color: #04436a;
+    box-shadow: 1px 0px 1px rgba(0,0,0,.4);
+    -webkit-transition: all .4s ease-in-out;
 }
 
 #serverList ul {
@@ -51,9 +71,9 @@ body {
 }
 
 #serverList ul li {
-    background-color: #04436A;
+    background-color: #13679a;
     display: block;
-    border-radius: 7px;
+    border-radius: 4px;
     text-align: center;
     line-height: 50px;
     width: 50px;
@@ -61,21 +81,26 @@ body {
     font-size: 32px;
     color: rgba(255, 255, 255, 0.77);
     cursor: pointer;
+    font-family: helvetica;
 }
 
 #serverList .toggle {
     bottom: 100px;
     position: absolute;
     transform: rotate(90deg);
-    background-color: #7D1F22;
-    left: 28px;
+    background-color: #13679a;
+    left: 30px;
     width: 80px;
     padding: 7px;
-    box-shadow: 1px -2px 0px rgba(0, 0, 0, 0.38);
-    border-top-right-radius: 9px;
-    border-top-left-radius: 9px;
+    box-shadow: 0px -2px 1px rgba(0, 0, 0, 0.38);
+    border-radius: 2px 2px 0 0;
     cursor: pointer;
     text-align: center;
+    color: white;
+    text-transform: uppercase;
+    font-family: Helvetica;
+    font-size: 12px;
+    line-height: 20px;
 }
 
 #serverView {
