@@ -17,7 +17,7 @@
  under the License.
  */
 //
-// Prefix header for all source files of the 'DemoApp' target in the 'DemoApp' project
+// Prefix header for all source files of the 'Rocket.Chat.Cordova' target in the 'Rocket.Chat.Cordova' project
 //
 
 #ifdef __OBJC__
