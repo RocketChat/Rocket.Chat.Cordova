@@ -4,8 +4,6 @@ var serverListVisible = false;
 var config = {};
 
 function verifyServer () {
-
-    var serverFrame = document.getElementById('serverFrame');
     var serverAddressBox = document.getElementById('serverAddress');
 
     serverAddress = serverAddressBox.value;
@@ -27,7 +25,7 @@ function verifyServer () {
 }
 
 function connectServer (server) {
-    serverFrame.src = server.url;
+    document.getElementById('serverFrame').src = server.url;
 
     config.activeServer = server;
     saveConfig();
