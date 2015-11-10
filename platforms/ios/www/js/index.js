@@ -25,7 +25,8 @@ function verifyServer () {
 }
 
 function connectServer (server) {
-    document.getElementById('serverFrame').src = server.url;
+    document.getElementById('serverFrame').src = 'http://meteor.local/';
+    // document.getElementById('serverFrame').src = server.url;
 
     config.activeServer = server;
     saveConfig();
@@ -168,4 +169,6 @@ function populateServerList() {
     }
 }
 
-loadConfig(populateServerList)
+document.addEventListener("deviceready", function() {
+    loadConfig(populateServerList)
+});

@@ -39,6 +39,13 @@
 		7E7966E61810823500FA85AD /* icon-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E7966DC1810823500FA85AD /* icon-small.png */; };
 		7E7966E71810823500FA85AD /* icon-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E7966DD1810823500FA85AD /* icon-small@2x.png */; };
 		D4A0D8761607E02300AEF8BB /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */; };
+		01AEF5DBC3C04E86AF9D23F8 /* CordovaUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = F41C8D86624747EFA2F02F83 /* CordovaUpdate.m */; };
+		DF1F4EE89FAE4FA5B6A2C558 /* METEORCordovaURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA1B4E53D964756A1DA9EBF /* METEORCordovaURLProtocol.m */; };
+		69FAD304BD284074952F0DA1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51069CE85C67492DA60420D6 /* Foundation.framework */; };
+		D25628DF63EC4CEE828342FA /* CDVFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 0300C66A5AB14257829B9376 /* CDVFile.m */; };
+		19E2617899D24187A0F9F6B9 /* CDVLocalFilesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA126DB59A54C3092299E01 /* CDVLocalFilesystem.m */; };
+		D16AB2AD1F4645488DF21452 /* CDVAssetLibraryFilesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = EB081B08184B4F5AA9B6095F /* CDVAssetLibraryFilesystem.m */; };
+		EAA51F6837554A81B883BF73 /* CDVFileTransfer.m in Sources */ = {isa = PBXBuildFile; fileRef = 79BC1FF428344F8896009D90 /* CDVFileTransfer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,6 +111,18 @@
 		EB87FDF31871DA8E0020F90C /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; name = www; path = ../../www; sourceTree = "<group>"; };
 		EB87FDF41871DAF40020F90C /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = ../../config.xml; sourceTree = "<group>"; };
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = "Rocket.Chat.Cordova/config.xml"; sourceTree = "<group>"; };
+		F41C8D86624747EFA2F02F83 /* CordovaUpdate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CordovaUpdate.m"; path = "com.meteor.cordova-update/CordovaUpdate.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		1DA1B4E53D964756A1DA9EBF /* METEORCordovaURLProtocol.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "METEORCordovaURLProtocol.m"; path = "com.meteor.cordova-update/METEORCordovaURLProtocol.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		2BD151A96574427CB9DA0380 /* METEORCordovaURLProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "METEORCordovaURLProtocol.h"; path = "com.meteor.cordova-update/METEORCordovaURLProtocol.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		51069CE85C67492DA60420D6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Foundation.framework"; path = "System/Library/Frameworks/Foundation.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
+		0300C66A5AB14257829B9376 /* CDVFile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVFile.m"; path = "cordova-plugin-file/CDVFile.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		4CA126DB59A54C3092299E01 /* CDVLocalFilesystem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVLocalFilesystem.m"; path = "cordova-plugin-file/CDVLocalFilesystem.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		EB081B08184B4F5AA9B6095F /* CDVAssetLibraryFilesystem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVAssetLibraryFilesystem.m"; path = "cordova-plugin-file/CDVAssetLibraryFilesystem.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		4CEA1C90ED7F4749B4A0D0D7 /* CDVFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVFile.h"; path = "cordova-plugin-file/CDVFile.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		A9ED52E21F23419CA94892D9 /* CDVLocalFilesystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVLocalFilesystem.h"; path = "cordova-plugin-file/CDVLocalFilesystem.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		8CE23152760641EA88E20EEA /* CDVAssetLibraryFilesystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVAssetLibraryFilesystem.h"; path = "cordova-plugin-file/CDVAssetLibraryFilesystem.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		79BC1FF428344F8896009D90 /* CDVFileTransfer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVFileTransfer.m"; path = "cordova-plugin-file-transfer/CDVFileTransfer.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		332E2C7A08734F6DB326E015 /* CDVFileTransfer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVFileTransfer.h"; path = "cordova-plugin-file-transfer/CDVFileTransfer.h"; sourceTree = "<group>"; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +134,7 @@
 				301BF552109A68D80062928A /* libCordova.a in Frameworks */,
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
 				305D5FD1115AB8F900A74A75 /* MobileCoreServices.framework in Frameworks */,
+				69FAD304BD284074952F0DA1 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,6 +207,7 @@
 				5B1594DC16A7569C00FEF299 /* AssetsLibrary.framework */,
 				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
 				305D5FD0115AB8F900A74A75 /* MobileCoreServices.framework */,
+				51069CE85C67492DA60420D6 /* Foundation.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -202,6 +223,17 @@
 		307C750510C5A3420062BCA9 /* Plugins */ = {
 			isa = PBXGroup;
 			children = (
+				F41C8D86624747EFA2F02F83 /* CordovaUpdate.m */,
+				1DA1B4E53D964756A1DA9EBF /* METEORCordovaURLProtocol.m */,
+				2BD151A96574427CB9DA0380 /* METEORCordovaURLProtocol.h */,
+				0300C66A5AB14257829B9376 /* CDVFile.m */,
+				4CA126DB59A54C3092299E01 /* CDVLocalFilesystem.m */,
+				EB081B08184B4F5AA9B6095F /* CDVAssetLibraryFilesystem.m */,
+				4CEA1C90ED7F4749B4A0D0D7 /* CDVFile.h */,
+				A9ED52E21F23419CA94892D9 /* CDVLocalFilesystem.h */,
+				8CE23152760641EA88E20EEA /* CDVAssetLibraryFilesystem.h */,
+				79BC1FF428344F8896009D90 /* CDVFileTransfer.m */,
+				332E2C7A08734F6DB326E015 /* CDVFileTransfer.h */,
 			);
 			name = Plugins;
 			path = "Rocket.Chat.Cordova/Plugins";
@@ -386,6 +418,12 @@
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* AppDelegate.m in Sources */,
 				302D95F114D2391D003F00A1 /* MainViewController.m in Sources */,
+				01AEF5DBC3C04E86AF9D23F8 /* CordovaUpdate.m in Sources */,
+				DF1F4EE89FAE4FA5B6A2C558 /* METEORCordovaURLProtocol.m in Sources */,
+				D25628DF63EC4CEE828342FA /* CDVFile.m in Sources */,
+				19E2617899D24187A0F9F6B9 /* CDVLocalFilesystem.m in Sources */,
+				D16AB2AD1F4645488DF21452 /* CDVAssetLibraryFilesystem.m in Sources */,
+				EAA51F6837554A81B883BF73 /* CDVFileTransfer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
