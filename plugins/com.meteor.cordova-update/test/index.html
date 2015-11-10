@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+        <title>Hello World</title>
+        <script type="text/javascript" src="cordova.js"></script>
+        <style type="text/css">
+            html, body { width:100%; height:100%; margin:0; padding:0; overflow:hidden; background-color:white; }
+            div#fullpage { width:100%; height:100%; margin:0; padding:0; border:0px solid red; text-align:center; vertical-align:middle; }
+            button { font-size: 18px; }
+        </style>
+    </head>
+    <body onload="onLoad()">
+    <script>
+    var httpd = null;
+    function onLoad() {
+    	document.addEventListener("deviceready", onDeviceReady, false);
+    }
+    function onDeviceReady() {
+        httpd = ( cordova && cordova.plugins && cordova.plugins.CorHttpd ) ? cordova.plugins.CorHttpd : null;
+
+        startServer("htdocs");
+    }
+    function updateStatus() {
+    	document.getElementById('location').innerHTML = "document.location.href: " + document.location.href;
+    	if( httpd ) {
+    		httpd.getURL(function(url){
+    			if(url.length > 0) {
+    				document.getElementById('url').innerHTML = "server is up: <a href='" + url + "' target='_blank'>" + url + "</a>";
+    			} else {
+    				document.getElementById('url').innerHTML = "server is down.";
+    			}
+    		});
+    		httpd.getLocalPath(function(path){
+    			document.getElementById('localpath').innerHTML = "<br/>localPath: " + path;
+        	});
+    	} else {
+    		alert('CorHttpd plugin not available/ready.');
+    	}
+    }
+    function startServer( wwwroot ) {
+    	if ( httpd ) {
+    	    httpd.getURL(function(url){
+    	    	if(url.length > 0) {
+    	    		document.getElementById('url').innerHTML = "server is up: <a href='" + url + "' target='_blank'>" + url + "</a>";
+	    	    } else {
+    	    	    httpd.startServer({
+    	    	    	'www_root' : wwwroot,
+    	    	    	'port' : 8080
+    	    	    }, function( url ){
+        	    		//document.getElementById('url').innerHTML = "server is started: <a href='" + url + "' target='_blank'>" + url + "</a>";
+                        updateStatus();
+    	    	    }, function( error ){
+    	    	    	document.getElementById('url').innerHTML = 'failed to start server: ' + error;
+    	    	    });
+    	    	}
+    	    	
+    	    },function(){});
+    	} else {
+    		alert('CorHttpd plugin not available/ready.');
+    	}
+    }
+    function stopServer() {
+    	if ( httpd ) {
+    	    httpd.stopServer(function(){
+    	    	//document.getElementById('url').innerHTML = 'server is stopped.';
+                updateStatus();
+    	    },function( error ){
+    	    	document.getElementById('url').innerHTML = 'failed to stop server' + error;
+    	    });
+    	} else {
+    		alert('CorHttpd plugin not available/ready.');
+    	}
+    }
+    </script>
+    <div id="fullpage">
+    <p>Demo for CorHttpd Plugin</p>
+    <p><button onclick="startServer('htdocs');">Start Httpd at www/htdocs</button></p>
+    <p><button onclick="startServer('/');">Start Httpd at /</button></p>
+    <p><button onclick="stopServer();">Stop Httpd</button></p>
+    <p><button onclick="updateStatus();">Check Status</button></p>
+    <div id='location'></div>
+    <div id='url'></div>
+    <div id='localpath'></div>
+
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+<input type="hidden" name="cmd" value="_donations">
+<input type="hidden" name="business" value="rjfun.mobile@gmail.com">
+<input type="hidden" name="lc" value="GB">
+<input type="hidden" name="item_name" value="cordova-httpd">
+<input type="hidden" name="no_note" value="0">
+<input type="hidden" name="currency_code" value="USD">
+<input type="hidden" name="bn" value="PP-DonationsBF:btn_donateCC_LG.gif:NonHostedGuest">
+<input type="image" src="https://www.paypalobjects.com/en_US/GB/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal – The safer, easier way to pay online.">
+<img alt="" border="0" src="https://www.paypalobjects.com/zh_XC/i/scr/pixel.gif" width="1" height="1">
+</form>
+    
+    </div>
+    
+    </body>
+</html>

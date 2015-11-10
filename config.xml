@@ -16,6 +16,20 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+
+    <access origin="tel:*" launch-external="true"/>
+    <access origin="geo:*" launch-external="true"/>
+    <access origin="mailto:*" launch-external="true"/>
+    <access origin="sms:*" launch-external="true"/>
+    <access origin="market:*" launch-external="true"/>
+    <access origin="file:*"/>
+    <access origin="cdv:*"/>
+    <access origin="gap:*"/>
+    <access origin="http://meteor.local/*"/>
+    <access origin="*://localhost/*"/>
+    <access origin="*://10.0.2.2/*"/>
+    <access origin="*"/>
+
     <platform name="android">
         <allow-intent href="market:*" />
     </platform>
@@ -27,4 +41,6 @@
     <preference name="xwalkVersion" value="14+" />
     <preference name="xwalkCommandLine" value="--disable-pull-to-refresh-effect" />
     <preference name="xwalkMode" value="embedded" />
+
+    <hook type="before_prepare" src="hooks/beforePrepare.js" />
 </widget>
