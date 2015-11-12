@@ -18,8 +18,8 @@ window.Servers = new class
 
 
 	getServers: ->
-		# return ({name: value.name, url: key} for key, value of servers)
-		return servers
+		items = ({name: value.name, url: key} for key, value of servers)
+		return _.sortBy items, 'name'
 
 
 	validateUrl: (url) ->
@@ -79,16 +79,16 @@ window.Servers = new class
 			cb "Request failed: #{textStatus} #{error}"
 
 
-	registerServer: (name, url) ->
+	registerServer: (name, url, cb) ->
 		name = @validateName name
 		url = @validateUrl url
 
 		if url is false or name is false
-			return false
+			return cb()
 
 		if servers[url]?
 			console.error 'url (', url, ') already exists'
-			return false
+			return cb()
 
 		@getManifest url, (err, info) =>
 			# TODO err
@@ -97,7 +97,7 @@ window.Servers = new class
 				name: name
 				info: info
 
-			@downloadServer url
+			@downloadServer url, cb
 
 			@save()
 
@@ -129,7 +129,7 @@ window.Servers = new class
 		return encodeURIComponent baseUrl.replace(/[\s\.\\\/:]/g, '')
 
 
-	downloadServer: (url) ->
+	downloadServer: (url, downloadServerCb) ->
 		download = (item, cb) =>
 			if not item?.url?
 				return cb()
@@ -144,7 +144,7 @@ window.Servers = new class
 			@downloadFile url, item.url.replace(/\?.+$/, ''), cb
 
 		async.each servers[url].info.manifest, download, ->
-			console.log 'done'
+			downloadServerCb?()
 
 
 	downloadFile: (baseUrl, path, cb) ->

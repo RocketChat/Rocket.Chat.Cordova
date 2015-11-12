@@ -3,6 +3,10 @@ body {
     margin: 0px;
 }
 
+.hidden {
+    display: none !important;
+}
+
 .logo {
     text-align: center;
     margin-top: 80px;
@@ -49,6 +53,10 @@ body {
     line-height: 16px;
     position: relative;
     cursor: pointer;
+}
+
+.server-list-open {
+    left: 0px !important;
 }
 
 #serverList {
@@ -101,10 +109,6 @@ body {
     font-family: Helvetica;
     font-size: 12px;
     line-height: 20px;
-}
-
-#serverView {
-    display: none;
 }
 
 #serverFrame {
