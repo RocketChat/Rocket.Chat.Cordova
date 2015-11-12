@@ -2,7 +2,6 @@ httpd = undefined
 
 document.addEventListener "deviceready", ->
 	httpd = cordova?.plugins?.CordovaUpdate
-	window.startServer()
 
 
 window.Servers = new class
@@ -18,7 +17,7 @@ window.Servers = new class
 
 
 	getServers: ->
-		items = ({name: value.name, url: key} for key, value of servers)
+		items = ({name: value.name, url: key} for key, value of servers when key isnt 'active')
 		return _.sortBy items, 'name'
 
 
