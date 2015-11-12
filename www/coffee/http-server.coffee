@@ -34,42 +34,6 @@ window.startServer = (wwwroot) ->
 	# Generate a index.html file to prevent application crash
 	# writeFile(cordova.file.dataDirectory, 'index.html', 'index.html', log)
 
-	# httpd.getCordovajsRoot (cordovajsRoot) ->
-	# 	console.log('cordovajsRoot', cordovajsRoot)
-	# 	# startServer(cordovajsRoot)
-	# , (err) ->
-	# 	console.log('cordovajsRoot fail', err)
-
-window.downloadFile = (url) ->
-	ft = new FileTransfer()
-
-	console.log "start downloading " + url
-
-	urlPrefix = 'http://localhost:3000/' + '__cordova';
-	versionPrefix = uriToPath cordova.file.dataDirectory
-
-	uri = encodeURI(urlPrefix + url + '?' + Math.round(Math.random()*10000000))
-
-	console.log "uri", uri
-	console.log "versionPrefix + encodeURI(url)", versionPrefix + encodeURI(url)
-
-	ft.download uri, versionPrefix + encodeURI(url), (entry) ->
-		if entry
-			console.log("done downloading " + url)
-			# if queue.length
-			# 	downloadUrl queue.shift()
-			# afterAllFilesDownloaded();
-	, (err) ->
-		console.log('downloadFile err', err)
-
-window.startDownload = ->
-	$.getJSON 'http://localhost:3000/__cordova/manifest.json', (data) ->
-		if data?.manifest?.length > 0
-			data.manifest.push({ url: '/index.html?' + Math.round(Math.random()*10000000) })
-
-			for item in data.manifest when item?.url?
-				window.downloadFile item.url.replace(/\?.+$/, '')
-
 
 window.listDirectory = (url, options, cb) ->
 	if typeof options is 'function'
@@ -77,14 +41,16 @@ window.listDirectory = (url, options, cb) ->
 		options = {}
 
 	fail = (err) ->
-		cb(err)
+		# cb(err)
 
 	resolveSuccess = (entry) ->
 		readEntriesSuccess = (entries) ->
 			window.entries = entries
 			names = []
-			names.push entry.name for entry in entries
-			cb null, names
+			for entry in entries
+				names.push entry.name
+				console.log entry.name
+			# cb null, names
 
 		reader = entry.createReader()
 		reader.readEntries readEntriesSuccess, fail
