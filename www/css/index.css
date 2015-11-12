@@ -78,7 +78,7 @@ body {
 }
 
 #serverList ul li {
-    background-color: #13679a;
+    background-color: rgba(195, 37, 38, .5);
     display: block;
     border-radius: 4px;
     text-align: center;
@@ -86,7 +86,7 @@ body {
     width: 50px;
     margin-bottom: 5px;
     font-size: 32px;
-    color: rgba(255, 255, 255, 0.77);
+    color: white;
     cursor: pointer;
     font-family: helvetica;
 }
