@@ -6,11 +6,11 @@ showView = (view) ->
 
 toggleServerList = (open) ->
 	if open is true
-		$('#serverList').addClass 'server-list-open'
+		$(document.body).addClass 'server-list-open'
 	else if open is false
-		$('#serverList').removeClass 'server-list-open'
+		$(document.body).removeClass 'server-list-open'
 	else
-		$('#serverList').toggleClass 'server-list-open'
+		$(document.body).toggleClass 'server-list-open'
 
 
 window.refreshServerList = ->
@@ -23,6 +23,7 @@ window.refreshServerList = ->
 	for server in Servers.getServers()
 		li = document.createElement('LI')
 
+		console.log server.url
 		li.dataset.name = ++i
 		li.dataset.url = server.url
 		li.className = 'server'
@@ -58,6 +59,7 @@ document.addEventListener "deviceready", ->
 
 	$('#serverAddressButton').on 'click', registerServer
 	$("#serverList .toggle", document).on 'click', toggleServerList
+	$(".overlay", document).on 'click', -> toggleServerList(false)
 
 	$('.server', document).on 'click', (e) ->
 		showView 'server'

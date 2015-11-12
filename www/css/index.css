@@ -1,5 +1,5 @@
 body {
-    background-color: #04436a;
+    background-color: #f7f7f7;
     margin: 0px;
 }
 
@@ -20,7 +20,7 @@ body {
     text-align: center;
     background-color: white;
     padding: 20px;
-    box-shadow: 0 0 6px 10px rgba(0,0,0,0.1);
+    border: 1px solid #ebebeb;
     border-radius: 2px;
     margin: 20px;
 }
@@ -55,7 +55,7 @@ body {
     cursor: pointer;
 }
 
-.server-list-open {
+.server-list-open #serverList{
     left: 0px !important;
 }
 
@@ -65,9 +65,8 @@ body {
     left: -62px;
     height: 100%;
     width: 60px;
-    background-color: #04436a;
-    box-shadow: 1px 0px 1px rgba(0,0,0,.4);
-    -webkit-transition: all .4s ease-in-out;
+    background-color: #f7f7f7;
+    -webkit-transition: all .2s ease-in-out;
 }
 
 #serverList ul {
@@ -96,15 +95,14 @@ body {
     bottom: 100px;
     position: absolute;
     transform: rotate(90deg);
-    background-color: #13679a;
+    background-color: #ebebeb;
     left: 30px;
     width: 80px;
     padding: 7px;
-    box-shadow: 0px -2px 1px rgba(0, 0, 0, 0.38);
     border-radius: 2px 2px 0 0;
     cursor: pointer;
     text-align: center;
-    color: white;
+    color: #444;
     text-transform: uppercase;
     font-family: Helvetica;
     font-size: 12px;
@@ -114,4 +112,34 @@ body {
 #serverFrame {
     height: 100vh;
     border: 0px;
+}
+
+.view {
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    position: absolute;
+    -webkit-transition: all .2s ease-in-out;
+}
+
+.server-list-open .view {
+    left: 60px;
+    right: -60px;
+}
+
+.overlay {
+    display: none;
+    background: black;
+    opacity: .2;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    position: absolute;
+    -webkit-transition: all .2s ease-in-out;
+}
+
+.server-list-open .overlay {
+    display: block;
 }
