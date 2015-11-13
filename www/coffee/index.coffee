@@ -56,7 +56,7 @@ document.addEventListener "deviceready", ->
 	refreshServerList()
 
 	$('#serverAddressButton').on 'click', registerServer
-	$("#serverList .toggle", document).on 'click', toggleServerList
+	$("#serverList", document).on 'click', -> toggleServerList(false)
 	$(".overlay", document).on 'click', -> toggleServerList(false)
 
 	$('.server', document).on 'click', (e) ->
