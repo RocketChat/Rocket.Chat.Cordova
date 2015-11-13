@@ -21,6 +21,11 @@ window.Servers = new class
 		return _.sortBy items, 'name'
 
 
+	getActiveServer: ->
+		if servers.active? and servers[servers.active]?
+			return servers.active
+
+
 	validateUrl: (url) ->
 		if not _.isString(url)
 			console.error 'url (', url, ') must be string'

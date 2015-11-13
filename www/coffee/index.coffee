@@ -74,7 +74,7 @@ onIframeLoad = ->
 		started = undefined
 
 
-onServerClick: (e) ->
+onServerClick = (e) ->
 	toggleServerList(false)
 	target = $(e.currentTarget)
 	setTimeout ->
@@ -83,7 +83,7 @@ onServerClick: (e) ->
 	, 200
 
 
-onAddServerClick: ->
+onAddServerClick = ->
 	toggleServerList(false)
 	setTimeout ->
 		showView 'start'
@@ -108,3 +108,12 @@ document.addEventListener "deviceready", ->
 	mc.on "swipeup", ->
 		toggleServerList()
 
+
+	activeServer = Servers.getActiveServer()
+	if activeServer?
+		Servers.startServer activeServer, (err, url) ->
+			if err?
+				# TODO err
+				return console.log err
+
+			showView 'server'
