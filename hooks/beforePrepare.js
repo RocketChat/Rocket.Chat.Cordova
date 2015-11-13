@@ -9,5 +9,5 @@ if( !fs.existsSync(coffee_path)) {
     fs.mkdirSync(coffee_path)
 }
 
-execSync("rm -r www/js_compiled/")
+execSync("rm -rf www/js_compiled/*")
 execSync("coffee --compile --output www/js_compiled/ " + coffee_path)
