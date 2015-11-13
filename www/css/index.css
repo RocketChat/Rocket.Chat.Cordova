@@ -57,13 +57,12 @@ body {
 
 .server-list-open #serverList{
     top: 0px !important;
-    bottom: 0px !important;
 }
 
 #serverList {
     position: fixed;
-    top: 100%;
-    bottom: -100%;
+    top: 120%;
+    bottom: 0px;
     left: 0px;
     right: 0px;
     display: flex;

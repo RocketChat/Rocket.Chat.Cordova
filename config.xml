@@ -40,6 +40,8 @@
     <preference name="xwalkMode" value="embedded" />
     <preference name="webviewbounce" value="false" />
     <preference name="DisallowOverscroll" value="true" />
+    <preference name="AutoHideSplashScreen" value="false" />
+    <preference name="ShowSplashScreenSpinner" value="false" />
     <hook src="hooks/beforePrepare.js" type="before_prepare" />
     <engine name="ios" spec="~3.9.2" />
     <engine name="android" spec="~4.1.1" />
@@ -48,4 +50,7 @@
     <plugin name="cordova-plugin-file" spec="~3.0.0" />
     <plugin name="cordova-plugin-file-transfer" spec="~1.3.0" />
     <plugin name="cordova-plugin-whitelist" spec="~1.0.0" />
+    <plugin name="cordova-plugin-console" spec="~1.0.1" />
+    <plugin name="cordova-plugin-splashscreen" spec="~2.1.0" />
+    <plugin name="ionic-plugin-keyboard" spec="~1.0.7" />
 </widget>

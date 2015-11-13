@@ -90,7 +90,20 @@ onAddServerClick = ->
 	, 200
 
 
+window.addEventListener 'native.keyboardshow', (e) ->
+	# if device?.platform.toLowerCase() isnt 'android'
+	$('.keyboard').css 'bottom', e.keyboardHeight
+
+
+window.addEventListener 'native.keyboardhide', ->
+	# if device?.platform.toLowerCase() isnt 'android'
+	$('.keyboard').css 'bottom', 0
+
+
 document.addEventListener "deviceready", ->
+	cordova.plugins?.Keyboard?.hideKeyboardAccessoryBar? true
+	cordova.plugins?.Keyboard?.disableScroll? true
+
 	refreshServerList()
 
 	$('#serverAddressButton').on 'click', registerServer
@@ -117,3 +130,5 @@ document.addEventListener "deviceready", ->
 				return console.log err
 
 			showView 'server'
+
+	navigator.splashscreen.hide()
