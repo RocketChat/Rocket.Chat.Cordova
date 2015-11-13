@@ -47,27 +47,28 @@ registerServer = ->
 
 	$(document.body).addClass 'loading'
 	$('.loading-text').text 'Validating server...'
-	Servers.registerServer serverAddress, serverAddress, (err) ->
-		if err?
-			console.error "Failed to register the server #{serverAddress}: #{err}"
-			addAlert { type: 'danger', message: err }
+	setTimeout ->
+		Servers.registerServer serverAddress, serverAddress, (err) ->
+			if err?
+				console.error "Failed to register the server #{serverAddress}: #{err}"
 
-			return setTimeout ->
-				# do this a few milliseconds later so the screen doesn't appear
-				# to flash when they're on a fast connection
-				$('#serverAddress').addClass 'error'
-				$('#serverAddressButton').prop 'disabled', true
-				$(document.body).removeClass 'loading'
-			, 1500
+				return setTimeout ->
+					# do this a few milliseconds later so the screen doesn't appear
+					# to flash when they're on a fast connection
+					$('#serverAddress').addClass 'error'
+					$('#serverAddressButton').prop 'disabled', true
+					addAlert { type: 'danger', message: err }
+					$(document.body).removeClass 'loading'
+				, 1500
 
-		refreshServerList()
+			refreshServerList()
 
-		$('.loading-text').text 'Downloading files...'
-		Servers.downloadServer serverAddress, ->
-			$('.loading-text').text "Loading #{serverAddress}..."
-			Servers.startServer serverAddress, ->
-				showView 'server'
-
+			$('.loading-text').text 'Downloading files...'
+			Servers.downloadServer serverAddress, ->
+				$('.loading-text').text "Loading #{serverAddress}..."
+				Servers.startServer serverAddress, ->
+					showView 'server'
+	, 250
 
 onIframeLoad = ->
 	$(document.body).removeClass 'loading'
