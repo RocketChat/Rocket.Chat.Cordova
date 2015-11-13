@@ -8,7 +8,7 @@ Rocket.Chat Cross-Platform Mobile Application via Cordova
 
 #### Install dependencies
 ```shell
-npm install cordova coffeescript -g
+npm install cordova coffee-script -g
 ```
 
 #### Build
