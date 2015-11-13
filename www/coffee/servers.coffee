@@ -62,12 +62,12 @@ window.Servers = new class
 	getManifest: (url, cb) ->
 		url = @validateUrl url
 
-		if url is false
-			return false
-
 		if not _.isFunction cb
 			console.error 'callback is required'
 			return false
+
+		if url is false
+			return cb 'No address provided.'
 
 		request = $.getJSON "#{url}/__cordova/manifest.json"
 		request.done (data, textStatus, jqxhr) ->
@@ -103,10 +103,8 @@ window.Servers = new class
 			return cb()
 
 		@getManifest url, (err, info) =>
-			# TODO err
 			if err
-				cb(err)
-				return
+				return cb err
 
 			servers[url] =
 				name: name
@@ -117,18 +115,19 @@ window.Servers = new class
 			cb()
 
 
-	updateServer: (url) ->
+	updateServer: (url, cb) ->
 		if not servers[url]?
 			console.error 'invalid server url', url
 
 		@getManifest url, (err, info) =>
-			# TODO err
+			if err
+				return cb err
 
 			if servers[url].info.version isnt info.version
 				servers[url].oldInfo = servers[url].info
 				servers[url].info = info
 
-				@downloadServer url
+				@downloadServer url, cb
 
 
 	getFileTransfer: ->
