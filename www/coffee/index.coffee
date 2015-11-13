@@ -52,28 +52,54 @@ registerServer = ->
 		toggleServerList(false)
 
 
+onIframeLoad = ->
+	iframe = $($('iframe').contents()[0])
+
+	started = undefined
+
+	iframe.on 'touchstart', (e) ->
+		if e.originalEvent.touches.length is 2
+			started =
+				date: Date.now()
+				pageX: e.originalEvent.pageX
+				pageY: e.originalEvent.pageY
+
+	iframe.on 'touchend', (e) ->
+		if started?
+			if Date.now() - started.date < 1000
+				if Math.abs(e.originalEvent.pageX - started.pageX) < 30
+					if Math.abs(e.originalEvent.pageY - started.pageY) > 50
+						toggleServerList()
+
+		started = undefined
+
+
+onServerClick: (e) ->
+	toggleServerList(false)
+	target = $(e.currentTarget)
+	setTimeout ->
+		showView 'server'
+		Servers.startServer target.data('url')
+	, 200
+
+
+onAddServerClick: ->
+	toggleServerList(false)
+	setTimeout ->
+		showView 'start'
+	, 200
+
+
 document.addEventListener "deviceready", ->
 	refreshServerList()
 
 	$('#serverAddressButton').on 'click', registerServer
 	$("#serverList", document).on 'click', -> toggleServerList(false)
 	$(".overlay", document).on 'click', -> toggleServerList(false)
+	$('.server', document).on 'click', onServerClick
+	$('.addServer', document).on 'click', onAddServerClick
+	$('iframe').on 'load', onIframeLoad
 
-	$('.server', document).on 'click', (e) ->
-		toggleServerList(false)
-		target = $(e.currentTarget)
-		setTimeout ->
-			showView 'server'
-			Servers.startServer target.data('url')
-		, 200
-
-	$('.addServer', document).on 'click', ->
-		toggleServerList(false)
-		setTimeout ->
-			showView 'start'
-		, 200
-
-	# $('#startView').on('touchmove', function() {console.log(arguments)})
 	mc = new Hammer.Manager $('#startView')[0]
 	mc.add new Hammer.Swipe
 		direction: Hammer.DIRECTION_UP
@@ -81,27 +107,4 @@ document.addEventListener "deviceready", ->
 
 	mc.on "swipeup", ->
 		toggleServerList()
-
-
-	$('iframe').on 'load', ->
-		iframe = $($('iframe').contents()[0])
-
-		started = undefined
-
-		iframe.on 'touchstart', (e) ->
-			if e.originalEvent.touches.length is 2
-				started =
-					date: Date.now()
-					pageX: e.originalEvent.pageX
-					pageY: e.originalEvent.pageY
-
-		iframe.on 'touchend', (e) ->
-			if started?
-				if Date.now() - started.date < 1000
-					if Math.abs(e.originalEvent.pageX - started.pageX) < 30
-						if Math.abs(e.originalEvent.pageY - started.pageY) > 50
-							toggleServerList()
-
-			started = undefined
-
 
