@@ -72,7 +72,7 @@ window.Servers = new class
 		request = $.getJSON "#{url}/__cordova/manifest.json"
 		request.done (data) ->
 			if data?.manifest?.length > 0
-				data.manifest.push
+				data.manifest.unshift
 					url: '/index.html?' + Math.round(Math.random()*10000000)
 
 				cb null, data
@@ -101,9 +101,9 @@ window.Servers = new class
 				name: name
 				info: info
 
-			@downloadServer url, cb
-
 			@save()
+
+			cb()
 
 
 	updateServer: (url) ->
@@ -147,7 +147,7 @@ window.Servers = new class
 
 			@downloadFile url, item.url.replace(/\?.+$/, ''), cb
 
-		async.each servers[url].info.manifest, download, ->
+		async.eachLimit servers[url].info.manifest, 5, download, ->
 			downloadServerCb?()
 
 
@@ -157,15 +157,15 @@ window.Servers = new class
 		url = encodeURI "#{baseUrl}/__cordova#{path}?#{@random()}"
 		pathToSave = @uriToPath(cordova.file.dataDirectory) + @baseUrlToDir(baseUrl) + '/' + encodeURI(path)
 
-		console.log "start downloading", url, ', saving at', pathToSave
+		# console.log "start downloading", url, ', saving at', pathToSave
 
 		ft.download url, pathToSave, (entry) ->
 			if entry?
-				console.log("done downloading " + url)
+				# console.log("done downloading " + url)
 				cb null, entry
 		, (err) ->
 			console.log('downloadFile err', err)
-			cb err, null
+			cb null, err
 
 
 	save: ->
@@ -183,7 +183,7 @@ window.Servers = new class
 		servers = {}
 
 
-	startServer: (baseUrl) ->
+	startServer: (baseUrl, cb) ->
 		if not httpd?
 			return console.error 'CorHttpd plugin not available/ready.'
 
@@ -198,9 +198,11 @@ window.Servers = new class
 			console.log "server is started:", url
 			servers.active = baseUrl
 			@save()
+			cb? null, baseUrl
 			document.getElementById('serverFrame').src = 'http://meteor.local/'
 
 		failure = (error) ->
+			cb? error
 			console.log 'failed to start server:', error
 
 		httpd.startServer options, success, failure

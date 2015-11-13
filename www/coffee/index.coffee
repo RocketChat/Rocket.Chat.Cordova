@@ -45,14 +45,20 @@ registerServer = ->
 	if serverAddress.length is 0
 		serverAddress = 'https://demo.rocket.chat'
 
+	$(document.body).addClass 'loading'
+	$('.loading-text').text 'Validating server...'
 	Servers.registerServer serverAddress, serverAddress, ->
 		refreshServerList()
-		Servers.startServer serverAddress
-		showView 'server'
-		toggleServerList(false)
+
+		$('.loading-text').text 'Downloading files...'
+		Servers.downloadServer serverAddress, ->
+			$('.loading-text').text "Loading #{serverAddress}..."
+			Servers.startServer serverAddress, ->
+				showView 'server'
 
 
 onIframeLoad = ->
+	$(document.body).removeClass 'loading'
 	iframe = $($('iframe').contents()[0])
 
 	started = undefined
@@ -107,10 +113,10 @@ document.addEventListener "deviceready", ->
 	refreshServerList()
 
 	$('#serverAddressButton').on 'click', registerServer
-	$("#serverList", document).on 'click', -> toggleServerList(false)
-	$(".overlay", document).on 'click', -> toggleServerList(false)
 	$('.server', document).on 'click', onServerClick
 	$('.addServer', document).on 'click', onAddServerClick
+	$("#serverList", document).on 'click', -> toggleServerList(false)
+	$(".overlay", document).on 'click', -> toggleServerList(false)
 	$('iframe').on 'load', onIframeLoad
 
 	mc = new Hammer.Manager $('#startView')[0]
