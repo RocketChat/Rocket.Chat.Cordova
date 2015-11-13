@@ -4,7 +4,7 @@ showView = (view) ->
 	$('#' + view + 'View').removeClass 'hidden'
 
 
-toggleServerList = (open) ->
+window.toggleServerList = (open) ->
 	if open is true
 		$(document.body).addClass 'server-list-open'
 	else if open is false
@@ -19,16 +19,14 @@ window.refreshServerList = ->
 	while ul.children[0]
 		ul.children[0].remove()
 
-	i = 0
 	for server in Servers.getServers()
 		li = document.createElement('LI')
 
-		console.log server.url
-		li.dataset.name = ++i
+		li.dataset.name = server.name
 		li.dataset.url = server.url
 		li.className = 'server'
 
-		li.innerText = i
+		li.innerText = server.name.replace(/https?:\/\//, '')
 
 		ul.appendChild li
 
@@ -62,11 +60,48 @@ document.addEventListener "deviceready", ->
 	$(".overlay", document).on 'click', -> toggleServerList(false)
 
 	$('.server', document).on 'click', (e) ->
-		showView 'server'
 		toggleServerList(false)
 		target = $(e.currentTarget)
-		Servers.startServer target.data('url')
+		setTimeout ->
+			showView 'server'
+			Servers.startServer target.data('url')
+		, 200
 
 	$('.addServer', document).on 'click', ->
-		showView 'start'
 		toggleServerList(false)
+		setTimeout ->
+			showView 'start'
+		, 200
+
+	# $('#startView').on('touchmove', function() {console.log(arguments)})
+	mc = new Hammer.Manager $('#startView')[0]
+	mc.add new Hammer.Swipe
+		direction: Hammer.DIRECTION_UP
+		pointers: 2
+
+	mc.on "swipeup", ->
+		toggleServerList()
+
+
+	$('iframe').on 'load', ->
+		iframe = $($('iframe').contents()[0])
+
+		started = undefined
+
+		iframe.on 'touchstart', (e) ->
+			if e.originalEvent.touches.length is 2
+				started =
+					date: Date.now()
+					pageX: e.originalEvent.pageX
+					pageY: e.originalEvent.pageY
+
+		iframe.on 'touchend', (e) ->
+			if started?
+				if Date.now() - started.date < 1000
+					if Math.abs(e.originalEvent.pageX - started.pageX) < 30
+						if Math.abs(e.originalEvent.pageY - started.pageY) > 50
+							toggleServerList()
+
+			started = undefined
+
+
