@@ -40,14 +40,26 @@ window.refreshServerList = ->
 
 
 registerServer = ->
-	serverAddress = $('#serverAddress').val().trim()
+	serverAddress = $('#serverAddress').val().trim().toLowerCase()
 
 	if serverAddress.length is 0
 		serverAddress = 'https://demo.rocket.chat'
 
 	$(document.body).addClass 'loading'
 	$('.loading-text').text 'Validating server...'
-	Servers.registerServer serverAddress, serverAddress, ->
+	Servers.registerServer serverAddress, serverAddress, (err) ->
+		if err?
+			console.error "Failed to register the server #{serverAddress}: #{err}"
+			addAlert { type: 'danger', message: err }
+
+			return setTimeout ->
+				# do this a few milliseconds later so the screen doesn't appear
+				# to flash when they're on a fast connection
+				$('#serverAddress').addClass 'error'
+				$('#serverAddressButton').prop 'disabled', true
+				$(document.body).removeClass 'loading'
+			, 1500
+
 		refreshServerList()
 
 		$('.loading-text').text 'Downloading files...'
@@ -95,6 +107,21 @@ onAddServerClick = ->
 		showView 'start'
 	, 200
 
+serverAddressInput = ->
+	# remove the error class when they change the input
+	if $('#serverAddress').hasClass 'error'
+		setTimeout ->
+			$('#serverAddress').removeClass 'error'
+			$('#serverAddressButton').prop 'disabled', false
+			$('#alert-messages').empty()
+		, 1000
+
+addAlert = (alertObj) ->
+	if not _.isString(alertObj.type) or not _.isString(alertObj.message)
+		console.warn 'The alertObj', alertObj, 'is not a valid alert object, requires both type and message properties'
+		return
+
+	$('#alert-messages').append "<div class='alert alert-#{alertObj.type}' role='alert'>#{alertObj.message}</div>"
 
 window.addEventListener 'native.keyboardshow', (e) ->
 	# if device?.platform.toLowerCase() isnt 'android'
@@ -118,6 +145,7 @@ document.addEventListener "deviceready", ->
 	$("#serverList", document).on 'click', -> toggleServerList(false)
 	$(".overlay", document).on 'click', -> toggleServerList(false)
 	$('iframe').on 'load', onIframeLoad
+	$('#serverAddress').on 'input', serverAddressInput
 
 	mc = new Hammer.Manager $('#startView')[0]
 	mc.add new Hammer.Swipe

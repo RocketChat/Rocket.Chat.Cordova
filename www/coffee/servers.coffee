@@ -70,17 +70,25 @@ window.Servers = new class
 			return false
 
 		request = $.getJSON "#{url}/__cordova/manifest.json"
-		request.done (data) ->
-			if data?.manifest?.length > 0
+		request.done (data, textStatus, jqxhr) ->
+			if not jqxhr.getResponseHeader('x-rocket-chat-version')
+				cb 'The address provided is not a Rocket.Chat server.'
+			else if data?.manifest?.length > 0
 				data.manifest.unshift
 					url: '/index.html?' + Math.round(Math.random()*10000000)
 
 				cb null, data
 			else
-				cb 'Invalid result'
+				cb "The version the server, #{url}, is running is out of date and doesn't support mobile applications. Please have your server admin update to a new version of Rocket.Chat."
 
 		request.fail (jqxhr, textStatus, error) ->
-			cb "Request failed: #{textStatus} #{error}"
+			console.log 'getManifest request failed arguments:', arguments
+			if not jqxhr.getResponseHeader('x-rocket-chat-version')
+				cb 'The address provided is not a Rocket.Chat server.'
+			else if textStatus is 'parsererror'
+				cb "The version the server, #{url}, is running is out of date and doesn't support mobile applications. Please have your server admin update to a new version of Rocket.Chat."
+			else
+				cb "Request failed: #{textStatus}. #{error}"
 
 
 	registerServer: (name, url, cb) ->
@@ -88,7 +96,7 @@ window.Servers = new class
 		url = @validateUrl url
 
 		if url is false or name is false
-			return cb()
+			return cb 'The address provided is not a valid url.'
 
 		if servers[url]?
 			console.error 'url (', url, ') already exists'
@@ -96,6 +104,9 @@ window.Servers = new class
 
 		@getManifest url, (err, info) =>
 			# TODO err
+			if err
+				cb(err)
+				return
 
 			servers[url] =
 				name: name
@@ -147,6 +158,7 @@ window.Servers = new class
 
 			@downloadFile url, item.url.replace(/\?.+$/, ''), cb
 
+		console.log servers[url]
 		async.eachLimit servers[url].info.manifest, 5, download, ->
 			downloadServerCb?()
 

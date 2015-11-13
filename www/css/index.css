@@ -32,7 +32,14 @@ body {
     font-size: 20px;
     border-radius: 0px;
     border-bottom: 1px solid #dfdfdf;
+    text-transform: lowercase;
+    outline: none;
     width: 100%;
+}
+
+.server-enter input.error {
+    color: red;
+    border-bottom-color: red;
 }
 
 .connect-button {
@@ -56,8 +63,44 @@ body {
     cursor: pointer;
 }
 
+.connect-button button[disabled] {
+  background-color: #a6bac7;
+}
+
 .server-list-open #serverList{
     top: 0px !important;
+}
+
+.alert {
+    padding: 15px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.alert-danger {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
+
+.alert-info {
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+}
+
+.alert-success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+
+.alert-warning {
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
 }
 
 #serverList {
