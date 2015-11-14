@@ -23,7 +23,16 @@ window.Servers = new class
 
 	getActiveServer: ->
 		if servers.active? and servers[servers.active]?
-			return servers.active
+			return {
+				url: servers.active
+				name: servers[servers.active].name
+			}
+
+
+	setActiveServer: (url) ->
+		if servers[url]?
+			servers.active = url
+			return @save()
 
 
 	validateUrl: (url) ->

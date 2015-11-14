@@ -104,9 +104,12 @@ onIframeLoad = ->
 onServerClick = (e) ->
 	toggleServerList(false)
 	target = $(e.currentTarget)
+	$(document.body).addClass 'loading'
+	$('.loading-text').text "Loading #{target.data('name')}..."
 	setTimeout ->
 		showView 'server'
-		Servers.startServer target.data('url')
+		Servers.startServer target.data('url'), ->
+			Servers.setActiveServer target.data('url')
 	, 200
 
 
@@ -151,8 +154,15 @@ document.addEventListener "deviceready", ->
 	$('#serverAddressButton').on 'click', registerServer
 	$('.server', document).on 'click', onServerClick
 	$('.addServer', document).on 'click', onAddServerClick
-	$("#serverList", document).on 'click', -> toggleServerList(false)
-	$(".overlay", document).on 'click', -> toggleServerList(false)
+
+	$("#serverList", document).on 'click', (e) ->
+		if $(e.target).is('#serverList')
+			toggleServerList(false)
+
+	$(".overlay", document).on 'click', (e) ->
+		if $(e.target).is('.overlay')
+			toggleServerList(false)
+
 	$('iframe').on 'load', onIframeLoad
 	$('#serverAddress').on 'input', serverAddressInput
 
@@ -167,7 +177,9 @@ document.addEventListener "deviceready", ->
 
 	activeServer = Servers.getActiveServer()
 	if activeServer?
-		Servers.startServer activeServer, (err, url) ->
+		$(document.body).addClass 'loading'
+		$('.loading-text').text "Loading #{activeServer.name}..."
+		Servers.startServer activeServer.url, (err, url) ->
 			if err?
 				# TODO err
 				return console.log err
