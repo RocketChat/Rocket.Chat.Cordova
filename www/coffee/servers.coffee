@@ -134,8 +134,6 @@ window.Servers = new class
 				name: name
 				info: info
 
-			@save()
-
 			cb()
 
 
@@ -168,6 +166,8 @@ window.Servers = new class
 
 
 	downloadServer: (url, downloadServerCb) ->
+		i = 0
+		total = servers[url].info.manifest.length
 		download = (item, cb) =>
 			if not item?.url?
 				return cb()
@@ -179,11 +179,13 @@ window.Servers = new class
 				if found?
 					return cb()
 
-			@downloadFile url, item.url.replace(/\?.+$/, ''), cb
+			@downloadFile url, item.url.replace(/\?.+$/, ''), (err, data) ->
+				downloadServerCb?({done: false, count: i++, total: total})
+				cb(err, data)
 
 		console.log servers[url]
 		async.eachLimit servers[url].info.manifest, 5, download, ->
-			downloadServerCb?()
+			downloadServerCb?({done: true})
 
 
 	downloadFile: (baseUrl, path, cb) ->

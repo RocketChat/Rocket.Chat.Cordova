@@ -26,7 +26,7 @@ window.refreshServerList = ->
 		li.dataset.url = server.url
 		li.className = 'server'
 
-		li.innerText = server.name.replace(/https?:\/\//, '')
+		li.innerText = server.name
 
 		ul.appendChild li
 
@@ -45,10 +45,13 @@ registerServer = ->
 	if serverAddress.length is 0
 		serverAddress = 'https://demo.rocket.chat'
 
+	name = serverAddress.replace(/https?:\/\//, '').replace(/^www\./, '')
+
 	$(document.body).addClass 'loading'
 	$('.loading-text').text 'Validating server...'
+
 	setTimeout ->
-		Servers.registerServer serverAddress, serverAddress, (err) ->
+		Servers.registerServer name, serverAddress, (err) ->
 			if err?
 				console.error "Failed to register the server #{serverAddress}: #{err}"
 
@@ -64,11 +67,16 @@ registerServer = ->
 			refreshServerList()
 
 			$('.loading-text').text 'Downloading files...'
-			Servers.downloadServer serverAddress, ->
-				$('.loading-text').text "Loading #{serverAddress}..."
-				Servers.startServer serverAddress, ->
-					showView 'server'
+			Servers.downloadServer serverAddress, (status) ->
+				if status.done is true
+					$('.loading-text').text "Loading #{name}..."
+					Servers.save()
+					Servers.startServer serverAddress, ->
+						showView 'server'
+				else
+					$('.loading-text').html "Downloading files...<br/>( #{status.count} / #{status.total} )"
 	, 250
+
 
 onIframeLoad = ->
 	$(document.body).removeClass 'loading'
