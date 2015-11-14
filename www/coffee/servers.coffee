@@ -29,47 +29,68 @@ window.Servers = new class
 	validateUrl: (url) ->
 		if not _.isString(url)
 			console.error 'url (', url, ') must be string'
-			return false
+			return {} =
+				isValid: false
+				message: 'The address provided must be a string.'
+				url: url
 
 		url = url.trim().toLowerCase()
 		url - url.replace /\/$/, ''
 
 		if _.isEmpty(url)
 			console.error 'url (', url, ') can\'t be empty'
-			return false
+			return {} =
+				isValid: false
+				message: 'The address provided can not be empty.'
+				url: url
 
 		if not /^https?:\/\/.+/.test(url)
 			console.error 'url (', url, ') must start with http:// or https://'
-			return false
+			return {} =
+				isValid: false
+				message: 'The address must start with http:// or https://'
+				url: url
 
-		return url
+		return {} =
+			isValid: true
+			message: 'The address provided is valid.'
+			url: url
 
 
 	validateName: (name) ->
 		if not _.isString(name)
 			console.error 'name (', name, ') must be string'
-			return false
+			return {} =
+				isValid: false
+				message: 'The name provided must be a string.'
+				name: name
 
 		name = name.trim()
 
 		if _.isEmpty(name)
 			console.error 'name (', name, ') can\'t be empty'
-			return false
+			return {} =
+				isValid: false
+				message: 'The name provided can not be empty.'
+				name: name
 
-		return name
+		return {} =
+			isValid: true
+			message: 'The name provided is valid.'
+			name: name
 
 
 	getManifest: (url, cb) ->
-		url = @validateUrl url
+		urlObj = @validateUrl url
 
 		if not _.isFunction cb
 			console.error 'callback is required'
 			return false
 
-		if url is false
-			return cb 'No address provided.'
+		if urlObj.isValid is false
+			return cb urlObj.message
 
-		request = $.getJSON "#{url}/__cordova/manifest.json"
+		request = $.getJSON "#{urlObj.url}/__cordova/manifest.json"
 		request.done (data, textStatus, jqxhr) ->
 			if not jqxhr.getResponseHeader('x-rocket-chat-version')
 				cb 'The address provided is not a Rocket.Chat server.'
@@ -79,24 +100,27 @@ window.Servers = new class
 
 				cb null, data
 			else
-				cb "The version the server, #{url}, is running is out of date and doesn't support mobile applications. Please have your server admin update to a new version of Rocket.Chat."
+				cb "The server, #{urlObj.url}, is running is out of date and doesn't support mobile applications. Please have your server admin update to a new version of Rocket.Chat."
 
 		request.fail (jqxhr, textStatus, error) ->
 			console.log 'getManifest request failed arguments:', arguments
 			if not jqxhr.getResponseHeader('x-rocket-chat-version')
 				cb 'The address provided is not a Rocket.Chat server.'
 			else if textStatus is 'parsererror'
-				cb "The version the server, #{url}, is running is out of date and doesn't support mobile applications. Please have your server admin update to a new version of Rocket.Chat."
+				cb "The server, #{urlObj.url}, is running is out of date and doesn't support mobile applications. Please have your server admin update to a new version of Rocket.Chat."
 			else
 				cb "Request failed: #{textStatus}. #{error}"
 
 
 	registerServer: (name, url, cb) ->
-		name = @validateName name
-		url = @validateUrl url
+		nameObj = @validateName name
+		urlObj = @validateUrl url
 
-		if url is false or name is false
-			return cb 'The address provided is not a valid url.'
+		if urlObj.isValid is false
+			return cb urlObj.message
+
+		if nameObj.isValid is false
+			return cb nameObj.message
 
 		if servers[url]?
 			console.error 'url (', url, ') already exists'
