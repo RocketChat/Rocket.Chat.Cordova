@@ -20,15 +20,14 @@ window.refreshServerList = ->
 		ul.children[0].remove()
 
 	for server in Servers.getServers()
-		li = document.createElement('LI')
+		li = """
+			<li class="server">
+				<div data-name="#{server.name}" data-url="#{server.url}" class="name">#{server.name}</div>
+				<div data-name="#{server.name}" data-url="#{server.url}" class="delete-btn">X</div>
+			</li>
+		"""
 
-		li.dataset.name = server.name
-		li.dataset.url = server.url
-		li.className = 'server'
-
-		li.innerText = server.name
-
-		ul.appendChild li
+		ul.appendChild $(li)[0]
 
 
 	li = document.createElement('LI')
@@ -113,6 +112,20 @@ onServerClick = (e) ->
 	, 200
 
 
+onServerDeleteClick = (e) ->
+	target = $(e.currentTarget)
+	if confirm("Delete server #{target.data('name')}")
+		activeServer = Servers.getActiveServer()
+		Servers.deleteServer target.data('url')
+		if activeServer.url is target.data('url')
+			toggleServerList(false)
+			setTimeout ->
+				refreshServerList()
+				showView 'start'
+			, 200
+		else
+			refreshServerList()
+
 onAddServerClick = ->
 	toggleServerList(false)
 	setTimeout ->
@@ -152,7 +165,8 @@ document.addEventListener "deviceready", ->
 	refreshServerList()
 
 	$('#serverAddressButton').on 'click', registerServer
-	$('.server', document).on 'click', onServerClick
+	$('.server .name', document).on 'click', onServerClick
+	$('.server .delete-btn', document).on 'click', onServerDeleteClick
 	$('.addServer', document).on 'click', onAddServerClick
 
 	$("#serverList", document).on 'click', (e) ->

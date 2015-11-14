@@ -131,6 +131,10 @@ body {
 }
 
 #serverList ul li {
+    display: flex;
+}
+
+#serverList ul li .name {
     background-color: rgba(195, 37, 38, .5);
     display: block;
     border-radius: 4px;
@@ -141,9 +145,39 @@ body {
     color: white;
     cursor: pointer;
     font-family: helvetica;
+    padding: 0 10px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    flex-grow: 1;
+}
+
+#serverList ul li .delete-btn {
+    background-color: rgba(195, 37, 38, 1);
+    display: block;
+    border-radius: 4px;
+    text-align: center;
+    line-height: 50px;
+    margin-bottom: 5px;
+    font-size: 32px;
+    color: white;
+    cursor: pointer;
+    font-family: helvetica;
+    width: 50px;
+    min-width: 50px;
+    margin-left: 5px;
 }
 
 #serverList ul li.addServer {
+    background-color: rgba(195, 37, 38, .5);
+    display: block;
+    border-radius: 4px;
+    text-align: center;
+    line-height: 50px;
+    font-size: 32px;
+    color: white;
+    cursor: pointer;
+    font-family: helvetica;
+    padding: 0 10px;
     margin-bottom: 0px;
     margin-top: 15px;
 }

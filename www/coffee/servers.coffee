@@ -255,3 +255,16 @@ window.Servers = new class
 
 		# Generate a index.html file to prevent application crash
 		# writeFile(cordova.file.dataDirectory, 'index.html', 'index.html', log)
+
+
+	deleteServer: (url) ->
+		if not servers[url]?
+			return
+
+		delete servers[url]
+		if servers.active is url
+			delete servers.active
+
+		# TODO delete folder with files
+
+		@save()
