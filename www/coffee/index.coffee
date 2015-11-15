@@ -44,6 +44,9 @@ registerServer = ->
 	if serverAddress.length is 0
 		serverAddress = 'https://demo.rocket.chat'
 
+	if not /^https?:\/\/.+/.test serverAddress
+		serverAddress = 'http://' + serverAddress
+
 	name = serverAddress.replace(/https?:\/\//, '').replace(/^www\./, '')
 
 	$(document.body).addClass 'loading'
