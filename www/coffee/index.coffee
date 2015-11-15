@@ -170,15 +170,15 @@ document.addEventListener "deviceready", ->
 	refreshServerList()
 
 	$('#serverAddressButton').on 'click', registerServer
-	$('.server .name', document).on 'click', onServerClick
-	$('.server .delete-btn', document).on 'click', onServerDeleteClick
-	$('.addServer', document).on 'click', onAddServerClick
+	$(document).on 'click', '.server .name', onServerClick
+	$(document).on 'click', '.server .delete-btn', onServerDeleteClick
+	$(document).on 'click', '.addServer', onAddServerClick
 
-	$("#serverList", document).on 'click', (e) ->
+	$(document).on 'click', "#serverList", (e) ->
 		if $(e.target).is('#serverList')
 			toggleServerList(false)
 
-	$(".overlay", document).on 'click', (e) ->
+	$(document).on 'click', ".overlay", (e) ->
 		if $(e.target).is('.overlay')
 			toggleServerList(false)
 
