@@ -79,18 +79,21 @@ registerServer = ->
 
 onIframeLoad = ->
 	$(document.body).removeClass 'loading'
-	iframe = $($('iframe').contents()[0])
+	iframeDocument = $($('iframe').contents()[0])
+	iframe = $('iframe')[0]
+
+	iframe.contentWindow.facebookConnectPlugin = facebookConnectPlugin
 
 	started = undefined
 
-	iframe.on 'touchstart', (e) ->
+	iframeDocument.on 'touchstart', (e) ->
 		if e.originalEvent.touches.length is 2
 			started =
 				date: Date.now()
 				pageX: e.originalEvent.pageX
 				pageY: e.originalEvent.pageY
 
-	iframe.on 'touchend', (e) ->
+	iframeDocument.on 'touchend', (e) ->
 		if started?
 			if Date.now() - started.date < 1000
 				if Math.abs(e.originalEvent.pageX - started.pageX) < 30
