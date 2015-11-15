@@ -29,10 +29,34 @@
     <access origin="*" />
     <platform name="android">
         <allow-intent href="market:*" />
+
+        <splash src="resources/splash/android_port_ldpi.png" width="320" height="426" density="port-ldpi"/>
+        <splash src="resources/splash/android_land_ldpi.png" width="426" height="320" density="land-ldpi"/>
+        <splash src="resources/splash/android_port_mdpi.png" width="320" height="470" density="port-mdpi"/>
+        <splash src="resources/splash/android_land_mdpi.png" width="470" height="320" density="land-mdpi"/>
+        <splash src="resources/splash/android_port_hdpi.png" width="480" height="640" density="port-hdpi"/>
+        <splash src="resources/splash/android_land_hdpi.png" width="640" height="480" density="land-hdpi"/>
+        <splash src="resources/splash/android_port_xhdpi.png" width="720" height="960" density="port-xhdpi"/>
+        <splash src="resources/splash/android_land_xhdpi.png" width="960" height="720" density="land-xhdpi"/>
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
+
+        <splash src="resources/splash/iphone.png" width="320" height="480"/>
+        <splash src="resources/splash/iphone@2x.png" width="640" height="960"/>
+        <splash src="resources/splash/iphone5.png" width="640" height="1136"/>
+        <splash src="resources/splash/iphone6.png" width="750" height="1334"/>
+        <splash src="resources/splash/iphone6p_portrait.png" width="1242" height="2208"/>
+        <splash src="resources/splash/iphone6p_landscape.png" width="2208" height="1242"/>
+        <splash src="resources/splash/ipad_portrait.png" width="768" height="1004"/>
+        <splash src="resources/splash/ipad_portrait.png" width="768" height="1024"/>
+        <splash src="resources/splash/ipad_portrait@2x.png" width="1536" height="2008"/>
+        <splash src="resources/splash/ipad_portrait@2x.png" width="1536" height="2048"/>
+        <splash src="resources/splash/ipad_landscape.png" width="1024" height="748"/>
+        <splash src="resources/splash/ipad_landscape.png" width="1024" height="768"/>
+        <splash src="resources/splash/ipad_landscape@2x.png" width="2048" height="1496"/>
+        <splash src="resources/splash/ipad_landscape@2x.png" width="2048" height="1536"/>
     </platform>
     <icon src="www/icons/icon.png" />
     <preference name="xwalkVersion" value="14+" />
