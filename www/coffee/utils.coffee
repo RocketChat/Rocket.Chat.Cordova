@@ -56,3 +56,16 @@ window.writeDir = (directoryPath, dirName, cb) ->
 		dirEntry.getDirectory dirName, {create: true}, getDirectorySuccess, fail
 
 	window.resolveLocalFileSystemURL directoryPath, resolveSuccess, fail
+
+
+window.removeDir = (directoryPath, cb) ->
+	fail = (err) ->
+		cb err, null
+
+	resolveSuccess = (dirEntry) ->
+		removeRecursivelySuccess = ->
+			console.log('Directory removed')
+
+		dirEntry.removeRecursively removeRecursivelySuccess, fail
+
+	window.resolveLocalFileSystemURL directoryPath, resolveSuccess, fail

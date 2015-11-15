@@ -265,6 +265,6 @@ window.Servers = new class
 		if servers.active is url
 			delete servers.active
 
-		# TODO delete folder with files
+		removeDir(cordova.file.dataDirectory + @baseUrlToDir(url))
 
 		@save()
