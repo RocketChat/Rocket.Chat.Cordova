@@ -1,6 +1,7 @@
 body {
     background-color: #f7f7f7;
     margin: 0px;
+    font-family: Helvetica;
 }
 
 .hidden {
@@ -144,7 +145,6 @@ body {
     font-size: 32px;
     color: white;
     cursor: pointer;
-    font-family: helvetica;
     padding: 0 10px;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -161,7 +161,6 @@ body {
     font-size: 32px;
     color: white;
     cursor: pointer;
-    font-family: helvetica;
     width: 50px;
     min-width: 50px;
     margin-left: 5px;
@@ -176,7 +175,6 @@ body {
     font-size: 32px;
     color: white;
     cursor: pointer;
-    font-family: helvetica;
     padding: 0 10px;
     margin-bottom: 0px;
     margin-top: 15px;
@@ -187,7 +185,12 @@ body {
     line-height: 44px;
     color: white;
     text-align: center;
-    font-family: helvetica;
+}
+
+.server-list-info {
+    color: rgba(195, 37, 38, .5);
+    text-align: center;
+    padding: 20px;
 }
 
 #serverFrame {
@@ -243,7 +246,6 @@ body {
 
 .loading-text {
     color: #fff;
-    font-family: helvetica;
     text-transform: uppercase;
     text-align: center;
     font-weight: bold;
