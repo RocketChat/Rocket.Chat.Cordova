@@ -30,7 +30,6 @@
     <platform name="android">
         <allow-intent href="market:*" />
 
-
         <icon src="resources/icons/Android/mdpi.png" density="mdpi" />
         <icon src="resources/icons/Android/hdpi.png" density="hdpi" />
         <icon src="resources/icons/Android/xhdpi.png" density="xhdpi" />
