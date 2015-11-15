@@ -83,6 +83,8 @@ onIframeLoad = ->
 	iframe = $('iframe')[0]
 
 	iframe.contentWindow.facebookConnectPlugin = facebookConnectPlugin
+	iframe.contentWindow.PushNotification = PushNotification
+	iframe.contentWindow.device = device
 
 	started = undefined
 
