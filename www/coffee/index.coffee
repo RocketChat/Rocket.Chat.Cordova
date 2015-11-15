@@ -58,7 +58,7 @@ registerServer = ->
 					# do this a few milliseconds later so the screen doesn't appear
 					# to flash when they're on a fast connection
 					$('#serverAddress').addClass 'error'
-					$('#serverAddressButton').prop 'disabled', true
+					# $('#serverAddressButton').prop 'disabled', true
 					addAlert { type: 'danger', message: err }
 					$(document.body).removeClass 'loading'
 				, 1500
@@ -140,7 +140,7 @@ serverAddressInput = ->
 	if $('#serverAddress').hasClass 'error'
 		setTimeout ->
 			$('#serverAddress').removeClass 'error'
-			$('#serverAddressButton').prop 'disabled', false
+			# $('#serverAddressButton').prop 'disabled', false
 			$('#alert-messages').empty()
 		, 1000
 
