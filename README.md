@@ -1,6 +1,9 @@
 # Rocket.Chat.Cordova
 Rocket.Chat Cross-Platform Mobile Application via Cordova
 
+# !!!Attention!!!
+This application only connects in servers that was compiled with mobile platforms enabled
+
 # How to run
 #### Requirements
  * npm
@@ -11,13 +14,9 @@ Rocket.Chat Cross-Platform Mobile Application via Cordova
 sudo npm install cordova coffee-script -g
 ```
 
-#### Build
+#### Prepare - Install plataforms and plugins
 ```shell
-cordova build ios
-```
-or
-```shell
-cordova build android
+cordova prepare
 ```
 
 #### Run on emulator
@@ -27,4 +26,13 @@ cordova emulate ios
 or
 ```shell
 cordova emulate android
+```
+
+#### Run on device
+```shell
+cordova run ios --device
+```
+or
+```shell
+cordova run android --device
 ```
