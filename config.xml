@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="chat.rocket.cordova" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Rocket.Chat.Cordova</name>
+<widget id="com.konecty.rocket.chat" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Rocket.Chat</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
     </description>
@@ -103,4 +103,5 @@
         <variable name="APP_ID" value="835103589938459" />
         <variable name="APP_NAME" value="Rocket.Chat" />
     </plugin>
+    <plugin name="cordova-plugin-rocket-chat" spec="https://github.com/RocketChat/cordova-plugin-rocket-chat" />
 </widget>
