@@ -199,20 +199,32 @@ window.Servers = new class
 
 	downloadFile: (baseUrl, path, cb) ->
 		ft = @getFileTransfer()
+		attempts = 0
 
-		url = encodeURI "#{baseUrl}/__cordova#{path}?#{@random()}"
-		pathToSave = @uriToPath(cordova.file.dataDirectory) + @baseUrlToDir(baseUrl) + '/' + encodeURI(path)
+		tryDownload = =>
+			attempts++
 
-		# console.log "start downloading", url, ', saving at', pathToSave
+			url = encodeURI "#{baseUrl}/__cordova#{path}?#{@random()}"
+			pathToSave = @uriToPath(cordova.file.dataDirectory) + @baseUrlToDir(baseUrl) + '/' + encodeURI(path)
 
-		ft.download url, pathToSave, (entry) ->
-			if entry?
-				# console.log("done downloading " + url)
-				cb null, entry
-		, (err) ->
-			console.log('downloadFile err', err)
-			cb null, err
+			# console.log "start downloading", url, ', saving at', pathToSave
 
+			downloadSuccess = (entry) ->
+				if entry?
+					# console.log("done downloading " + url)
+					cb null, entry
+
+			downloadError = (err) ->
+				if attempts < 5
+					console.log "Trying (#{attempts}) #{url}"
+					return tryDownload()
+
+				console.log('downloadFile err', err)
+				cb null, err
+
+			ft.download url, pathToSave, downloadSuccess, downloadError, true
+
+		tryDownload()
 
 	save: ->
 		localStorage.setItem 'servers', JSON.stringify servers
