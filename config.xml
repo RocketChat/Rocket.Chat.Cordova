@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.konecty.rocket.chat" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.konecty.rocket.chat" version="2.0.0" android-versionCode="1447675240770" ios-CFBundleVersion="1447675240770" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Rocket.Chat</name>
     <description>
-        A sample Apache Cordova application that responds to the deviceready event.
+        Rocket.Chat mobile application
     </description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+    <author email="support@rocket.chat" href="http://rocket.chat">
+        Rocket.Chat
     </author>
     <content src="index.html" />
     <access origin="*" />
@@ -24,8 +24,6 @@
     <access origin="cdv:*" />
     <access origin="gap:*" />
     <access origin="http://meteor.local/*" />
-    <access origin="*://localhost/*" />
-    <access origin="*://10.0.2.2/*" />
     <access origin="*" />
     <platform name="android">
         <allow-intent href="market:*" />
@@ -76,7 +74,6 @@
         <splash height="1496" src="resources/splash/ipad_landscape@2x.png" width="2048" />
         <splash height="1536" src="resources/splash/ipad_landscape@2x.png" width="2048" />
     </platform>
-    <icon src="www/icons/icon.png" />
     <preference name="xwalkVersion" value="14+" />
     <preference name="xwalkCommandLine" value="--disable-pull-to-refresh-effect" />
     <preference name="xwalkMode" value="embedded" />
