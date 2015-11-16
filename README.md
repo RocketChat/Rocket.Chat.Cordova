@@ -2,7 +2,7 @@
 Rocket.Chat Cross-Platform Mobile Application via Cordova
 
 # !!!Attention!!!
-This application only connects in servers that was compiled with mobile platforms enabled
+This application only connects with servers that were compiled with mobile platforms enabled
 
 # How to run
 #### Requirements
