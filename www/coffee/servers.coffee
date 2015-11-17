@@ -178,15 +178,21 @@ window.Servers = new class
 	downloadServer: (url, downloadServerCb) ->
 		if servers[url].oldInfo?
 			for item in servers[url].info.manifest
-				found = servers[url].oldInfo.manifest.find (oldItem) ->
-					return oldItem.path is item.path and oldItem.hash is item.hash
+				found = null
+				servers[url].oldInfo.manifest.some (oldItem) ->
+					if oldItem.path is item.path and oldItem.hash is item.hash
+						found = oldItem
+						return true
 				if found?
 					item.downloaded = true
 
 		else if cacheManifest?.manifest?
 			for item in servers[url].info.manifest
-				found = cacheManifest.manifest.find (oldItem) ->
-					return oldItem.path is item.path and oldItem.hash is item.hash
+				found = null
+				cacheManifest.manifest.some (oldItem) ->
+					if oldItem.path is item.path and oldItem.hash is item.hash
+						found = oldItem
+						return true
 
 				if found?.url?
 					path = found.url.replace(/\?.+$/, '')
