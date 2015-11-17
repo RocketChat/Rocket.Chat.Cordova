@@ -69,3 +69,33 @@ window.removeDir = (directoryPath, cb) ->
 		dirEntry.removeRecursively removeRecursivelySuccess, fail
 
 	window.resolveLocalFileSystemURL directoryPath, resolveSuccess, fail
+
+
+window.copyFile = (src, dest) ->
+	dest = dest.split '/'
+
+	destName = dest.pop()
+	destPath = dest.join '/'
+
+	fail = (err) ->
+		console.log err
+
+	resolveSrcSuccess = (srcEntry) ->
+		resolveDestSuccess = (destDirEntry) ->
+
+			copyFile = ->
+				copyToSuccess = ->
+				srcEntry.copyTo destDirEntry, destName, copyToSuccess, fail
+
+			getFileSuccess = (fileEntry) ->
+				fileEntry.remove()
+				copyFile()
+
+			getFileFail = ->
+				copyFile()
+
+			destDirEntry.getFile destName, {}, getFileSuccess, getFileFail
+
+		window.resolveLocalFileSystemURL destPath, resolveDestSuccess, fail
+
+	window.resolveLocalFileSystemURL src, resolveSrcSuccess, fail
