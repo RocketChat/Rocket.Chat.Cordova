@@ -249,13 +249,13 @@ window.Servers = new class
 			downloadSuccess = (entry) =>
 				if entry?
 					console.log("done downloading " + path)
-					cb null, entry
-
 					if path is '/index.html'
 						readFile cordova.file.dataDirectory, @baseUrlToDir(baseUrl) + '/' + encodeURI(path), (err, file) =>
 							file = file.replace(/<script.*src=['"].*cordova\.js.*['"].*<\/script>/gm, '<script>window.cordova = {plugins: {CordovaUpdate: {}}, file: {}};</script>')
 							writeFile cordova.file.dataDirectory, @baseUrlToDir(baseUrl) + '/' + encodeURI(path), file, =>
-								console.log 'ok'
+								cb null, entry
+					else
+						cb null, entry
 
 			downloadError = (err) =>
 				if attempts < 5
