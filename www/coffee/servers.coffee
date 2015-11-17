@@ -110,14 +110,14 @@ window.Servers = new class
 
 				cb null, data
 			else
-				cb "The server, #{urlObj.url}, is running is out of date and doesn't support mobile applications. Please have your server admin update to a new version of Rocket.Chat."
+				cb "The server #{urlObj.url} is running an out of date version or doesn't support mobile applications. Please ask your server admin to update to a new version of Rocket.Chat."
 
 		request.fail (jqxhr, textStatus, error) ->
 			console.log 'getManifest request failed arguments:', arguments
 			if not jqxhr.getResponseHeader('x-rocket-chat-version')
 				cb 'The address provided is not a Rocket.Chat server.'
 			else if textStatus is 'parsererror'
-				cb "The server, #{urlObj.url}, is running is out of date and doesn't support mobile applications. Please have your server admin update to a new version of Rocket.Chat."
+				cb "The server #{urlObj.url} is running an out of date version or doesn't support mobile applications. Please ask your server admin to update to a new version of Rocket.Chat."
 			else
 				cb "Request failed: #{textStatus}. #{error}"
 
