@@ -176,6 +176,29 @@ window.Servers = new class
 
 
 	downloadServer: (url, downloadServerCb) ->
+		initDownloadServer = =>
+			i = 0
+			total = servers[url].info.manifest.filter((item) -> item.downloaded isnt true).length
+
+			download = (item, cb) =>
+				if not item?.url?
+					return cb()
+
+				if item.downloaded is true
+					return cb()
+
+				@downloadFile url, item.url.replace(/\?.+$/, ''), (err, data) ->
+					item.downloaded = err is undefined
+					downloadServerCb?({done: false, count: i++, total: total})
+					cb(err, data)
+
+			async.eachLimit servers[url].info.manifest, 5, download, ->
+				downloadServerCb?({done: true})
+
+
+		filesToCopy = 0
+		copiedFiles = 0
+
 		if servers[url].oldInfo?
 			for item in servers[url].info.manifest
 				found = null
@@ -185,6 +208,8 @@ window.Servers = new class
 						return true
 				if found?
 					item.downloaded = true
+
+			initDownloadServer()
 
 		else if cacheManifest?.manifest?
 			for item in servers[url].info.manifest
@@ -198,26 +223,12 @@ window.Servers = new class
 					path = found.url.replace(/\?.+$/, '')
 					from = cordova.file.applicationDirectory + 'www/cache' + path
 					to = @baseUrlToDir(url) + path
-					copyFile from, to
+					filesToCopy++
 					item.downloaded = true
-
-		i = 0
-		total = servers[url].info.manifest.filter((item) -> item.downloaded isnt true).length
-
-		download = (item, cb) =>
-			if not item?.url?
-				return cb()
-
-			if item.downloaded is true
-				return cb()
-
-			@downloadFile url, item.url.replace(/\?.+$/, ''), (err, data) ->
-				item.downloaded = err is undefined
-				downloadServerCb?({done: false, count: i++, total: total})
-				cb(err, data)
-
-		async.eachLimit servers[url].info.manifest, 5, download, ->
-			downloadServerCb?({done: true})
+					copyFile from, to, ->
+						copiedFiles++
+						if filesToCopy is copiedFiles
+							initDownloadServer()
 
 
 	downloadFile: (baseUrl, path, cb) ->

@@ -91,7 +91,7 @@ window.ensurePath = (path, cb) ->
 	, fail
 
 
-window.copyFile = (src, dest) ->
+window.copyFile = (src, dest, cb) ->
 	dest = dest.split '/'
 
 	destName = dest.pop()
@@ -100,6 +100,7 @@ window.copyFile = (src, dest) ->
 	fail = (desc) ->
 		return (err) ->
 			console.log err, desc, src, destPath, destName
+			cb()
 
 	resolveSrcSuccess = (srcEntry) ->
 		resolveDestSuccess = (destDirEntry) ->
@@ -107,6 +108,7 @@ window.copyFile = (src, dest) ->
 			copyFile = ->
 				copyToSuccess = ->
 					console.log 'copied', destPath, destName
+					cb()
 				srcEntry.copyTo destDirEntry, destName, copyToSuccess, fail('copy')
 
 			getFileSuccess = (fileEntry) ->

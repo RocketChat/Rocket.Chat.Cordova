@@ -8,8 +8,7 @@
         Rocket.Chat
     </author>
     <content src="index.html" />
-    <access origin="*" />
-    <allow-intent href="http://*/*" />
+    <allow-intent href="*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
     <allow-intent href="sms:*" />
@@ -25,6 +24,7 @@
     <access origin="gap:*" />
     <access origin="http://meteor.local/*" />
     <access origin="*" />
+    <allow-navigation origin="*" />
     <platform name="android">
         <allow-intent href="market:*" />
         <icon density="mdpi" src="resources/icons/Android/mdpi.png" />
