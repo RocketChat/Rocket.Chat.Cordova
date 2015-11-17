@@ -253,7 +253,7 @@ window.Servers = new class
 
 					if path is '/index.html'
 						readFile cordova.file.dataDirectory, @baseUrlToDir(baseUrl) + '/' + encodeURI(path), (err, file) =>
-							file = file.replace(/<script.*src=['"].*cordova\.js.*['"].*<\/script>/gm, '<script>window.cordova = {plugins: {CordovaUpdate: {}}};</script>')
+							file = file.replace(/<script.*src=['"].*cordova\.js.*['"].*<\/script>/gm, '<script>window.cordova = {plugins: {CordovaUpdate: {}}, file: {}};</script>')
 							writeFile cordova.file.dataDirectory, @baseUrlToDir(baseUrl) + '/' + encodeURI(path), file, =>
 								console.log 'ok'
 
