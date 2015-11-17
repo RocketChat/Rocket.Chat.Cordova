@@ -26,6 +26,7 @@ window.Servers = new class
 			return {
 				url: servers.active
 				name: servers[servers.active].name
+				info: servers[servers.active].info
 			}
 
 
@@ -175,24 +176,28 @@ window.Servers = new class
 
 
 	downloadServer: (url, downloadServerCb) ->
+		if servers[url].oldInfo?
+			for item in servers[url].info.manifest
+				found = servers[url].oldInfo.manifest.find (oldItem) ->
+					return oldItem.path is item.path and oldItem.hash is item.hash
+				if found?
+					item.downloaded = true
+
 		i = 0
-		total = servers[url].info.manifest.length
+		total = servers[url].info.manifest.filter((item) -> item.downloaded isnt true).length
+
 		download = (item, cb) =>
 			if not item?.url?
 				return cb()
 
-			if servers[url].oldInfo?
-				found = servers[url].oldInfo.manifest.find (oldItem) ->
-					return oldItem.path is item.path and oldItem.hash is item.hash
-
-				if found?
-					return cb()
+			if item.downloaded is true
+				return cb()
 
 			@downloadFile url, item.url.replace(/\?.+$/, ''), (err, data) ->
+				item.downloaded = err is undefined
 				downloadServerCb?({done: false, count: i++, total: total})
 				cb(err, data)
 
-		console.log servers[url]
 		async.eachLimit servers[url].info.manifest, 5, download, ->
 			downloadServerCb?({done: true})
 

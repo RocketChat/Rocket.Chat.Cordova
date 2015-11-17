@@ -111,6 +111,26 @@ onIframeLoad = ->
 	iframe.contentWindow.PushNotification = PushNotification
 	iframe.contentWindow.device = device
 
+	iframe.contentWindow.addEventListener 'onNewVersion', (e) ->
+		if Servers.getActiveServer().info.version is e.detail
+			return
+
+		if not confirm('There is a new version available, do you want to update now?')
+			return
+
+		$(document.body).addClass 'loading'
+		$('.loading-text').text 'Updating files...'
+		serverAddress = Servers.getActiveServer().url
+		name = Servers.getActiveServer().name
+		Servers.updateServer serverAddress, (status) ->
+			if status.done is true
+				$('.loading-text').text "Loading #{name}..."
+				Servers.save()
+				Servers.startServer serverAddress, ->
+					showView 'server'
+			else
+				$('.loading-text').html "Updating files...<br/>( #{status.count} / #{status.total} )"
+
 	started = undefined
 
 	addSwipeEventToOpenServerList iframeDocument
