@@ -11,14 +11,14 @@ addSwipeEventToOpenServerList = ($el) ->
 		if e.originalEvent.touches.length is 2
 			started =
 				date: Date.now()
-				pageX: e.originalEvent.pageX
-				pageY: e.originalEvent.pageY
+				pageX: e.originalEvent.touches[0].pageX
+				pageY: e.originalEvent.touches[0].pageY
 
 	$el.on 'touchmove', (e) ->
 		if started?
 			if Date.now() - started.date < 2000
-				if Math.abs(e.originalEvent.pageX - started.pageX) < 50
-					if Math.abs(e.originalEvent.pageY - started.pageY) > 100
+				if Math.abs(e.originalEvent.touches[0].pageX - started.pageX) < 50
+					if Math.abs(e.originalEvent.touches[0].pageY - started.pageY) > 100
 						toggleServerList()
 						started = undefined
 
