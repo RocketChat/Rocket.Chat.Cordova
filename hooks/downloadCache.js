@@ -20,10 +20,6 @@ request(server+'/__cordova/manifest.json', function (error, response, body) {
 		console.log('Invalid manifest');
 	}
 
-	manifest.manifest.unshift({
-		url: '/index.html?' + Math.round(Math.random()*10000000)
-	});
-
 	fs.writeFileSync('www/js/cache_manifest.js', 'window.cacheManifest = '+JSON.stringify(manifest), 'utf8');
 
 	manifest.manifest.forEach(function(item) {
@@ -43,10 +39,6 @@ request(server+'/__cordova/manifest.json', function (error, response, body) {
 			}
 			if (response.statusCode !== 200) {
 				return console.log(url, response.statusCode);
-			}
-
-			if (dest+'/'+name === 'www/cache/index.html') {
-				body = body.toString('utf8').replace(/<script.*src=['"].*cordova\.js.*['"].*<\/script>/gm, '<script>window.cordova = {plugins: {CordovaUpdate: {}}};</script>');
 			}
 
 			execSync("mkdir -p "+dest);
