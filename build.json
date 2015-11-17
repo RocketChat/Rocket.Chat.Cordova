@@ -11,13 +11,6 @@
     },
 
     "android": {
-        "debug": {
-            "keystore": "RocketChat.keystore",
-            "storePassword": "",
-            "alias": "RocketChat",
-            "password" : "",
-            "keystoreType": ""
-        },
         "release": {
             "keystore": "RocketChat.keystore",
             "storePassword": "",
