@@ -3,7 +3,6 @@
 var execSync = require('child_process').execSync;
 var fs = require('fs');
 var request = require('request');
-var Download = require('download');
 
 execSync("rm -rf www/cache/*")
 

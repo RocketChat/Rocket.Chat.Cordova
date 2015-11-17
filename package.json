@@ -4,7 +4,6 @@
   "description": "Rocket.Chat mobile applications",
   "main": "index.js",
   "dependencies": {
-    "download": "^4.4.1",
     "glob": "^5.0.14",
     "nopt": "^3.0.4",
     "q": "^1.4.1",
