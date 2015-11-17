@@ -4,6 +4,28 @@ showView = (view) ->
 	$('#' + view + 'View').removeClass 'hidden'
 
 
+addSwipeEventToOpenServerList = ($el) ->
+	started = undefined
+
+	$el.on 'touchstart', (e) ->
+		if e.originalEvent.touches.length is 2
+			started =
+				date: Date.now()
+				pageX: e.originalEvent.pageX
+				pageY: e.originalEvent.pageY
+
+	$el.on 'touchmove', (e) ->
+		if started?
+			if Date.now() - started.date < 2000
+				if Math.abs(e.originalEvent.pageX - started.pageX) < 50
+					if Math.abs(e.originalEvent.pageY - started.pageY) > 100
+						toggleServerList()
+						started = undefined
+
+	$el.on 'touchend', (e) ->
+		started = undefined
+
+
 window.toggleServerList = (open) ->
 	if open is true
 		$(document.body).addClass 'server-list-open'
@@ -91,21 +113,7 @@ onIframeLoad = ->
 
 	started = undefined
 
-	iframeDocument.on 'touchstart', (e) ->
-		if e.originalEvent.touches.length is 2
-			started =
-				date: Date.now()
-				pageX: e.originalEvent.pageX
-				pageY: e.originalEvent.pageY
-
-	iframeDocument.on 'touchend', (e) ->
-		if started?
-			if Date.now() - started.date < 1000
-				if Math.abs(e.originalEvent.pageX - started.pageX) < 30
-					if Math.abs(e.originalEvent.pageY - started.pageY) > 50
-						toggleServerList()
-
-		started = undefined
+	addSwipeEventToOpenServerList iframeDocument
 
 
 onServerClick = (e) ->
@@ -134,11 +142,13 @@ onServerDeleteClick = (e) ->
 		else
 			refreshServerList()
 
+
 onAddServerClick = ->
 	toggleServerList(false)
 	setTimeout ->
 		showView 'start'
 	, 200
+
 
 serverAddressInput = ->
 	# remove the error class when they change the input
@@ -149,12 +159,14 @@ serverAddressInput = ->
 			$('#alert-messages').empty()
 		, 1000
 
+
 addAlert = (alertObj) ->
 	if not _.isString(alertObj.type) or not _.isString(alertObj.message)
 		console.warn 'The alertObj', alertObj, 'is not a valid alert object, requires both type and message properties'
 		return
 
 	$('#alert-messages').append "<div class='alert alert-#{alertObj.type}' role='alert'>#{alertObj.message}</div>"
+
 
 window.addEventListener 'native.keyboardshow', (e) ->
 	# if device?.platform.toLowerCase() isnt 'android'
@@ -188,14 +200,7 @@ document.addEventListener "deviceready", ->
 	$('iframe').on 'load', onIframeLoad
 	$('#serverAddress').on 'input', serverAddressInput
 
-	mc = new Hammer.Manager $('#startView')[0]
-	mc.add new Hammer.Swipe
-		direction: Hammer.DIRECTION_UP
-		pointers: 2
-
-	mc.on "swipeup", ->
-		toggleServerList()
-
+	addSwipeEventToOpenServerList $('#startView')
 
 	activeServer = Servers.getActiveServer()
 	if activeServer?
