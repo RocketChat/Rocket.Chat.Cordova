@@ -92,7 +92,7 @@
     <plugin name="cordova-plugin-crosswalk-webview" spec="~1.3.1" />
     <plugin name="cordova-plugin-file" spec="~3.0.0" />
     <plugin name="cordova-plugin-file-transfer" spec="~1.3.0" />
-    <plugin name="cordova-plugin-whitelist" spec="~1.0.0" />
+    <plugin name="cordova-plugin-legacy-whitelist" spec="~1.1.0" />
     <plugin name="cordova-plugin-console" spec="~1.0.1" />
     <plugin name="cordova-plugin-splashscreen" spec="~2.1.0" />
     <plugin name="ionic-plugin-keyboard" spec="~1.0.7" />
