@@ -5,10 +5,9 @@ var fs = require('fs');
 var request = require('request');
 var Download = require('download');
 
-execSync("rm -rf cache/*")
+execSync("rm -rf www/cache/*")
 
 var server = 'https://demo.rocket.chat';
-
 
 request(server+'/__cordova/manifest.json', function (error, response, body) {
 	if (error || response.statusCode !== 200) {
@@ -17,6 +16,8 @@ request(server+'/__cordova/manifest.json', function (error, response, body) {
 	}
 
 	manifest = JSON.parse(body);
+
+	fs.writeFileSync('www/js/cache_manifest.js', 'window.cacheManifest = '+body, 'utf8');
 
 	if (!Array.isArray(manifest.manifest)) {
 		console.log('Invalid manifest');
@@ -27,17 +28,22 @@ request(server+'/__cordova/manifest.json', function (error, response, body) {
 			return
 		}
 
-		url = server + item.url;
-		path = item.url.replace(/\?.+$/, '').split('/')
-		path.pop();
+		var url = server + '/__cordova' + item.url;
+		var path = item.url.replace(/\?.+$/, '').split('/');
+		var name = path.pop();
 		path = path.join('/');
-		dest = 'cache' + path;
-		new Download({mode: '755'}).get(url).dest(dest).run();
+		var dest = 'www/cache' + path;
+
+		request({url: url, encoding: null}, function (error, response, body) {
+			if (error) {
+				return console.log(url, error);
+			}
+			if (response.statusCode !== 200) {
+				return console.log(url, response.statusCode);
+			}
+
+			execSync("mkdir -p "+dest);
+			fs.writeFileSync(dest+'/'+name, body);
+		});
 	});
 });
-
-
-// new Download({mode: '755'})
-//     .get(server+'__cordova/manifest.json')
-//     .dest('dest/cordova/teste/manifest.json')
-//     .run();

@@ -71,21 +71,43 @@ window.removeDir = (directoryPath, cb) ->
 	window.resolveLocalFileSystemURL directoryPath, resolveSuccess, fail
 
 
+window.ensurePath = (path, cb) ->
+	fail = (err) ->
+		console.log err
+		cb()
+
+	createDir = (parent, folders) ->
+		getDirectorySuccess = (dirEntry) ->
+			folders.shift()
+			if folders.length > 0
+				createDir dirEntry, folders
+			else
+				cb()
+
+		parent.getDirectory folders[0], {create: true}, getDirectorySuccess, fail
+
+	window.resolveLocalFileSystemURL cordova.file.dataDirectory, (dirEntry) ->
+		createDir dirEntry, path.split('/')
+	, fail
+
+
 window.copyFile = (src, dest) ->
 	dest = dest.split '/'
 
 	destName = dest.pop()
 	destPath = dest.join '/'
 
-	fail = (err) ->
-		console.log err
+	fail = (desc) ->
+		return (err) ->
+			console.log err, desc, src, destPath, destName
 
 	resolveSrcSuccess = (srcEntry) ->
 		resolveDestSuccess = (destDirEntry) ->
 
 			copyFile = ->
 				copyToSuccess = ->
-				srcEntry.copyTo destDirEntry, destName, copyToSuccess, fail
+					console.log 'copied', destPath, destName
+				srcEntry.copyTo destDirEntry, destName, copyToSuccess, fail('copy')
 
 			getFileSuccess = (fileEntry) ->
 				fileEntry.remove()
@@ -96,6 +118,7 @@ window.copyFile = (src, dest) ->
 
 			destDirEntry.getFile destName, {}, getFileSuccess, getFileFail
 
-		window.resolveLocalFileSystemURL destPath, resolveDestSuccess, fail
+		ensurePath destPath, ->
+			window.resolveLocalFileSystemURL cordova.file.dataDirectory + destPath, resolveDestSuccess, fail('dest')
 
-	window.resolveLocalFileSystemURL src, resolveSrcSuccess, fail
+	window.resolveLocalFileSystemURL src, resolveSrcSuccess, fail('src')

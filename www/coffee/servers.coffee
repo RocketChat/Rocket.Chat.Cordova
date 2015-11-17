@@ -183,6 +183,18 @@ window.Servers = new class
 				if found?
 					item.downloaded = true
 
+		else if cacheManifest?.manifest?
+			for item in servers[url].info.manifest
+				found = cacheManifest.manifest.find (oldItem) ->
+					return oldItem.path is item.path and oldItem.hash is item.hash
+
+				if found?.url?
+					path = found.url.replace(/\?.+$/, '')
+					from = cordova.file.applicationDirectory + 'www/cache' + path
+					to = @baseUrlToDir(url) + path
+					copyFile from, to
+					item.downloaded = true
+
 		i = 0
 		total = servers[url].info.manifest.filter((item) -> item.downloaded isnt true).length
 
