@@ -230,6 +230,9 @@ window.Servers = new class
 						if filesToCopy is copiedFiles
 							initDownloadServer()
 
+		else
+			initDownloadServer()
+
 
 	downloadFile: (baseUrl, path, cb) ->
 		ft = @getFileTransfer()
@@ -243,12 +246,18 @@ window.Servers = new class
 
 			# console.log "start downloading", url, ', saving at', pathToSave
 
-			downloadSuccess = (entry) ->
+			downloadSuccess = (entry) =>
 				if entry?
-					# console.log("done downloading " + url)
+					console.log("done downloading " + path)
 					cb null, entry
 
-			downloadError = (err) ->
+					if path is '/index.html'
+						readFile cordova.file.dataDirectory, @baseUrlToDir(baseUrl) + '/' + encodeURI(path), (err, file) =>
+							file = file.replace(/<script.*src=['"].*cordova\.js.*['"].*<\/script>/gm, '<script>window.cordova = {plugins: {CordovaUpdate: {}}};</script>')
+							writeFile cordova.file.dataDirectory, @baseUrlToDir(baseUrl) + '/' + encodeURI(path), file, =>
+								console.log 'ok'
+
+			downloadError = (err) =>
 				if attempts < 5
 					console.log "Trying (#{attempts}) #{url}"
 					return tryDownload()

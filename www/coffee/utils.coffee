@@ -45,6 +45,27 @@ window.writeFile = (directoryPath, fileName, content, cb) ->
 	window.resolveLocalFileSystemURL directoryPath, resolveSuccess, fail
 
 
+window.readFile = (directoryPath, fileName, cb) ->
+	fail = (err) ->
+		cb err, null
+
+	resolveSuccess = (dirEntry) ->
+		getFileSuccess = (fileEntry) ->
+			fileSuccess = (file) ->
+				reader = new FileReader()
+
+				reader.onloadend = (e) ->
+					cb null, this.result
+
+				reader.readAsText file
+
+			fileEntry.file fileSuccess, fail
+
+		dirEntry.getFile fileName, {}, getFileSuccess, fail
+
+	window.resolveLocalFileSystemURL directoryPath, resolveSuccess, fail
+
+
 window.writeDir = (directoryPath, dirName, cb) ->
 	fail = (err) ->
 		cb err, null
