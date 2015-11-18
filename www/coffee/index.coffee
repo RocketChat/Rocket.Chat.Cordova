@@ -141,6 +141,21 @@ onIframeLoad = ->
 
 	addSwipeEventToOpenServerList iframeDocument
 
+	url = Servers.getActiveServer().url
+
+	# Save all localStorage records from inframe in the main
+	# localStorage as an objetc of key:value under the key (url)
+	iframe.contentWindow.localStorage.setItem = (key, value) ->
+		data = JSON.parse localStorage.getItem(url) or '{}'
+		data[key] = value
+		localStorage.setItem url, JSON.stringify(data)
+
+	# Respond inframe localStorage from the main localStorage
+	# getting from the server object
+	iframe.contentWindow.localStorage.getItem = (key) ->
+		data = JSON.parse localStorage.getItem(url) or '{}'
+		return data[key]
+
 
 onServerClick = (e) ->
 	toggleServerList(false)
