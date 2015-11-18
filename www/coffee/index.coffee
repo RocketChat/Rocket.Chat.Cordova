@@ -233,7 +233,13 @@ document.addEventListener "deviceready", ->
 
 	refreshServerList()
 
-	$('#serverAddressButton').on 'click', registerServer
+	$('form').on 'submit', (e) ->
+		e.preventDefault()
+		cordova.plugins.Keyboard.close()
+		setTimeout ->
+			registerServer()
+		, 100
+
 	$(document).on 'click', '.server .name', onServerClick
 	$(document).on 'click', '.server .delete-btn', onServerDeleteClick
 	$(document).on 'click', '.addServer', onAddServerClick

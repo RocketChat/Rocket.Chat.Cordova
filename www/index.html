@@ -13,11 +13,13 @@
                 <img src="icons/icon.png" />
             </div>
             <div class="server-enter">
-                <input type="url" id="serverAddress" placeholder="https://demo.rocket.chat" />
+                <form>
+                    <input type="url" id="serverAddress" placeholder="https://demo.rocket.chat" />
 
-                <div class="connect-button">
-                    <button id="serverAddressButton">Connect</button>
-                </div>
+                    <div class="connect-button">
+                        <button type="submit" id="serverAddressButton">Connect</button>
+                    </div>
+                </form>
 
                 <div id="alert-messages"></div>
             </div>
