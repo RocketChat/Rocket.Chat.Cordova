@@ -110,6 +110,7 @@ onIframeLoad = ->
 	iframe.contentWindow.facebookConnectPlugin = facebookConnectPlugin
 	iframe.contentWindow.PushNotification = PushNotification
 	iframe.contentWindow.device = device
+	iframe.contentWindow.open = window.open
 
 	iframe.contentWindow.addEventListener 'onNewVersion', (e) ->
 		if Servers.getActiveServer().info.version is e.detail
