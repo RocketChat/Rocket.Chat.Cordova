@@ -112,6 +112,11 @@ onIframeLoad = ->
 	iframe.contentWindow.device = device
 	iframe.contentWindow.open = window.open
 
+	$(iframeDocument).on 'click', 'a[href^="http"]', (e) ->
+		url = $(this).attr('href')
+		window.open(url, '_system')
+		e.preventDefault()
+
 	iframe.contentWindow.addEventListener 'onNewVersion', (e) ->
 		if Servers.getActiveServer().info.version is e.detail
 			return
