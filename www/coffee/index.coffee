@@ -189,13 +189,21 @@ addAlert = (alertObj) ->
 
 
 window.addEventListener 'native.keyboardshow', (e) ->
-	# if device?.platform.toLowerCase() isnt 'android'
-	$('.keyboard').css 'bottom', e.keyboardHeight
+	if device?.platform.toLowerCase() isnt 'android'
+		$('.keyboard').css 'bottom', e.keyboardHeight
 
 
 window.addEventListener 'native.keyboardhide', ->
-	# if device?.platform.toLowerCase() isnt 'android'
-	$('.keyboard').css 'bottom', 0
+	if device?.platform.toLowerCase() isnt 'android'
+		$('.keyboard').css 'bottom', 0
+
+
+document.addEventListener 'pause', (e) ->
+	$('iframe')[0].contentDocument.dispatchEvent(e)
+
+
+document.addEventListener 'resume', (e) ->
+	$('iframe')[0].contentDocument.dispatchEvent(e)
 
 
 document.addEventListener "deviceready", ->
