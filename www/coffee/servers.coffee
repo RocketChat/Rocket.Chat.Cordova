@@ -101,6 +101,11 @@ window.Servers = new class
 			return cb urlObj.message
 
 		request = $.getJSON "#{urlObj.url}/__cordova/manifest.json"
+
+		timeout = setTimeout ->
+			request.abort()
+		, 5000
+
 		request.done (data, textStatus, jqxhr) ->
 			if not jqxhr.getResponseHeader('x-rocket-chat-version')
 				cb 'The address provided is not a Rocket.Chat server.'
@@ -108,6 +113,7 @@ window.Servers = new class
 				data.manifest.unshift
 					url: '/index.html?' + Math.round(Math.random()*10000000)
 
+				clearTimeout timeout
 				cb null, data
 			else
 				cb "The server #{urlObj.url} is running an out of date version or doesn't support mobile applications. Please ask your server admin to update to a new version of Rocket.Chat."
