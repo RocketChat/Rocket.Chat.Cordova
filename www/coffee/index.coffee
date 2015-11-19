@@ -1,4 +1,7 @@
+currentView = 'start'
+
 showView = (view) ->
+	currentView = view
 	$('.view').addClass 'hidden'
 
 	$('#' + view + 'View').removeClass 'hidden'
@@ -150,6 +153,10 @@ onIframeLoad = ->
 		data[key] = value
 		localStorage.setItem url, JSON.stringify(data)
 
+		if key is 'android_senderID' and value?
+			localStorage.setItem key, value
+			configurePush()
+
 	# Respond inframe localStorage from the main localStorage
 	# getting from the server object
 	iframe.contentWindow.localStorage.getItem = (key) ->
@@ -207,6 +214,53 @@ addAlert = (alertObj) ->
 		return
 
 	$('#alert-messages').append "<div class='alert alert-#{alertObj.type}' role='alert'>#{alertObj.message}</div>"
+
+
+configurePush = ->
+	if window.push?
+		return
+
+	if device.platform.toLowerCase() is 'android' and not localStorage.getItem('android_senderID')?
+		return
+
+	window.push = PushNotification.init
+		ios:
+			alert: true
+			badge: true
+			sound: true
+		android:
+			senderID: localStorage.getItem('android_senderID')
+			sound: true
+			vibrate: true
+
+	push.on 'registration', (data) ->
+		console.log 'registration', data
+
+	push.on 'error', (data) ->
+		console.log 'err', data
+
+	push.on 'notification', (data) ->
+		if data.additionalData.foreground is true
+			return
+
+		if typeof data.additionalData.ejson is 'string'
+			data.additionalData.ejson = JSON.parse data.additionalData.ejson
+
+		host = data.additionalData.ejson.host
+		if not host?
+			return
+
+		host = host.replace /\/$/, ''
+		if Servers.serverExists(host) isnt true
+			return
+
+		if Servers.getActiveServer().url isnt host or currentView is 'start'
+			Servers.startServer host, (err, url) ->
+				if err?
+					# TODO err
+					return console.log err
+
+				showView 'server'
 
 
 window.addEventListener 'native.keyboardshow', (e) ->
@@ -267,5 +321,7 @@ document.addEventListener "deviceready", ->
 				return console.log err
 
 			showView 'server'
+
+	configurePush()
 
 	navigator.splashscreen.hide()

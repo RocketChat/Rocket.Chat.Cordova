@@ -16,6 +16,10 @@ window.Servers = new class
 		return Math.round(Math.random()*10000000)
 
 
+	serverExists: (url) ->
+		return servers[url]?
+
+
 	getServers: ->
 		items = ({name: value.name, url: key} for key, value of servers when key isnt 'active')
 		return _.sortBy items, 'name'
