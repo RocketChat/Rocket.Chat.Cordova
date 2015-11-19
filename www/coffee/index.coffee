@@ -1,4 +1,5 @@
 currentView = 'start'
+token = {}
 
 showView = (view) ->
 	currentView = view
@@ -114,6 +115,7 @@ onIframeLoad = ->
 	iframe.contentWindow.PushNotification = PushNotification
 	iframe.contentWindow.device = device
 	iframe.contentWindow.open = window.open
+	iframe.contentWindow.pushToken = token
 
 	$(iframeDocument).on 'click', 'a[href^="http"]', (e) ->
 		url = $(this).attr('href')
@@ -216,28 +218,32 @@ addAlert = (alertObj) ->
 	$('#alert-messages').append "<div class='alert alert-#{alertObj.type}' role='alert'>#{alertObj.message}</div>"
 
 
-configurePush = ->
-	if window.push?
-		return
+window.configurePush = ->
+	# if window.push?
+	# 	return console.log 'already registered'
 
 	if device.platform.toLowerCase() is 'android' and not localStorage.getItem('android_senderID')?
-		return
+		return console.log 'no SenderID'
 
-	window.push = PushNotification.init
+	config =
 		ios:
-			alert: true
-			badge: true
-			sound: true
-		android:
+			alert: "true"
+			badge: "true"
+			sound: "true"
+
+	if device.platform.toLowerCase() is 'android'
+		config.android =
 			senderID: localStorage.getItem('android_senderID')
 			sound: true
 			vibrate: true
 
-	push.on 'registration', (data) ->
-		console.log 'registration', data
+	window.push = PushNotification.init config
 
-	push.on 'error', (data) ->
-		console.log 'err', data
+	push.on 'registration', (data) ->
+		if device.platform.toLowerCase() is 'android'
+			token.gcm = data.registrationId
+		else
+			token.apn = data.registrationId
 
 	push.on 'notification', (data) ->
 		if data.additionalData.foreground is true
@@ -254,13 +260,25 @@ configurePush = ->
 		if Servers.serverExists(host) isnt true
 			return
 
-		if Servers.getActiveServer().url isnt host or currentView is 'start'
+		iframe = $('iframe')[0]
+		if Servers.getActiveServer().url is host and currentView isnt 'start'
+			iframe.contentWindow.dispatchEvent new CustomEvent 'push-notification', {detail: data}
+		else
 			Servers.startServer host, (err, url) ->
 				if err?
 					# TODO err
 					return console.log err
 
 				showView 'server'
+
+				onLoad = ->
+					iframe.removeEventListener 'load', onLoad
+					iframe.contentWindow.dispatchEvent new CustomEvent 'push-notification', {detail: data}
+
+				iframe.addEventListener 'load', onLoad
+
+	push.on 'error', (data) ->
+		console.log 'err', data
 
 
 window.addEventListener 'native.keyboardshow', (e) ->
@@ -282,6 +300,8 @@ document.addEventListener 'resume', (e) ->
 
 
 document.addEventListener "deviceready", ->
+	configurePush()
+
 	cordova.plugins?.Keyboard?.hideKeyboardAccessoryBar? true
 	cordova.plugins?.Keyboard?.disableScroll? true
 
@@ -321,7 +341,5 @@ document.addEventListener "deviceready", ->
 				return console.log err
 
 			showView 'server'
-
-	configurePush()
 
 	navigator.splashscreen.hide()
