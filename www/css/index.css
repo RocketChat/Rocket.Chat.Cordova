@@ -196,6 +196,12 @@ body {
     padding: 20px;
 }
 
+.server-info {
+    color: #dddddd;
+    text-align: center;
+    padding: 20px;
+}
+
 #serverFrame {
     border: 0px;
 }
