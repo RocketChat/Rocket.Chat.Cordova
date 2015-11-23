@@ -320,13 +320,15 @@ window.Servers = new class
 		options =
 			'www_root': @uriToPath(cordova.file.dataDirectory) + @baseUrlToDir(baseUrl)
 			'cordovajs_root': @uriToPath(window.location.href).replace(/\/index.html$/, '/')
+			'host': @baseUrlToDir(baseUrl) + '.meteor.local'
 
 		success = (url) =>
 			console.log "server is started:", url
 			servers.active = baseUrl
 			@save()
 			cb? null, baseUrl
-			document.getElementById('serverFrame').src = 'http://meteor.local/'
+			location.href = 'http://'+@baseUrlToDir(baseUrl) + '.meteor.local/'
+			# document.getElementById('serverFrame').src = 'http://meteor.local/'
 
 		failure = (error) ->
 			cb? error
