@@ -90,7 +90,7 @@ onServerDeleteClick = (e) ->
 
 onAddServerClick = ->
 	# location.href = cordova.file.applicationDirectory + 'www/index.html'
-	location.href = "cdvfile://localhost/bundle/www/index.html"
+	location.href = "cdvfile://localhost/bundle/www/index.html?addServer"
 
 
 document.addEventListener "deviceready", ->

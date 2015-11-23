@@ -201,8 +201,26 @@ addAlert = (alertObj) ->
 # 	$('iframe')[0].contentDocument.dispatchEvent(e)
 
 
+window.loadLastActiveServer = ->
+	activeServer = Servers.getActiveServer()
+	if activeServer?
+		$(document.body).addClass 'loading'
+		$('.loading-text').text "Loading #{activeServer.name}..."
+		Servers.startServer activeServer.url, (err, url) ->
+			if err?
+				# TODO err
+				return console.log err
+
+
 document.addEventListener "deviceready", ->
 	# configurePush()
+
+	queryString = location.search.replace(/^\?/, '')
+	query = {}
+	if queryString.length > 0
+		for item in queryString.split('&')
+			[key, value] = item.split('=')
+			query[key] = value or true
 
 	cordova.plugins?.Keyboard?.hideKeyboardAccessoryBar? true
 	cordova.plugins?.Keyboard?.disableScroll? true
@@ -219,16 +237,7 @@ document.addEventListener "deviceready", ->
 
 	Servers.onLoad ->
 		refreshServerList()
-		window.loadLast()
+		if not query.addServer?
+			loadLastActiveServer()
 		navigator.splashscreen.hide()
 
-
-window.loadLast = ->
-	activeServer = Servers.getActiveServer()
-	if activeServer?
-		$(document.body).addClass 'loading'
-		$('.loading-text').text "Loading #{activeServer.name}..."
-		Servers.startServer activeServer.url, (err, url) ->
-			if err?
-				# TODO err
-				return console.log err
