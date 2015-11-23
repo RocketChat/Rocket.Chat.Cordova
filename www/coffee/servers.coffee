@@ -263,7 +263,15 @@ window.Servers = new class
 					console.log("done downloading " + path)
 					if path is '/index.html'
 						readFile cordova.file.dataDirectory, @baseUrlToDir(baseUrl) + '/' + encodeURI(path), (err, file) =>
-							file = file.replace(/<script.*src=['"].*cordova\.js.*['"].*<\/script>/gm, '<script>window.cordova = {plugins: {CordovaUpdate: {}}, file: {}};</script>')
+							# file = file.replace(/<script.*src=['"].*cordova\.js.*['"].*<\/script>/gm, '<script>window.cordova = {plugins: {CordovaUpdate: {}}, file: {}};</script>')
+							file = file.replace /(<script.*src=['"].*cordova\.js.*['"].*<\/script>)/gm, """
+								$1
+								<link rel="stylesheet" href="/shared/css/servers-list.css"/>
+
+								<script text="text/javascript" src="/shared/js_compiled/utils.js"></script>
+								<script text="text/javascript" src="/shared/js_compiled/servers.js"></script>
+								<script text="text/javascript" src="/shared/js_compiled/servers-list.js"></script>
+							"""
 							writeFile cordova.file.dataDirectory, @baseUrlToDir(baseUrl) + '/' + encodeURI(path), file, =>
 								cb null, entry
 					else
