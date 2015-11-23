@@ -85,7 +85,7 @@ Android/gen/
 Android/assets/
 
 
-www/js_compiled
+www/shared/js_compiled
 www/cache
 platforms
 plugins

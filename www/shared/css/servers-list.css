@@ -1,0 +1,91 @@
+.server-list-open #serverList {
+    top: 0px !important;
+}
+
+#serverList {
+    background-color: rgba(0,0,0,.5);
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 120%;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    -webkit-transition: all .2s ease-in-out;
+    z-index: 100;
+}
+
+#serverList .panel {
+    background-color: #f7f7f7;
+    border-radius: 5px;
+    box-shadow: 0px 0px 20px rgba(0,0,0,.3);
+    overflow: hidden;
+    width: 80%;
+    -webkit-transition: all .2s ease-in-out;
+}
+
+#serverList ul {
+    list-style: none;
+    padding: 5px;
+    margin: 0px;
+}
+
+#serverList ul li {
+    display: flex;
+}
+
+#serverList ul li .name {
+    background-color: rgba(195, 37, 38, .5);
+    display: block;
+    border-radius: 4px;
+    text-align: center;
+    line-height: 50px;
+    margin-bottom: 5px;
+    font-size: 32px;
+    color: white;
+    cursor: pointer;
+    padding: 0 10px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    flex-grow: 1;
+}
+
+#serverList ul li .delete-btn {
+    background-color: rgba(195, 37, 38, 1);
+    display: block;
+    border-radius: 4px;
+    text-align: center;
+    line-height: 50px;
+    margin-bottom: 5px;
+    font-size: 32px;
+    color: white;
+    cursor: pointer;
+    width: 50px;
+    min-width: 50px;
+    margin-left: 5px;
+}
+
+#serverList ul li.addServer {
+    background-color: rgba(195, 37, 38, .5);
+    display: block;
+    border-radius: 4px;
+    text-align: center;
+    line-height: 50px;
+    font-size: 32px;
+    color: white;
+    cursor: pointer;
+    padding: 0 10px;
+    margin-bottom: 0px;
+    margin-top: 15px;
+}
+
+#serverList .toggle {
+    background-color: rgba(195, 37, 38, .8);
+    line-height: 44px;
+    color: white;
+    text-align: center;
+}
