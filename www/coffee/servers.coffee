@@ -327,7 +327,7 @@ window.Servers = new class
 
 		options =
 			'www_root': @uriToPath(cordova.file.dataDirectory) + @baseUrlToDir(baseUrl)
-			'cordovajs_root': @uriToPath(window.location.href).replace(/\/index.html$/, '/')
+			'cordovajs_root': @uriToPath(cordova.file.applicationDirectory+'www/')
 			'host': @baseUrlToDir(baseUrl) + '.meteor.local'
 
 		success = (url) =>
