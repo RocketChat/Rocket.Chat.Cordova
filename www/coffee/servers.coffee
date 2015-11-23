@@ -9,7 +9,9 @@ window.Servers = new class
 
 
 	constructor: ->
-		@load()
+		@loadCallbacks = []
+		document.addEventListener "deviceready", =>
+			@load()
 
 
 	random: ->
@@ -279,14 +281,28 @@ window.Servers = new class
 
 		tryDownload()
 
+
 	save: ->
-		localStorage.setItem 'servers', JSON.stringify servers
+		# localStorage.setItem 'servers', JSON.stringify servers
+		writeFile cordova.file.dataDirectory, 'servers.json', JSON.stringify(servers), (err, data) ->
+			if err?
+				console.log 'Error saving servers file', err
 
 
 	load: ->
-		savedServers = localStorage.getItem 'servers'
-		if savedServers?.length > 2
-			servers = JSON.parse savedServers
+		# savedServers = localStorage.getItem 'servers'
+		readFile cordova.file.dataDirectory, 'servers.json', (err, savedServers) =>
+			if savedServers?.length > 2
+				servers = JSON.parse savedServers
+			@loaded = true
+			cb() for cb in @loadCallbacks
+
+
+	onLoad: (cb) ->
+		if @loaded is true
+			return cb()
+
+		@loadCallbacks.push cb
 
 
 	clear: ->
