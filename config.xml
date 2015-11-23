@@ -24,7 +24,9 @@
     <access origin="gap:*" />
     <access origin="http://meteor.local/*" />
     <access origin="*" />
-    <allow-navigation origin="*" />
+    <allow-navigation href="http://*/*" />
+    <allow-navigation href="https://*/*" />
+    <allow-navigation href="data:*" />
     <platform name="android">
         <allow-intent href="market:*" />
         <icon density="mdpi" src="resources/icons/Android/mdpi.png" />
