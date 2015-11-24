@@ -44,20 +44,6 @@ registerServer = ->
 
 
 # onIframeLoad = ->
-# 	$(document.body).removeClass 'loading'
-# 	iframeDocument = $($('iframe').contents()[0])
-# 	iframe = $('iframe')[0]
-
-# 	iframe.contentWindow.facebookConnectPlugin = facebookConnectPlugin
-# 	iframe.contentWindow.PushNotification = PushNotification
-# 	iframe.contentWindow.device = device
-# 	iframe.contentWindow.open = window.open
-
-# 	$(iframeDocument).on 'click', 'a[href^="http"]', (e) ->
-# 		url = $(this).attr('href')
-# 		window.open(url, '_system')
-# 		e.preventDefault()
-
 # 	iframe.contentWindow.addEventListener 'onNewVersion', (e) ->
 # 		if Servers.getActiveServer().info.version is e.detail
 # 			return
@@ -79,27 +65,6 @@ registerServer = ->
 # 				$('.loading-text').html "Updating files...<br/>( #{status.count} / #{status.total} )"
 
 # 	started = undefined
-
-# 	addSwipeEventToOpenServerList iframeDocument
-
-# 	url = Servers.getActiveServer().url
-
-# 	# Save all localStorage records from inframe in the main
-# 	# localStorage as an objetc of key:value under the key (url)
-# 	iframe.contentWindow.localStorage.setItem = (key, value) ->
-# 		data = JSON.parse localStorage.getItem(url) or '{}'
-# 		data[key] = value
-# 		localStorage.setItem url, JSON.stringify(data)
-
-# 		if key is 'android_senderID' and value?
-# 			localStorage.setItem key, value
-# 			configurePush()
-
-# 	# Respond inframe localStorage from the main localStorage
-# 	# getting from the server object
-# 	iframe.contentWindow.localStorage.getItem = (key) ->
-# 		data = JSON.parse localStorage.getItem(url) or '{}'
-# 		return data[key]
 
 
 serverAddressInput = ->
