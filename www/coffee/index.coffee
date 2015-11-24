@@ -1,4 +1,5 @@
-token = {}
+ANDROID_SENDER_ID = undefined
+AUTOLOAD = true
 
 registerServer = ->
 	serverAddress = $('#serverAddress').val().trim().toLowerCase()
@@ -51,7 +52,6 @@ registerServer = ->
 # 	iframe.contentWindow.PushNotification = PushNotification
 # 	iframe.contentWindow.device = device
 # 	iframe.contentWindow.open = window.open
-# 	iframe.contentWindow.pushToken = token
 
 # 	$(iframeDocument).on 'click', 'a[href^="http"]', (e) ->
 # 		url = $(this).attr('href')
@@ -120,67 +120,57 @@ addAlert = (alertObj) ->
 	$('#alert-messages').append "<div class='alert alert-#{alertObj.type}' role='alert'>#{alertObj.message}</div>"
 
 
-# window.configurePush = ->
-# 	# if window.push?
-# 	# 	return console.log 'already registered'
+window.configurePush = ->
+	config =
+		ios:
+			alert: "true"
+			badge: "true"
+			sound: "true"
+		android:
+			senderID: ANDROID_SENDER_ID
+			sound: true
+			vibrate: true
 
-# 	if device.platform.toLowerCase() is 'android' and not localStorage.getItem('android_senderID')?
-# 		return console.log 'no SenderID'
+	window.push = PushNotification.init config
 
-# 	config =
-# 		ios:
-# 			alert: "true"
-# 			badge: "true"
-# 			sound: "true"
+	push.on 'notification', (data) ->
+		if data.additionalData.foreground is true
+			return
 
-# 	if device.platform.toLowerCase() is 'android'
-# 		config.android =
-# 			senderID: localStorage.getItem('android_senderID')
-# 			sound: true
-# 			vibrate: true
+		if typeof data.additionalData.ejson is 'string'
+			data.additionalData.ejson = JSON.parse data.additionalData.ejson
 
-# 	window.push = PushNotification.init config
+		host = data.additionalData.ejson.host
+		if not host?
+			return
 
-# 	push.on 'registration', (data) ->
-# 		if device.platform.toLowerCase() is 'android'
-# 			token.gcm = data.registrationId
-# 		else
-# 			token.apn = data.registrationId
+		host = host.replace /\/$/, ''
+		if Servers.serverExists(host) isnt true
+			return
 
-# 	push.on 'notification', (data) ->
-# 		if data.additionalData.foreground is true
-# 			return
+		AUTOLOAD = false
 
-# 		if typeof data.additionalData.ejson is 'string'
-# 			data.additionalData.ejson = JSON.parse data.additionalData.ejson
+		if not data.additionalData.ejson?.rid?
+			return
 
-# 		host = data.additionalData.ejson.host
-# 		if not host?
-# 			return
+		path = ''
 
-# 		host = host.replace /\/$/, ''
-# 		if Servers.serverExists(host) isnt true
-# 			return
+		switch data.additionalData.ejson.type
+			when 'c'
+				path = 'channel/' + data.additionalData.ejson.name
+			when 'p'
+				path = 'group/' + data.additionalData.ejson.name
+			when 'd'
+				path = 'direct/' + data.additionalData.ejson.sender.username
 
-# 		iframe = $('iframe')[0]
-# 		if Servers.getActiveServer().url is host and currentView isnt 'start'
-# 			iframe.contentWindow.dispatchEvent new CustomEvent 'push-notification', {detail: data}
-# 		else
-# 			Servers.startServer host, (err, url) ->
-# 				if err?
-# 					# TODO err
-# 					return console.log err
+		Servers.startServer host, path, (err, url) ->
+			if err?
+				# TODO err
+				return console.log err
 
-# 				showView 'server'
 
-# 				onLoad = ->
-# 					iframe.removeEventListener 'load', onLoad
-# 					iframe.contentWindow.dispatchEvent new CustomEvent 'push-notification', {detail: data}
-
-# 				iframe.addEventListener 'load', onLoad
-
-# 	push.on 'error', (data) ->
-# 		console.log 'err', data
+	push.on 'error', (data) ->
+		console.log 'err', data
 
 
 # window.addEventListener 'native.keyboardshow', (e) ->
@@ -213,8 +203,6 @@ window.loadLastActiveServer = ->
 
 
 document.addEventListener "deviceready", ->
-	# configurePush()
-
 	queryString = location.search.replace(/^\?/, '')
 	query = {}
 	if queryString.length > 0
@@ -236,8 +224,11 @@ document.addEventListener "deviceready", ->
 	$('#serverAddress').on 'input', serverAddressInput
 
 	Servers.onLoad ->
+		configurePush()
 		refreshServerList()
 		if not query.addServer?
-			loadLastActiveServer()
+			setTimeout ->
+				loadLastActiveServer() if AUTOLOAD is true
+			, 200
 		navigator.splashscreen.hide()
 
