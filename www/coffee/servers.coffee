@@ -290,11 +290,13 @@ window.Servers = new class
 		tryDownload()
 
 
-	save: ->
+	save: (cb) ->
 		# localStorage.setItem 'servers', JSON.stringify servers
 		writeFile cordova.file.dataDirectory, 'servers.json', JSON.stringify(servers), (err, data) ->
 			if err?
 				console.log 'Error saving servers file', err
+
+			cb?()
 
 
 	load: ->
@@ -351,7 +353,7 @@ window.Servers = new class
 		# writeFile(cordova.file.dataDirectory, 'index.html', 'index.html', log)
 
 
-	deleteServer: (url) ->
+	deleteServer: (url, cb) ->
 		if not servers[url]?
 			return
 
@@ -361,4 +363,4 @@ window.Servers = new class
 
 		removeDir(cordova.file.dataDirectory + @baseUrlToDir(url))
 
-		@save()
+		@save cb

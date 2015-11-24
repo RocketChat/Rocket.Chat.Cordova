@@ -81,11 +81,11 @@ onServerDeleteClick = (e) ->
 	target = $(e.currentTarget)
 	if confirm("Delete server #{target.data('name')}")
 		activeServer = Servers.getActiveServer()
-		Servers.deleteServer target.data('url')
-		if activeServer.url is target.data('url')
-			onAddServerClick()
-		else
-			refreshServerList()
+		Servers.deleteServer target.data('url'), ->
+			if activeServer.url is target.data('url')
+				onAddServerClick()
+			else
+				refreshServerList()
 
 
 onAddServerClick = ->
