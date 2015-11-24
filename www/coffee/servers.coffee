@@ -318,7 +318,11 @@ window.Servers = new class
 		servers = {}
 
 
-	startServer: (baseUrl, cb) ->
+	startServer: (baseUrl, path, cb) ->
+		if not cb? and typeof path is 'function'
+			cb = path
+			path = ''
+
 		if not httpd?
 			return console.error 'CorHttpd plugin not available/ready.'
 
@@ -335,8 +339,7 @@ window.Servers = new class
 			servers.active = baseUrl
 			@save()
 			cb? null, baseUrl
-			location.href = 'http://'+@baseUrlToDir(baseUrl) + '.meteor.local/'
-			# document.getElementById('serverFrame').src = 'http://meteor.local/'
+			location.href = "http://#{options.host}/#{path}"
 
 		failure = (error) ->
 			cb? error
