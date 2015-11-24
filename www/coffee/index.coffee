@@ -43,28 +43,27 @@ registerServer = ->
 	, 250
 
 
-# onIframeLoad = ->
-# 	iframe.contentWindow.addEventListener 'onNewVersion', (e) ->
-# 		if Servers.getActiveServer().info.version is e.detail
-# 			return
+updateServer = (url, version) ->
+	server = Servers.getServer url
 
-# 		if not confirm('There is a new version available, do you want to update now?')
-# 			return
+	if not server?
+		return
 
-# 		$(document.body).addClass 'loading'
-# 		$('.loading-text').text 'Updating files...'
-# 		serverAddress = Servers.getActiveServer().url
-# 		name = Servers.getActiveServer().name
-# 		Servers.updateServer serverAddress, (status) ->
-# 			if status.done is true
-# 				$('.loading-text').text "Loading #{name}..."
-# 				Servers.save()
-# 				Servers.startServer serverAddress, ->
-# 					showView 'server'
-# 			else
-# 				$('.loading-text').html "Updating files...<br/>( #{status.count} / #{status.total} )"
+	if server.info.version is version
+		return
 
-# 	started = undefined
+	$(document.body).addClass 'loading'
+	$('.loading-text').text 'Updating files...'
+
+	name = server.name
+	Servers.updateServer url, (status) ->
+		if status.done is true
+			$('.loading-text').text "Loading #{server.name}..."
+			Servers.save()
+			Servers.startServer url, ->
+				#
+		else
+			$('.loading-text').html "Updating files...<br/>( #{status.count} / #{status.total} )"
 
 
 serverAddressInput = ->
@@ -191,9 +190,11 @@ document.addEventListener "deviceready", ->
 	Servers.onLoad ->
 		configurePush()
 		refreshServerList()
+		navigator.splashscreen.hide()
+		if query.updateServer?
+			return updateServer(decodeURIComponent(query.updateServer), decodeURIComponent(query.version))
+
 		if not query.addServer?
 			setTimeout ->
 				loadLastActiveServer() if AUTOLOAD is true
 			, 200
-		navigator.splashscreen.hide()
-

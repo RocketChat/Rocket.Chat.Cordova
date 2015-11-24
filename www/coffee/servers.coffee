@@ -27,6 +27,10 @@ window.Servers = new class
 		return _.sortBy items, 'name'
 
 
+	getServer: (url) ->
+		return servers[url]
+
+
 	getActiveServer: ->
 		if servers.active? and servers[servers.active]?
 			return {

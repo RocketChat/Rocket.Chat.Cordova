@@ -93,6 +93,24 @@ onAddServerClick = ->
 	location.href = "cdvfile://localhost/bundle/www/index.html?addServer"
 
 
+window.addEventListener "onNewVersion", (e) ->
+	url = Meteor.absoluteUrl().replace(/\/$/, '')
+	version = e.detail
+
+	server = Servers.getServer url
+
+	if not server?
+		return
+
+	if server.info.version is version
+		return
+
+	if not confirm('There is a new version available, do you want to update now?')
+		return
+
+	location.href = "cdvfile://localhost/bundle/www/index.html?updateServer=#{encodeURIComponent(url)}&version=#{encodeURIComponent(version)}"
+
+
 document.addEventListener "deviceready", ->
 	Servers.onLoad ->
 		refreshServerList()
