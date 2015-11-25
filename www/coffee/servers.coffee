@@ -324,6 +324,31 @@ window.Servers = new class
 		servers = {}
 
 
+	startLocalServer: (path, cb) ->
+		if not cb? and typeof path is 'function'
+			cb = path
+			path = ''
+
+		if not httpd?
+			return console.error 'CorHttpd plugin not available/ready.'
+
+		options =
+			'www_root': @uriToPath(cordova.file.applicationDirectory+'www/')
+			'cordovajs_root': @uriToPath(cordova.file.applicationDirectory+'www/')
+			'host': 'localhost.local'
+
+		success = (url) =>
+			console.log "server is started:", options.host
+			cb? null, options.host
+			location.href = "http://#{options.host}/#{path}"
+
+		failure = (error) ->
+			cb? error
+			console.log 'failed to start server:', error
+
+		httpd.startServer options, success, failure
+
+
 	startServer: (baseUrl, path, cb) ->
 		if not cb? and typeof path is 'function'
 			cb = path

@@ -89,8 +89,7 @@ onServerDeleteClick = (e) ->
 
 
 onAddServerClick = ->
-	# location.href = cordova.file.applicationDirectory + 'www/index.html'
-	location.href = "cdvfile://localhost/bundle/www/index.html?addServer"
+	Servers.startLocalServer "index.html?addServer"
 
 
 window.addEventListener "onNewVersion", (e) ->
@@ -108,7 +107,7 @@ window.addEventListener "onNewVersion", (e) ->
 	if not confirm('There is a new version available, do you want to update now?')
 		return
 
-	location.href = "cdvfile://localhost/bundle/www/index.html?updateServer=#{encodeURIComponent(url)}&version=#{encodeURIComponent(version)}"
+	Servers.startLocalServer "index.html?updateServer=#{encodeURIComponent(url)}&version=#{encodeURIComponent(version)}"
 
 
 document.addEventListener "deviceready", ->
