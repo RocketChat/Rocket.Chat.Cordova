@@ -1,4 +1,3 @@
-ANDROID_SENDER_ID = undefined
 AUTOLOAD = true
 
 registerServer = ->
