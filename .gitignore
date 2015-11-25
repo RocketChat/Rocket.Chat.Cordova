@@ -85,9 +85,10 @@ Android/gen/
 Android/assets/
 
 
-www/js_compiled
+www/shared/js_compiled
 www/cache
 platforms
 plugins
 RocketChat.keystore
 www/js/cache_manifest.js
+www/js/android_sender_id.js

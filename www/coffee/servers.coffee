@@ -9,7 +9,9 @@ window.Servers = new class
 
 
 	constructor: ->
-		@load()
+		@loadCallbacks = []
+		document.addEventListener "deviceready", =>
+			@load()
 
 
 	random: ->
@@ -23,6 +25,10 @@ window.Servers = new class
 	getServers: ->
 		items = ({name: value.name, url: key} for key, value of servers when key isnt 'active')
 		return _.sortBy items, 'name'
+
+
+	getServer: (url) ->
+		return servers[url]
 
 
 	getActiveServer: ->
@@ -261,7 +267,15 @@ window.Servers = new class
 					console.log("done downloading " + path)
 					if path is '/index.html'
 						readFile cordova.file.dataDirectory, @baseUrlToDir(baseUrl) + '/' + encodeURI(path), (err, file) =>
-							file = file.replace(/<script.*src=['"].*cordova\.js.*['"].*<\/script>/gm, '<script>window.cordova = {plugins: {CordovaUpdate: {}}, file: {}};</script>')
+							# file = file.replace(/<script.*src=['"].*cordova\.js.*['"].*<\/script>/gm, '<script>window.cordova = {plugins: {CordovaUpdate: {}}, file: {}};</script>')
+							file = file.replace /(<script.*src=['"].*cordova\.js.*['"].*<\/script>)/gm, """
+								$1
+								<link rel="stylesheet" href="/shared/css/servers-list.css"/>
+
+								<script text="text/javascript" src="/shared/js_compiled/utils.js"></script>
+								<script text="text/javascript" src="/shared/js_compiled/servers.js"></script>
+								<script text="text/javascript" src="/shared/js_compiled/servers-list.js"></script>
+							"""
 							writeFile cordova.file.dataDirectory, @baseUrlToDir(baseUrl) + '/' + encodeURI(path), file, =>
 								cb null, entry
 					else
@@ -279,14 +293,30 @@ window.Servers = new class
 
 		tryDownload()
 
-	save: ->
-		localStorage.setItem 'servers', JSON.stringify servers
+
+	save: (cb) ->
+		# localStorage.setItem 'servers', JSON.stringify servers
+		writeFile cordova.file.dataDirectory, 'servers.json', JSON.stringify(servers), (err, data) ->
+			if err?
+				console.log 'Error saving servers file', err
+
+			cb?()
 
 
 	load: ->
-		savedServers = localStorage.getItem 'servers'
-		if savedServers?.length > 2
-			servers = JSON.parse savedServers
+		# savedServers = localStorage.getItem 'servers'
+		readFile cordova.file.dataDirectory, 'servers.json', (err, savedServers) =>
+			if savedServers?.length > 2
+				servers = JSON.parse savedServers
+			@loaded = true
+			cb() for cb in @loadCallbacks
+
+
+	onLoad: (cb) ->
+		if @loaded is true
+			return cb()
+
+		@loadCallbacks.push cb
 
 
 	clear: ->
@@ -294,7 +324,36 @@ window.Servers = new class
 		servers = {}
 
 
-	startServer: (baseUrl, cb) ->
+	startLocalServer: (path, cb) ->
+		if not cb? and typeof path is 'function'
+			cb = path
+			path = ''
+
+		if not httpd?
+			return console.error 'CorHttpd plugin not available/ready.'
+
+		options =
+			'www_root': @uriToPath(cordova.file.applicationDirectory+'www/')
+			'cordovajs_root': @uriToPath(cordova.file.applicationDirectory+'www/')
+			'host': 'localhost.local'
+
+		success = (url) =>
+			console.log "server is started:", options.host
+			cb? null, options.host
+			location.href = "http://#{options.host}/#{path}"
+
+		failure = (error) ->
+			cb? error
+			console.log 'failed to start server:', error
+
+		httpd.startServer options, success, failure
+
+
+	startServer: (baseUrl, path, cb) ->
+		if not cb? and typeof path is 'function'
+			cb = path
+			path = ''
+
 		if not httpd?
 			return console.error 'CorHttpd plugin not available/ready.'
 
@@ -303,14 +362,15 @@ window.Servers = new class
 
 		options =
 			'www_root': @uriToPath(cordova.file.dataDirectory) + @baseUrlToDir(baseUrl)
-			'cordovajs_root': @uriToPath(window.location.href).replace(/\/index.html$/, '/')
+			'cordovajs_root': @uriToPath(cordova.file.applicationDirectory+'www/')
+			'host': @baseUrlToDir(baseUrl) + '.meteor.local'
 
 		success = (url) =>
 			console.log "server is started:", url
 			servers.active = baseUrl
 			@save()
 			cb? null, baseUrl
-			document.getElementById('serverFrame').src = 'http://meteor.local/'
+			location.href = "http://#{options.host}/#{path}"
 
 		failure = (error) ->
 			cb? error
@@ -322,7 +382,7 @@ window.Servers = new class
 		# writeFile(cordova.file.dataDirectory, 'index.html', 'index.html', log)
 
 
-	deleteServer: (url) ->
+	deleteServer: (url, cb) ->
 		if not servers[url]?
 			return
 
@@ -332,4 +392,4 @@ window.Servers = new class
 
 		removeDir(cordova.file.dataDirectory + @baseUrlToDir(url))
 
-		@save()
+		@save cb
