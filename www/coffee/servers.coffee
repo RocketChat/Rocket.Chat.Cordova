@@ -100,6 +100,34 @@ window.Servers = new class
 			name: name
 
 
+	validateServer: (url, cb) ->
+		request = $.getJSON "#{url}/api/info"
+
+		timeout = setTimeout ->
+			request.abort()
+		, 5000
+
+		request.done (data, textStatus, jqxhr) ->
+			if not data?.version?
+				return cb 'The address provided is not a Rocket.Chat server.'
+
+			versions = data.version.split('.').reverse()
+			versionNum = 0
+			versionMul = 1
+			for version in versions
+				versionNum += version * versionMul
+				versionMul = versionMul * 1000
+
+			if versionNum < 7000
+				return cb "The server #{url} is running an out of date version or doesn't support mobile applications. Please ask your server admin to update to a new version of Rocket.Chat."
+
+			clearTimeout timeout
+			cb null, data
+
+		request.fail (jqxhr, textStatus, error) ->
+			cb "Failed to connect to server: #{textStatus}. #{error}"
+
+
 	getManifest: (url, cb) ->
 		urlObj = @validateUrl url
 
@@ -110,32 +138,31 @@ window.Servers = new class
 		if urlObj.isValid is false
 			return cb urlObj.message
 
-		request = $.getJSON "#{urlObj.url}/__cordova/manifest.json"
+		@validateServer urlObj.url, (err, data) =>
+			if err?
+				return cb err
 
-		timeout = setTimeout ->
-			request.abort()
-		, 5000
+			request = $.getJSON "#{urlObj.url}/__cordova/manifest.json"
 
-		request.done (data, textStatus, jqxhr) ->
-			if not jqxhr.getResponseHeader('x-rocket-chat-version')
-				cb 'The address provided is not a Rocket.Chat server.'
-			else if data?.manifest?.length > 0
-				data.manifest.unshift
-					url: '/index.html?' + Math.round(Math.random()*10000000)
+			timeout = setTimeout ->
+				request.abort()
+			, 5000
 
-				clearTimeout timeout
-				cb null, data
-			else
-				cb "The server #{urlObj.url} is running an out of date version or doesn't support mobile applications. Please ask your server admin to update to a new version of Rocket.Chat."
+			request.done (data, textStatus, jqxhr) ->
+				if data?.manifest?.length > 0
+					data.manifest.unshift
+						url: '/index.html?' + Math.round(Math.random()*10000000)
 
-		request.fail (jqxhr, textStatus, error) ->
-			console.log 'getManifest request failed arguments:', arguments
-			if not jqxhr.getResponseHeader('x-rocket-chat-version')
-				cb 'The address provided is not a Rocket.Chat server.'
-			else if textStatus is 'parsererror'
-				cb "The server #{urlObj.url} is running an out of date version or doesn't support mobile applications. Please ask your server admin to update to a new version of Rocket.Chat."
-			else
-				cb "Request failed: #{textStatus}. #{error}"
+					clearTimeout timeout
+					cb null, data
+				else
+					cb "The server #{urlObj.url} is not enable or mobile apps."
+
+			request.fail (jqxhr, textStatus, error) ->
+				if textStatus is 'parsererror'
+					cb "The server #{urlObj.url} is not enable or mobile apps."
+				else
+					cb "Failed to connect to server: #{textStatus}. #{error}"
 
 
 	registerServer: (name, url, cb) ->
