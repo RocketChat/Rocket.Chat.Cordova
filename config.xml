@@ -109,4 +109,5 @@
     <plugin name="cordova-plugin-device" spec="~1.0.1" />
     <plugin name="cordova-plugin-inappbrowser" spec="~1.0.1" />
     <plugin name="cordova-plugin-iosrtc" spec="~2.0.2" />
+    <plugin name="cordova-plugin-dialogs" spec="~1.2.0" />
 </widget>
