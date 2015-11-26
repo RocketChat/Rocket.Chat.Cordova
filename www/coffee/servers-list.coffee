@@ -79,13 +79,18 @@ onServerClick = (e) ->
 
 onServerDeleteClick = (e) ->
 	target = $(e.currentTarget)
-	if confirm("Delete server #{target.data('name')}")
+	onConfirm = (buttonIndex) ->
+		if buttonIndex isnt 1
+			return
+
 		activeServer = Servers.getActiveServer()
 		Servers.deleteServer target.data('url'), ->
 			if activeServer.url is target.data('url')
 				onAddServerClick()
 			else
 				refreshServerList()
+
+	navigator.notification.confirm "Delete server #{target.data('name')}?", onConfirm, "Warning", ['Delete', 'Cancel']
 
 
 onAddServerClick = ->
@@ -99,15 +104,19 @@ window.addEventListener "onNewVersion", (e) ->
 	server = Servers.getServer url
 
 	if not server?
+		navigator.notification.alert "The URL configured in your server (#{url}) is not the same that you are using here", null, "Warning"
 		return
 
 	if server.info.version is version
 		return
 
-	if not confirm('There is a new version available, do you want to update now?')
-		return
+	onConfirm = (buttonIndex) ->
+		if buttonIndex isnt 1
+			return
 
-	Servers.startLocalServer "index.html?updateServer=#{encodeURIComponent(url)}&version=#{encodeURIComponent(version)}"
+		Servers.startLocalServer "index.html?updateServer=#{encodeURIComponent(url)}&version=#{encodeURIComponent(version)}"
+
+	navigator.notification.confirm "There is a new version available, do you want to update now?", onConfirm, "New version", ['Update', 'Cancel']
 
 
 document.addEventListener "deviceready", ->
