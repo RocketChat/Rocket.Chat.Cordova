@@ -1,3 +1,8 @@
+Bugsnag.metaData =
+	platformId: cordova.platformId
+	platformVersion: cordova.platformVersion
+	deviceVersion: window.device?.version
+
 AUTOLOAD = true
 
 registerServer = ->
@@ -148,6 +153,11 @@ window.loadLastActiveServer = ->
 
 
 document.addEventListener "deviceready", ->
+	navigator.appInfo.getAppInfo (appInfo) ->
+		Bugsnag.appVersion = appInfo.version
+		Bugsnag.metaData.version = appInfo.version
+		Bugsnag.metaData.build = appInfo.build
+
 	queryString = location.search.replace(/^\?/, '')
 	query = {}
 	if queryString.length > 0
