@@ -36,7 +36,7 @@ window.refreshServerList = ->
 	serverList = """
 		<div id="serverList">
 			<div class="panel">
-				<div class="toggle">Server List</div>
+				<div class="toggle">#{cordovai18n('Server_List')}</div>
 				<ul>
 				</ul>
 			</div>
@@ -69,7 +69,7 @@ onServerClick = (e) ->
 	toggleServerList(false)
 	target = $(e.currentTarget)
 	$(document.body).addClass 'loading'
-	$('.loading-text').text "Loading #{target.data('name')}..."
+	$('.loading-text').text cordovai18n("Loading_s", target.data('name'))
 	setTimeout ->
 		Servers.setActiveServer target.data('url')
 		Servers.startServer target.data('url'), ->
@@ -90,7 +90,7 @@ onServerDeleteClick = (e) ->
 			else
 				refreshServerList()
 
-	navigator.notification.confirm "Delete server #{target.data('name')}?", onConfirm, "Warning", ['Delete', 'Cancel']
+	navigator.notification.confirm cordovai18n("Delete_server_s_question", target.data('name')), onConfirm, cordovai18n("Warning"), [cordovai18n("Delete"), cordovai18n("Cancel")]
 
 
 onAddServerClick = ->
@@ -104,7 +104,7 @@ window.addEventListener "onNewVersion", (e) ->
 	server = Servers.getServer url
 
 	if not server?
-		navigator.notification.alert "The URL configured in your server (#{url}) is not the same that you are using here", null, "Warning"
+		navigator.notification.alert cordovai18n("The_URL_configured_in_your_server_s_is_not_the_same_that_you_are_using_here", url), null, cordovai18n("Warning")
 		return
 
 	if server.info.version is version
@@ -116,7 +116,7 @@ window.addEventListener "onNewVersion", (e) ->
 
 		Servers.startLocalServer "index.html?updateServer=#{encodeURIComponent(url)}&version=#{encodeURIComponent(version)}"
 
-	navigator.notification.confirm "There is a new version available, do you want to update now?", onConfirm, "New version", ['Update', 'Cancel']
+	navigator.notification.confirm cordovai18n("There_is_a_new_version_available_do_you_want_to_update_now_question"), onConfirm, cordovai18n("New_version"), [cordovai18n("Update"), cordovai18n("Cancel")]
 
 
 document.addEventListener "deviceready", ->

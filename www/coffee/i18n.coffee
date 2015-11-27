@@ -1,7 +1,11 @@
 window.languages = {}
 
 window.loadI18nLanguage = (language, cb) ->
-	request = $.getJSON "i18n/#{language}.i18n.json"
+	url = "shared/i18n/#{language}.i18n.json"
+	if location.protocol is 'http:'
+		url = '/' + url
+
+	request = $.getJSON url
 	request.done (data) ->
 		window.languages[language] = data
 		cb? null, data
@@ -18,11 +22,15 @@ window.loadI18n = (cb) ->
 		else
 			cb()
 
-window.__ = (string) ->
+window.cordovai18n = (string, args...) ->
 	if window.languages[language]?[string]?
-		return window.languages[language][string]
-	if window.languages.en?[string]?
-		return window.languages[language][string]
+		string = window.languages[language][string]
+	else if window.languages.en?[string]?
+		string = window.languages[language][string]
+
+	while string.indexOf('%s') > -1
+		string = string.replace '%s', args.shift()
+
 	return string
 
 loaded = false
@@ -31,7 +39,7 @@ window.addEventListener 'load', ->
 
 window.updateHtml = ->
 	for item in $('[data-i18n]')
-		item.innerHTML = __ $(item).data('i18n')
+		item.innerHTML = cordovai18n $(item).data('i18n')
 
 loadI18n ->
 	if loaded is true

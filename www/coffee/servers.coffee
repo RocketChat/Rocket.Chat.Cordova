@@ -51,7 +51,7 @@ window.Servers = new class
 			console.error 'url (', url, ') must be string'
 			return {} =
 				isValid: false
-				message: 'The address provided must be a string.'
+				message: cordovai18n("The_address_provided_must_be_a_string")
 				url: url
 
 		url = url.trim().toLowerCase()
@@ -61,19 +61,19 @@ window.Servers = new class
 			console.error 'url (', url, ') can\'t be empty'
 			return {} =
 				isValid: false
-				message: 'The address provided can not be empty.'
+				message: cordovai18n("The_address_provided_can_not_be_empty")
 				url: url
 
 		if not /^https?:\/\/.+/.test(url)
 			console.error 'url (', url, ') must start with http:// or https://'
 			return {} =
 				isValid: false
-				message: 'The address must start with http:// or https://'
+				message: cordovai18n("The_address_must_start_with_http_or_https")
 				url: url
 
 		return {} =
 			isValid: true
-			message: 'The address provided is valid.'
+			message: cordovai18n("The_address_provided_is_valid")
 			url: url
 
 
@@ -82,7 +82,7 @@ window.Servers = new class
 			console.error 'name (', name, ') must be string'
 			return {} =
 				isValid: false
-				message: 'The name provided must be a string.'
+				message: cordovai18n("The_name_provided_must_be_a_string")
 				name: name
 
 		name = name.trim()
@@ -91,12 +91,12 @@ window.Servers = new class
 			console.error 'name (', name, ') can\'t be empty'
 			return {} =
 				isValid: false
-				message: 'The name provided can not be empty.'
+				message: cordovai18n("The_name_provided_can_not_be_empty")
 				name: name
 
 		return {} =
 			isValid: true
-			message: 'The name provided is valid.'
+			message: cordovai18n("The_name_provided_is_valid")
 			name: name
 
 
@@ -109,7 +109,7 @@ window.Servers = new class
 
 		request.done (data, textStatus, jqxhr) ->
 			if not data?.version?
-				return cb 'The address provided is not a Rocket.Chat server.'
+				return cb cordovai18n("The_address_provided_is_not_a_RocketChat_server")
 
 			versions = data.version.split('.').reverse()
 			versionNum = 0
@@ -119,13 +119,13 @@ window.Servers = new class
 				versionMul = versionMul * 1000
 
 			if versionNum < 7000
-				return cb "The server #{url} is running an out of date version or doesn't support mobile applications. Please ask your server admin to update to a new version of Rocket.Chat."
+				return cb cordovai18n("s_is_running_an_out_of_date_version_or_doesnt_support_mobile_applications_Please_ask_your_server_admin_to_update_to_a_new_version_of_RocketChat", url)
 
 			clearTimeout timeout
 			cb null, data
 
 		request.fail (jqxhr, textStatus, error) ->
-			cb "Failed to connect to server: #{textStatus}. #{error}"
+			cb cordovai18n("Failed_to_connect_to_server_s_s", textStatus, error)
 
 
 	getManifest: (url, cb) ->
@@ -156,13 +156,13 @@ window.Servers = new class
 					clearTimeout timeout
 					cb null, data
 				else
-					cb "The server #{urlObj.url} is not enable or mobile apps."
+					cb cordovai18n("The_server_s_is_not_enable_or_mobile_apps", urlObj.url)
 
 			request.fail (jqxhr, textStatus, error) ->
 				if textStatus is 'parsererror'
-					cb "The server #{urlObj.url} is not enable or mobile apps."
+					cb cordovai18n("The_server_s_is_not_enable_or_mobile_apps", urlObj.url)
 				else
-					cb "Failed to connect to server: #{textStatus}. #{error}"
+					cb cordovai18n("Failed_to_connect_to_server_s_s", textStatus, error)
 
 
 	registerServer: (name, url, cb) ->
@@ -277,6 +277,23 @@ window.Servers = new class
 			initDownloadServer()
 
 
+	fixIndexFile: (indexDir, cb) ->
+		readFile indexDir, "index.html", (err, file) =>
+			file = file.replace(/<script text="text\/javascript" src="\/shared\/.+\n/gm, '')
+			file = file.replace(/<link rel="stylesheet" href="\/shared\/.+\n/gm, '')
+
+			file = file.replace /(<\/head>)/gm, """
+				<link rel="stylesheet" href="/shared/css/servers-list.css"/>
+				<script text="text/javascript" src="/shared/js_compiled/i18n.js"></script>
+				<script text="text/javascript" src="/shared/js_compiled/utils.js"></script>
+				<script text="text/javascript" src="/shared/js_compiled/servers.js"></script>
+				<script text="text/javascript" src="/shared/js_compiled/servers-list.js"></script>
+				$1
+			"""
+			writeFile indexDir, "index.html", file, =>
+				cb null, file
+
+
 	downloadFile: (baseUrl, path, cb) ->
 		ft = @getFileTransfer()
 		attempts = 0
@@ -292,21 +309,7 @@ window.Servers = new class
 			downloadSuccess = (entry) =>
 				if entry?
 					console.log("done downloading " + path)
-					if path is '/index.html'
-						readFile cordova.file.dataDirectory, @baseUrlToDir(baseUrl) + '/' + encodeURI(path), (err, file) =>
-							# file = file.replace(/<script.*src=['"].*cordova\.js.*['"].*<\/script>/gm, '<script>window.cordova = {plugins: {CordovaUpdate: {}}, file: {}};</script>')
-							file = file.replace /(<script.*src=['"].*cordova\.js.*['"].*<\/script>)/gm, """
-								$1
-								<link rel="stylesheet" href="/shared/css/servers-list.css"/>
-
-								<script text="text/javascript" src="/shared/js_compiled/utils.js"></script>
-								<script text="text/javascript" src="/shared/js_compiled/servers.js"></script>
-								<script text="text/javascript" src="/shared/js_compiled/servers-list.js"></script>
-							"""
-							writeFile cordova.file.dataDirectory, @baseUrlToDir(baseUrl) + '/' + encodeURI(path), file, =>
-								cb null, entry
-					else
-						cb null, entry
+					cb null, entry
 
 			downloadError = (err) =>
 				if attempts < 5
@@ -322,7 +325,6 @@ window.Servers = new class
 
 
 	save: (cb) ->
-		# localStorage.setItem 'servers', JSON.stringify servers
 		writeFile cordova.file.dataDirectory, 'servers.json', JSON.stringify(servers), (err, data) ->
 			if err?
 				console.log 'Error saving servers file', err
@@ -331,7 +333,6 @@ window.Servers = new class
 
 
 	load: ->
-		# savedServers = localStorage.getItem 'servers'
 		readFile cordova.file.dataDirectory, 'servers.json', (err, savedServers) =>
 			if savedServers?.length > 2
 				servers = JSON.parse savedServers
@@ -403,10 +404,8 @@ window.Servers = new class
 			cb? error
 			console.log 'failed to start server:', error
 
-		httpd.startServer options, success, failure
-
-		# Generate a index.html file to prevent application crash
-		# writeFile(cordova.file.dataDirectory, 'index.html', 'index.html', log)
+		@fixIndexFile cordova.file.dataDirectory + @baseUrlToDir(baseUrl), ->
+			httpd.startServer options, success, failure
 
 
 	deleteServer: (url, cb) ->

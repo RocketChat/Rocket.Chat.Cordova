@@ -12,12 +12,12 @@ registerServer = ->
 	name = serverAddress.replace(/https?:\/\//, '').replace(/^www\./, '')
 
 	$(document.body).addClass 'loading'
-	$('.loading-text').text 'Validating server...'
+	$('.loading-text').text cordovai18n("Validating_server")
 
 	setTimeout ->
 		Servers.registerServer name, serverAddress, (err) ->
 			if err?
-				console.error "Failed to register the server #{serverAddress}: #{err}"
+				console.error cordovai18n("Failed_to_register_the_server_s_s", serverAddress, err)
 
 				return setTimeout ->
 					# do this a few milliseconds later so the screen doesn't appear
@@ -30,15 +30,15 @@ registerServer = ->
 
 			refreshServerList()
 
-			$('.loading-text').text 'Downloading files...'
+			$('.loading-text').text cordovai18n("Downloading_files")
 			Servers.downloadServer serverAddress, (status) ->
 				if status.done is true
-					$('.loading-text').text "Loading #{name}..."
+					$('.loading-text').text cordovai18n("Loading_s")
 					Servers.save()
 					Servers.startServer serverAddress, ->
 						#
 				else
-					$('.loading-text').html "Downloading files...<br/>( #{status.count} / #{status.total} )"
+					$('.loading-text').html cordovai18n("Downloading_files_s_s", status.count, status.total)
 	, 250
 
 
@@ -52,17 +52,17 @@ updateServer = (url, version) ->
 		return
 
 	$(document.body).addClass 'loading'
-	$('.loading-text').text 'Updating files...'
+	$('.loading-text').text cordovai18n("Updating_files")
 
 	name = server.name
 	Servers.updateServer url, (status) ->
 		if status.done is true
-			$('.loading-text').text "Loading #{server.name}..."
+			$('.loading-text').text cordovai18n("Loading_s", server.name)
 			Servers.save()
 			Servers.startServer url, ->
 				#
 		else
-			$('.loading-text').html "Updating files...<br/>( #{status.count} / #{status.total} )"
+			$('.loading-text').html cordovai18n("Updating_files_s_s", status.count, status.total)
 
 
 serverAddressInput = ->
@@ -136,29 +136,11 @@ window.configurePush = ->
 		console.log 'err', data
 
 
-# window.addEventListener 'native.keyboardshow', (e) ->
-# 	if device?.platform.toLowerCase() isnt 'android'
-# 		$('.keyboard').css 'bottom', e.keyboardHeight
-
-
-# window.addEventListener 'native.keyboardhide', ->
-# 	if device?.platform.toLowerCase() isnt 'android'
-# 		$('.keyboard').css 'bottom', 0
-
-
-# document.addEventListener 'pause', (e) ->
-# 	$('iframe')[0].contentDocument.dispatchEvent(e)
-
-
-# document.addEventListener 'resume', (e) ->
-# 	$('iframe')[0].contentDocument.dispatchEvent(e)
-
-
 window.loadLastActiveServer = ->
 	activeServer = Servers.getActiveServer()
 	if activeServer?
 		$(document.body).addClass 'loading'
-		$('.loading-text').text "Loading #{activeServer.name}..."
+		$('.loading-text').text cordovai18n("Loading_s", activeServer.name)
 		Servers.startServer activeServer.url, (err, url) ->
 			if err?
 				# TODO err
