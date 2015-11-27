@@ -7,6 +7,8 @@
         <link rel="stylesheet" type="text/css" href="css/index.css">
         <link rel="stylesheet" type="text/css" href="shared/css/servers-list.css">
         <title>Rocket.Chat</title>
+        <script type="text/javascript" src="js/jquery.js"></script>
+        <script type="text/javascript" src="shared/js_compiled/i18n.js"></script>
     </head>
     <body>
         <section id="startView" class="view keyboard">
@@ -18,7 +20,7 @@
                     <input type="url" id="serverAddress" placeholder="https://demo.rocket.chat" />
 
                     <div class="connect-button">
-                        <button type="submit" id="serverAddressButton">Connect</button>
+                        <button type="submit" id="serverAddressButton"><span data-i18n="Connect"></span></button>
                     </div>
                 </form>
 
@@ -26,7 +28,7 @@
             </div>
 
             <div class="server-list-info">
-                Swipe 2 fingers up to open the <strong>server list</strong>.
+                <span data-i18n="Swipe_2_fingers_up_to_open_the_server_list"></span>
             </div>
 
             <div class="server-info">
@@ -51,7 +53,6 @@
 
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/cache_manifest.js"></script>
-        <script type="text/javascript" src="js/jquery.js"></script>
         <script type="text/javascript" src="js/lodash.js"></script>
         <script type="text/javascript" src="js/async.js"></script>
         <script type="text/javascript" src="js/fastclick.js"></script>
