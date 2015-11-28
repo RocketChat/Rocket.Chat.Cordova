@@ -23,10 +23,13 @@ window.loadI18n = (cb) ->
 			cb()
 
 window.cordovai18n = (string, args...) ->
+	if not string?
+		return
+
 	if window.languages[language]?[string]?
 		string = window.languages[language][string]
 	else if window.languages.en?[string]?
-		string = window.languages[language][string]
+		string = window.languages.en[string]
 
 	while string.indexOf('%s') > -1
 		string = string.replace '%s', args.shift()
