@@ -120,8 +120,8 @@ window.addEventListener "onNewVersion", (e) ->
 
 
 document.addEventListener "deviceready", ->
-	if device.platform.toLowerCase() is 'ios'
-		cordova.plugins.iosrtc.registerGlobals()
+	# if device.platform.toLowerCase() is 'ios'
+	# 	cordova.plugins.iosrtc.registerGlobals()
 
 	Servers.onLoad ->
 		refreshServerList()
