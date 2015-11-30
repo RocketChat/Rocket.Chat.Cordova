@@ -119,12 +119,14 @@ window.Servers = new class
 				versionMul = versionMul * 1000
 
 			if versionNum < 7000
-				return cb cordovai18n("s_is_running_an_out_of_date_version_or_doesnt_support_mobile_applications_Please_ask_your_server_admin_to_update_to_a_new_version_of_RocketChat", url)
+				return cb cordovai18n("The_server_s_is_running_an_out_of_date_version_or_doesnt_support_mobile_applications_Please_ask_your_server_admin_to_update_to_a_new_version_of_RocketChat", url)
 
 			clearTimeout timeout
 			cb null, data
 
 		request.fail (jqxhr, textStatus, error) ->
+			if error?.name is "SyntaxError"
+				return cb cordovai18n("The_server_s_is_running_an_out_of_date_version_Please_ask_your_server_admin_to_update_to_a_new_version_of_RocketChat", url)
 			cb cordovai18n("Failed_to_connect_to_server_s_s", textStatus, error)
 
 
