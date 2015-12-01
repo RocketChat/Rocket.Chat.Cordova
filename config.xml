@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget android-versionCode="200" id="com.konecty.rocket.chat" ios-CFBundleVersion="1448997248410" version="2.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget android-versionCode="201" id="com.konecty.rocket.chat" ios-CFBundleVersion="1448997248410" version="2.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Rocket.Chat</name>
     <description>
         Rocket.Chat mobile application
