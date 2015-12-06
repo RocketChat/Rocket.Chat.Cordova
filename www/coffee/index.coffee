@@ -38,10 +38,10 @@ registerServer = ->
 			$('.loading-text').text cordovai18n("Downloading_files")
 			Servers.downloadServer serverAddress, (status) ->
 				if status.done is true
-					$('.loading-text').text cordovai18n("Loading_s")
-					Servers.save()
-					Servers.startServer serverAddress, ->
-						#
+					$('.loading-text').text cordovai18n("Loading_s", serverAddress)
+					Servers.save ->
+						Servers.startServer serverAddress, ->
+							#
 				else
 					$('.loading-text').html cordovai18n("Downloading_files_s_s", status.count, status.total)
 	, 250

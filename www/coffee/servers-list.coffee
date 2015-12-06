@@ -98,25 +98,26 @@ onAddServerClick = ->
 
 
 window.addEventListener "onNewVersion", (e) ->
-	url = Meteor.absoluteUrl().replace(/\/$/, '')
-	version = e.detail
+	Servers.onLoad =>
+		url = Meteor.absoluteUrl().replace(/\/$/, '')
+		version = e.detail
 
-	server = Servers.getServer url
+		server = Servers.getServer url
 
-	if not server?
-		navigator.notification.alert cordovai18n("The_URL_configured_in_your_server_s_is_not_the_same_that_you_are_using_here", url), null, cordovai18n("Warning")
-		return
-
-	if server.info.version is version
-		return
-
-	onConfirm = (buttonIndex) ->
-		if buttonIndex isnt 1
+		if not server?
+			navigator.notification.alert cordovai18n("The_URL_configured_in_your_server_s_is_not_the_same_that_you_are_using_here", url), null, cordovai18n("Warning")
 			return
 
-		Servers.startLocalServer "index.html?updateServer=#{encodeURIComponent(url)}&version=#{encodeURIComponent(version)}"
+		if server.info.version is version
+			return
 
-	navigator.notification.confirm cordovai18n("There_is_a_new_version_available_do_you_want_to_update_now_question"), onConfirm, cordovai18n("New_version"), [cordovai18n("Update"), cordovai18n("Cancel")]
+		onConfirm = (buttonIndex) ->
+			if buttonIndex isnt 1
+				return
+
+			Servers.startLocalServer "index.html?updateServer=#{encodeURIComponent(url)}&version=#{encodeURIComponent(version)}"
+
+		navigator.notification.confirm cordovai18n("There_is_a_new_version_available_do_you_want_to_update_now_question"), onConfirm, cordovai18n("New_version"), [cordovai18n("Update"), cordovai18n("Cancel")]
 
 
 document.addEventListener "deviceready", ->

@@ -91,5 +91,5 @@ platforms
 plugins
 RocketChat.keystore
 www/js/cache_manifest.js
-www/js/android_sender_id.js
+www/shared/js/android_sender_id.js
 www/js/bugsnag_apikey.js
