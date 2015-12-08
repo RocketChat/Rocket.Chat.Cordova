@@ -170,6 +170,7 @@ document.addEventListener "deviceready", ->
 
 	$('form').on 'submit', (e) ->
 		e.preventDefault()
+		e.stopPropagation()
 		cordova.plugins.Keyboard.close()
 		setTimeout ->
 			registerServer()
