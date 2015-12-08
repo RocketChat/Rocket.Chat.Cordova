@@ -176,6 +176,9 @@ document.addEventListener "deviceready", ->
 			registerServer()
 		, 100
 
+	$('.server-list-info').on 'click', (e) ->
+		toggleServerList()
+
 	# $('iframe').on 'load', onIframeLoad
 	$('#serverAddress').on 'input', serverAddressInput
 
