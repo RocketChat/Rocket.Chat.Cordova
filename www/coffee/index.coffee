@@ -5,8 +5,8 @@ Bugsnag.metaData =
 
 AUTOLOAD = true
 
-registerServer = ->
-	serverAddress = $('#serverAddress').val().trim().toLowerCase()
+window.registerServer = (serverAddress) ->
+	serverAddress ?= $('#serverAddress').val().trim().toLowerCase()
 
 	if serverAddress.length is 0
 		serverAddress = 'https://demo.rocket.chat'
