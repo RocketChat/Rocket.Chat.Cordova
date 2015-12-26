@@ -332,7 +332,7 @@ window.Servers = new class
 
 
 	load: ->
-		timer = setTimeout @load.bind(@), 1000
+		timer = setTimeout @load.bind(@), 2000
 
 		readFile cordova.file.dataDirectory, 'servers.json', (err, savedServers) =>
 			clearTimeout timer
@@ -398,9 +398,9 @@ window.Servers = new class
 		success = (url) =>
 			console.log "server is started:", url
 			servers.active = baseUrl
-			@save()
-			cb? null, baseUrl
-			location.href = "http://#{options.host}/#{path}"
+			@save ->
+				cb? null, baseUrl
+				location.href = "http://#{options.host}/#{path}"
 
 		failure = (error) ->
 			cb? error
