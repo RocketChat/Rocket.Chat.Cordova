@@ -154,6 +154,8 @@ window.Servers = new class
 				if data?.manifest?.length > 0
 					data.manifest.unshift
 						url: '/index.html?' + Math.round(Math.random()*10000000)
+						path: 'index.html'
+						hash: Math.round(Math.random()*10000000)
 
 					clearTimeout timeout
 					cb null, data
