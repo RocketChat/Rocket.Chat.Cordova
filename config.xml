@@ -20,6 +20,7 @@
     <access launch-external="true" origin="sms:*" />
     <access launch-external="true" origin="market:*" />
     <access origin="file:*" />
+    <access origin="blob:*" />
     <access origin="cdv:*" />
     <access origin="gap:*" />
     <access origin="http://meteor.local/*" />
