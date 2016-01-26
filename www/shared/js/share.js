@@ -1,0 +1,61 @@
+// ---------------------------------------------------------------------------------------------------------------------
+// Easy Share action handler
+//
+// @module share
+// ---------------------------------------------------------------------------------------------------------------------
+
+cordova.SharingReceptor.listen(function(data)
+{
+    // TODO: Launch room selection UI here
+
+    if(_.startsWith(data.intent.type, 'text'))
+    {
+        // Add callback to send message when ready
+        RocketChat.callbacks.add('enter-room', function(room)
+        {
+            // Actually send the message
+            Meteor.call('sendMessage', {
+                _id: Random.id(),
+                rid: '64JLfotmSFd366cLk',
+                ts: new Date(),
+                msg: data.intent.extras['android.intent.extra.TEXT']
+            });
+
+            // Clean up the callback
+            RocketChat.callbacks.remove('enter-room', 'ShareText');
+        }, RocketChat.callbacks.priority.MEDIUM, 'ShareText');
+
+        // Open selected room to upload
+        openRoom('c', 'testing');
+    }
+    else if(_.startsWith(data.intent.type, 'image'))
+    {
+        // Get Android FileEntry
+        resolveLocalFileSystemURL(data.intent.extras['android.intent.extra.STREAM'], function(fsEntry)
+        {
+            // Get HTML5 File object
+            fsEntry.file(function(fileObj)
+            {
+                // Add callback to upload when room is ready
+                RocketChat.callbacks.add('enter-room', function(room)
+                {
+                    // Actually upload the file
+                    fileUpload([
+                        {
+                            file: fileObj,
+                            name: 'Shared File'
+                        }
+                    ]);
+
+                    // Clean up the callback
+                    RocketChat.callbacks.remove('enter-room', 'UploadFile');
+                }, RocketChat.callbacks.priority.MEDIUM, 'UploadFile');
+
+                // Open selected room to upload
+                openRoom('c', 'testing');
+            });
+        });
+    }
+});
+
+// ---------------------------------------------------------------------------------------------------------------------

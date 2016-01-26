@@ -289,6 +289,7 @@ window.Servers = new class
 				<script text="text/javascript" src="/shared/js_compiled/utils.js"></script>
 				<script text="text/javascript" src="/shared/js_compiled/servers.js"></script>
 				<script text="text/javascript" src="/shared/js_compiled/servers-list.js"></script>
+        <script type="text/javascript" src="shared/js/share.js"></script>
 				$1
 			"""
 			writeFile indexDir, "index.html", file, =>
