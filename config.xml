@@ -88,6 +88,7 @@
     <preference name="StatusBarStyle" value="blackopaque" />
     <preference name="StatusBarBackgroundColor" value="#000000" />
     <preference name="deployment-target" value="8.0" />
+    <preference name="AndroidLaunchMode" value="singleTask"/>
     <hook src="hooks/beforePrepare.js" type="before_prepare" />
     <engine name="ios" spec="~3.9.2" />
     <engine name="android" spec="~5.0.0" />
