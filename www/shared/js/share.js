@@ -4,32 +4,38 @@
 // @module share
 // ---------------------------------------------------------------------------------------------------------------------
 
-cordova.SharingReceptor.listen(function(data)
-{
-    var rooms = _.sortBy(RocketChat.models.Subscriptions.find().fetch(), 'name');
-    var innerString = _.reduce(rooms, function(accString, room)
+Meteor.subscribe('subscription', {
+    onReady: function()
     {
-        return accString + '<option value="' + room.name + '">' + room.name + '</option>';
-    }, '');
-
-    var tempString = '<select id="room-select" name="room-list">' + innerString + '</select>';
-
-    swal({
-        title: 'Select room to share',
-        text: tempString,
-        html: true,
-        animation: true,
-        showCancelButton: true
-    }, function()
-    {
-        var roomName = $('#room-select')[0].value;
-        var roomModel = RocketChat.models.Subscriptions.findOne({name: roomName});
-
-        if(roomModel)
+        cordova.SharingReceptor.listen(function(data)
         {
-            doShare(roomModel, data);
-        }
-    });
+            var rooms = _.sortBy(ChatSubscription.find().fetch(), 'name');
+            var innerString = _.reduce(rooms, function(accString, room)
+            {
+                return accString + '<option value="' + room.name + '">' + room.name + '</option>';
+            }, '');
+
+            var tempString = '<select id="room-select" name="room-list">' + innerString + '</select>';
+
+            swal({
+                title: 'Select room to share',
+                text: tempString,
+                html: true,
+                animation: true,
+                showCancelButton: true
+            }, function()
+            {
+                var roomName = $('#room-select')[0].value;
+                var roomModel = ChatSubscription.findOne({name: roomName});
+
+                if(roomModel)
+                {
+                    doShare(roomModel, data);
+                }
+            });
+        });
+
+    }
 });
 
 function doShare(roomModel, data)
