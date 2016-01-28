@@ -11,11 +11,17 @@ cordova.SharingReceptor.listen(function(data)
         text: 'Input room name to share:',
         type: 'input',
         showCancelButton: true,
-        animation: 'slide-from-top',
-        inputPlaceholder: 'testing'
+        animation: 'slide-from-top'
     }, function(roomName)
     {
         var roomModel = RocketChat.models.Subscriptions.findOne({name: roomName});
+
+        // Search case-insensitive for DM rooms
+        if(!roomModel)
+        {
+            roomModel = RocketChat.models.Subscriptions.findOne({name: { $regex: roomName, $options: 'i' }});
+        }
+
         if(roomModel)
         {
             doShare(roomModel, data);
