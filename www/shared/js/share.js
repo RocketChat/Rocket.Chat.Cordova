@@ -6,21 +6,24 @@
 
 cordova.SharingReceptor.listen(function(data)
 {
-    swal({
-        title: 'Select Room',
-        text: 'Input room name to share:',
-        type: 'input',
-        showCancelButton: true,
-        animation: 'slide-from-top'
-    }, function(roomName)
+    var rooms = _.sortBy(RocketChat.models.Subscriptions.find().fetch(), 'name');
+    var innerString = _.reduce(rooms, function(accString, room)
     {
-        var roomModel = RocketChat.models.Subscriptions.findOne({name: roomName});
+        return accString + '<option value="' + room.name + '">' + room.name + '</option>';
+    }, '');
 
-        // Search case-insensitive for DM rooms
-        if(!roomModel)
-        {
-            roomModel = RocketChat.models.Subscriptions.findOne({name: { $regex: roomName, $options: 'i' }});
-        }
+    var tempString = '<select id="room-select" name="room-list">' + innerString + '</select>';
+
+    swal({
+        title: 'Select room to share',
+        text: tempString,
+        html: true,
+        animation: true,
+        showCancelButton: true
+    }, function()
+    {
+        var roomName = $('#room-select')[0].value;
+        var roomModel = RocketChat.models.Subscriptions.findOne({name: roomName});
 
         if(roomModel)
         {
