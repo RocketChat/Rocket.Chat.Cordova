@@ -88,6 +88,8 @@ Android/assets/
 www/shared/js_compiled
 www/cache
 platforms
+resources/icons
+resources/splash
 plugins
 RocketChat.keystore
 www/js/cache_manifest.js
