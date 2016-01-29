@@ -4,7 +4,7 @@ var execSync = require('child_process').execSync;
 var fs = require('fs');
 var request = require('request');
 
-execSync("rm -rf www/cache/*")
+execSync("rm -rf www/cache/*");
 
 var server = 'https://demo.rocket.chat';
 
@@ -24,7 +24,7 @@ request(server+'/__cordova/manifest.json', function (error, response, body) {
 
 	manifest.manifest.forEach(function(item) {
 		if (!item.url) {
-			return
+			return;
 		}
 
 		var url = server + '/__cordova' + item.url;
