@@ -7,12 +7,22 @@
 Meteor.subscribe('subscription', {
     onReady: function()
     {
+        var roomPrefixes = {
+            d: '@',
+            p: '&',
+            c: '#'
+        };
+
         cordova.SharingReceptor.listen(function(data)
         {
-            var rooms = _.sortBy(ChatSubscription.find().fetch(), 'name');
+            var rooms = _.sortBy(ChatSubscription.find({open: true}).fetch(), function(room)
+            {
+                return [room.t, room.name].join('-');
+            });
+
             var innerString = _.reduce(rooms, function(accString, room)
             {
-                return accString + '<option value="' + room.name + '">' + room.name + '</option>';
+                return accString + '<option value="' + room.name + '">' + roomPrefixes[room.t] + ' ' + room.name + '</option>';
             }, '');
 
             var tempString = '<select id="room-select" name="room-list">' + innerString + '</select>';
