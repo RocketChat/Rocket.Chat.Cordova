@@ -285,6 +285,7 @@ window.Servers = new class
 			file = file.replace /(<\/head>)/gm, """
 				<link rel="stylesheet" href="/shared/css/servers-list.css"/>
 				<script text="text/javascript" src="/shared/js/android_sender_id.js"></script>
+				<script text="text/javascript" src="/shared/js/share.js"></script>
 				<script text="text/javascript" src="/shared/js_compiled/i18n.js"></script>
 				<script text="text/javascript" src="/shared/js_compiled/utils.js"></script>
 				<script text="text/javascript" src="/shared/js_compiled/servers.js"></script>
