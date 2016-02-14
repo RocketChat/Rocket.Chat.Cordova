@@ -11,7 +11,8 @@ This application only connects with servers that were compiled with mobile platf
 
 #### Install dependencies
 ```shell
-sudo npm install cordova coffee-script ticons -g
+sudo npm install cordova coffee-script -g
+npm install
 ```
 
 ### Create Conf files
