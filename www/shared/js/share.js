@@ -7,14 +7,14 @@
 Meteor.subscribe('subscription', {
     onReady: function()
     {
-        readFile(cordova.file.dataDirectory, 'pendingShare.json', function(err, shareInfo)
+        readFile(cordova.file.cacheDirectory, 'pendingShare.json', function(err, shareInfo)
         {
             if(err)
             {
                 return;
             }
 
-            removeFile(cordova.file.dataDirectory, 'pendingShare.json', function() { });
+            removeFile(cordova.file.cacheDirectory, 'pendingShare.json', function() { });
             selectRoom(JSON.parse(shareInfo));
         });
 
@@ -44,7 +44,7 @@ Meteor.subscribe('subscription', {
 
                         if(serverUrl != currentServerUrl)
                         {
-                            writeFile(cordova.file.dataDirectory, 'pendingShare.json', JSON.stringify(data), function(err, data)
+                            writeFile(cordova.file.cacheDirectory, 'pendingShare.json', JSON.stringify(data), function(err, data)
                             {
                                 if(err)
                                 {
