@@ -5,11 +5,9 @@ Bugsnag.metaData =
 
 AUTOLOAD = true
 
-window.registerServer = (serverAddress) ->
-	serverAddress ?= $('#serverAddress').val().trim().toLowerCase()
+HOME_URL = 'http://gromby.com'
 
-	if serverAddress.length is 0
-		serverAddress = 'https://demo.rocket.chat'
+window.registerServer = (serverAddress) ->
 
 	if not /^https?:\/\/.+/.test serverAddress
 		serverAddress = 'http://' + serverAddress
@@ -167,6 +165,10 @@ document.addEventListener "deviceready", ->
 
 	cordova.plugins?.Keyboard?.hideKeyboardAccessoryBar? true
 	cordova.plugins?.Keyboard?.disableScroll? true
+
+	setTimeout ->
+		registerServer(HOME_URL)
+	, 300
 
 	$('form').on 'submit', (e) ->
 		e.preventDefault()
