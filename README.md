@@ -44,3 +44,8 @@ or
 ```shell
 cordova run android --device
 ```
+
+#### Troubleshooting
+
+Some have had issues with a couple of dependencies not being installed by npm.
+Running: `npm install ticons underscore` may be necessary.
