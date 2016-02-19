@@ -12,7 +12,15 @@ This application only connects with servers that were compiled with mobile platf
 #### Install dependencies
 ```shell
 sudo npm install cordova coffee-script -g
+npm install
 ```
+
+### Create Conf files
+```
+echo 'Bugsnag.apiKey = "YOUR-API-KEY-HERE";' > www/js/bugsnag_apikey.js
+echo 'window.ANDROID_SENDER_ID = "YOUR-ANDROID-ID-HERE";' > www/shared/js/android_sender_id.js
+```
+
 
 #### Prepare - Install plataforms and plugins
 ```shell
@@ -36,3 +44,8 @@ or
 ```shell
 cordova run android --device
 ```
+
+#### Troubleshooting
+
+Some have had issues with a couple of dependencies not being installed by npm.
+Running: `npm install ticons underscore` may be necessary.
