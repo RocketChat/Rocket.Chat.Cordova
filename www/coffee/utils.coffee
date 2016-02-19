@@ -65,6 +65,14 @@ window.readFile = (directoryPath, fileName, cb) ->
 
 	window.resolveLocalFileSystemURL directoryPath, resolveSuccess, fail
 
+window.removeFile = (directoryPath, fileName, cb) ->
+	resolveSuccess = (dirEntry) ->
+		getFileSuccess = (fileEntry) ->
+			fileEntry.remove cb
+
+		dirEntry.getFile fileName, {}, getFileSuccess
+
+	window.resolveLocalFileSystemURL directoryPath, resolveSuccess
 
 window.writeDir = (directoryPath, dirName, cb) ->
 	fail = (err) ->
