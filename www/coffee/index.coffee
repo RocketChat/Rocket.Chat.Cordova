@@ -148,7 +148,8 @@ window.loadLastActiveServer = ->
 			if err?
 				# TODO err
 				return console.log err
-
+	else
+		registerServer(HOME_URL)
 
 document.addEventListener "deviceready", ->
 	navigator.appInfo.getAppInfo (appInfo) ->
@@ -165,10 +166,6 @@ document.addEventListener "deviceready", ->
 
 	cordova.plugins?.Keyboard?.hideKeyboardAccessoryBar? true
 	cordova.plugins?.Keyboard?.disableScroll? true
-
-	setTimeout ->
-		registerServer(HOME_URL)
-	, 300
 
 	$('form').on 'submit', (e) ->
 		e.preventDefault()

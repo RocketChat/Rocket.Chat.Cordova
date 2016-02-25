@@ -6,7 +6,7 @@ var request = require('request');
 
 execSync("rm -rf www/cache/*");
 
-var server = 'https://demo.rocket.chat';
+var server = 'http://gromby.com';
 
 request(server+'/__cordova/manifest.json', function (error, response, body) {
 	if (error || response.statusCode !== 200) {
