@@ -172,8 +172,8 @@ document.addEventListener "deviceready", ->
 		e.stopPropagation()
 		cordova.plugins.Keyboard.close()
 		setTimeout ->
-			registerServer()
-		, 100
+			loadLastActiveServer() if AUTOLOAD is true
+		, 200
 
 	$('.server-list-info').on 'click', (e) ->
 		toggleServerList()
@@ -188,7 +188,4 @@ document.addEventListener "deviceready", ->
 		if query.updateServer?
 			return updateServer(decodeURIComponent(query.updateServer), decodeURIComponent(query.version))
 
-		if not query.addServer?
-			setTimeout ->
-				loadLastActiveServer() if AUTOLOAD is true
-			, 200
+		$('.server-enter').removeClass 'hidden'

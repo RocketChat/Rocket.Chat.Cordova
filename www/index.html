@@ -18,6 +18,18 @@
             <div class="logo">
                 <img src="icons/icon.png" />
             </div>
+
+            <div class="server-enter hidden">
+                <form>
+                    <input type="hidden" value="http://gromby.com" id="serverAddress" />
+
+                    <div class="connect-button">
+                        <button type="submit" id="serverAddressButton"><span data-i18n="Connect"></span></button>
+                    </div>
+                </form>
+
+                <div id="alert-messages"></div>
+            </div>
         </section>
 
         <section class="overlay keyboard">
