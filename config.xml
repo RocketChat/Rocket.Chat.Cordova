@@ -102,7 +102,7 @@
     <plugin name="cordova-plugin-splashscreen" spec="~2.1.0" />
     <plugin name="ionic-plugin-keyboard" spec="~1.0.7" />
     <plugin name="cordova-plugin-statusbar" spec="~1.0.1" />
-    <plugin name="cordova-plugin-facebook4" spec="~1.3.0-0">
+    <plugin name="cordova-plugin-facebook4" spec="1.6.3">
         <variable name="APP_ID" value="835103589938459" />
         <variable name="APP_NAME" value="Rocket.Chat" />
     </plugin>
