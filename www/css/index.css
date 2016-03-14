@@ -2,9 +2,13 @@ body {
     background-color: #f7f7f7;
     margin: 0px;
     font-family: Helvetica;
-	background-image: url('../img/gromby-baseball.jpg');
 }
-
+section#startView{
+	background-image: url('../img/gromby-tristan.jpg');
+    background-position: top center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 .hidden {
     /*display: none !important;*/
     z-index: -1000 !important;
