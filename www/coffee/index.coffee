@@ -5,11 +5,9 @@ Bugsnag.metaData =
 
 AUTOLOAD = true
 
-window.registerServer = (serverAddress) ->
-	serverAddress ?= $('#serverAddress').val().trim().toLowerCase()
+HOME_URL = 'http://gromby.com'
 
-	if serverAddress.length is 0
-		serverAddress = 'https://demo.rocket.chat'
+window.registerServer = (serverAddress) ->
 
 	if not /^https?:\/\/.+/.test serverAddress
 		serverAddress = 'http://' + serverAddress
@@ -150,7 +148,8 @@ window.loadLastActiveServer = ->
 			if err?
 				# TODO err
 				return console.log err
-
+	else
+		registerServer(HOME_URL)
 
 document.addEventListener "deviceready", ->
 	navigator.appInfo.getAppInfo (appInfo) ->
@@ -173,8 +172,8 @@ document.addEventListener "deviceready", ->
 		e.stopPropagation()
 		cordova.plugins.Keyboard.close()
 		setTimeout ->
-			registerServer()
-		, 100
+			loadLastActiveServer() if AUTOLOAD is true
+		, 200
 
 	$('.server-list-info').on 'click', (e) ->
 		toggleServerList()
@@ -189,7 +188,4 @@ document.addEventListener "deviceready", ->
 		if query.updateServer?
 			return updateServer(decodeURIComponent(query.updateServer), decodeURIComponent(query.version))
 
-		if not query.addServer?
-			setTimeout ->
-				loadLastActiveServer() if AUTOLOAD is true
-			, 200
+		$('.server-enter').removeClass 'hidden'

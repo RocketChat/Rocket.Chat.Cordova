@@ -1,7 +1,7 @@
 {
-  "name": "rocket.chat.cordova",
-  "version": "0.0.1",
-  "description": "Rocket.Chat mobile applications",
+  "name": "Gromby.Cordova",
+  "version": "0.0.2",
+  "description": "Gromby mobile applications",
   "main": "index.js",
   "dependencies": {
     "glob": "^5.0.14",
@@ -19,12 +19,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RocketChat/Rocket.Chat.Cordova.git"
+    "url": "git+https://github.com/gromby/Gromby.Chat.git"
   },
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/RocketChat/Rocket.Chat.Cordova/issues"
+    "url": "https://github.com/gromby/Gromby.Chat/issues"
   },
-  "homepage": "https://github.com/RocketChat/Rocket.Chat.Cordova#readme"
+  "homepage": "https://github.com/gromby/Gromby.Chat#readme"
 }

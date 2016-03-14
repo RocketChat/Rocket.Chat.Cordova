@@ -12,9 +12,9 @@
 
     "android": {
         "release": {
-            "keystore": "RocketChat.keystore",
+            "keystore": "Gromby.keystore",
             "storePassword": "",
-            "alias": "RocketChat",
+            "alias": "Gromby",
             "password" : "",
             "keystoreType": ""
         }
