@@ -30,23 +30,22 @@
 
 #serverList ul {
     list-style: none;
-    padding: 5px;
+    padding: 10px;
     margin: 0px;
 }
 
 #serverList ul li {
     display: flex;
+    border-bottom: 1px solid #ccc;
 }
 
 #serverList ul li .name {
-    background-color: rgba(195, 37, 38, .5);
     display: block;
-    border-radius: 4px;
-    text-align: center;
-    line-height: 50px;
+    text-align: left;
+    line-height: 45px;
     margin-bottom: 5px;
-    font-size: 32px;
-    color: white;
+    font-size: 18px;
+    color: #444;
     cursor: pointer;
     padding: 0 10px;
     text-overflow: ellipsis;
@@ -55,37 +54,42 @@
 }
 
 #serverList ul li .delete-btn {
-    background-color: rgba(195, 37, 38, 1);
+    background-color: rgb(195, 37, 38);
     display: block;
-    border-radius: 4px;
+    border-radius: 40px;
     text-align: center;
-    line-height: 50px;
+    line-height: 40px;
     margin-bottom: 5px;
     font-size: 32px;
     color: white;
     cursor: pointer;
-    width: 50px;
-    min-width: 50px;
+    min-width: 45px;
     margin-left: 5px;
 }
 
 #serverList ul li.addServer {
-    background-color: rgba(195, 37, 38, .5);
+    border: none;
+}
+
+#serverList ul li.addServer .add-btn {
+    background-color: rgb(37, 195, 38);
     display: block;
-    border-radius: 4px;
+    border-radius: 40px;
     text-align: center;
-    line-height: 50px;
+    line-height: 38px;
+    height: 45px;
+    width: 45px;
     font-size: 32px;
     color: white;
     cursor: pointer;
-    padding: 0 10px;
     margin-bottom: 0px;
-    margin-top: 15px;
+    margin-top: 5px;
 }
 
 #serverList .toggle {
-    background-color: rgba(195, 37, 38, .8);
+    background-color: #ddd;
     line-height: 44px;
-    color: white;
+    color: #444;
     text-align: center;
+    font-size: 20px;
 }

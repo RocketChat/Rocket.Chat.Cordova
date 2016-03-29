@@ -50,19 +50,19 @@ window.refreshServerList = ->
 		li = """
 			<li class="server">
 				<div data-name="#{server.name}" data-url="#{server.url}" class="name">#{server.name}</div>
-				<div data-name="#{server.name}" data-url="#{server.url}" class="delete-btn">X</div>
+				<div data-name="#{server.name}" data-url="#{server.url}" class="delete-btn">-</div>
 			</li>
 		"""
 
 		ul.appendChild $(li)[0]
 
-
-	li = document.createElement('LI')
-
-	li.className = 'addServer'
-	li.innerText = '+'
-
-	ul.appendChild li
+	li = """
+		<li class="addServer">
+			<div class="name"></div>
+			<div class="add-btn">+</div>
+		</li>
+	"""
+	ul.appendChild $(li)[0]
 
 
 onServerClick = (e) ->
