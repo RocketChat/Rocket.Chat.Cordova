@@ -8,12 +8,13 @@
         Rocket.Chat
     </author>
     <content src="index.html" />
-    <allow-intent href="*" />
+    <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
-    <allow-intent href="sms:*" />
-    <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="market:*" />
     <access launch-external="true" origin="tel:*" />
     <access launch-external="true" origin="geo:*" />
     <access launch-external="true" origin="mailto:*" />
@@ -23,14 +24,12 @@
     <access origin="blob:*" />
     <access origin="cdv:*" />
     <access origin="gap:*" />
-    <access origin="http://meteor.local/*" />
     <access origin="*" />
     <allow-navigation href="http://*/*" />
     <allow-navigation href="https://*/*" />
     <allow-navigation href="data:*" />
     <platform name="android">
         <preference name="android-minSdkVersion" value="15" />
-        <allow-intent href="market:*" />
         <icon density="mdpi" src="resources/icons/platform/android/res/drawable-mdpi/appicon.png" />
         <icon density="hdpi" src="resources/icons/platform/android/res/drawable-hdpi/appicon.png" />
         <icon density="xhdpi" src="resources/icons/platform/android/res/drawable-xhdpi/appicon.png" />
