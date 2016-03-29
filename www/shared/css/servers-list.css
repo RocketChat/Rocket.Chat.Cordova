@@ -30,20 +30,20 @@
 
 #serverList ul {
     list-style: none;
-    padding: 10px;
+    padding: 5px 10px;
     margin: 0px;
 }
 
 #serverList ul li {
     display: flex;
     border-bottom: 1px solid #ccc;
+    padding: 5px 0;
 }
 
 #serverList ul li .name {
     display: block;
     text-align: left;
     line-height: 45px;
-    margin-bottom: 5px;
     font-size: 18px;
     color: #444;
     cursor: pointer;
@@ -59,7 +59,6 @@
     border-radius: 40px;
     text-align: center;
     line-height: 40px;
-    margin-bottom: 5px;
     font-size: 32px;
     color: white;
     cursor: pointer;
@@ -82,8 +81,6 @@
     font-size: 32px;
     color: white;
     cursor: pointer;
-    margin-bottom: 0px;
-    margin-top: 5px;
 }
 
 #serverList .toggle {
