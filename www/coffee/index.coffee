@@ -15,7 +15,10 @@ window.registerServer = (serverAddress) ->
 		serverAddress = 'https://' + serverAddress + '.rocket.chat'
 
 	if not /^https?:\/\/.+/.test serverAddress
-		serverAddress = 'https://' + serverAddress
+		if /^((localhost)|([0-9.]+))(:\d+)?$/.test serverAddress
+			serverAddress = 'http://' + serverAddress
+		else
+			serverAddress = 'https://' + serverAddress
 
 	$('#serverAddress').val(serverAddress);
 
