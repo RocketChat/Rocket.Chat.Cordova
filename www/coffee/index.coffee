@@ -11,8 +11,13 @@ window.registerServer = (serverAddress) ->
 	if serverAddress.length is 0
 		serverAddress = 'https://demo.rocket.chat'
 
+	if not /\./.test serverAddress
+		serverAddress = 'https://' + serverAddress + '.rocket.chat'
+
 	if not /^https?:\/\/.+/.test serverAddress
-		serverAddress = 'http://' + serverAddress
+		serverAddress = 'https://' + serverAddress
+
+	$('#serverAddress').val(serverAddress);
 
 	name = serverAddress.replace(/https?:\/\//, '').replace(/^www\./, '')
 
@@ -38,7 +43,7 @@ window.registerServer = (serverAddress) ->
 			$('.loading-text').text cordovai18n("Downloading_files")
 			Servers.downloadServer serverAddress, (status) ->
 				if status.done is true
-					$('.loading-text').text cordovai18n("Loading_s", serverAddress)
+					$('.loading-text').text cordovai18n("Loading_s", name)
 					Servers.save ->
 						Servers.startServer serverAddress, ->
 							#
