@@ -29,6 +29,7 @@
     <allow-navigation href="https://*/*" />
     <allow-navigation href="data:*" />
     <platform name="android">
+        <preference name="android-minSdkVersion" value="15" />
         <allow-intent href="market:*" />
         <icon density="mdpi" src="resources/icons/platform/android/res/drawable-mdpi/appicon.png" />
         <icon density="hdpi" src="resources/icons/platform/android/res/drawable-hdpi/appicon.png" />
