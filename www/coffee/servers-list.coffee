@@ -135,4 +135,9 @@ document.addEventListener "deviceready", ->
 		if $(e.target).is('#serverList')
 			toggleServerList(false)
 
+	document.addEventListener 'click', (e) ->
+		if e.target.nodeName is 'A' and e.target.getAttribute('href') is '#'
+			e.stopPropagation()
+			e.preventDefault()
+
 	addSwipeEventToOpenServerList $(document)
