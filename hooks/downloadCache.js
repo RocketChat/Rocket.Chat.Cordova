@@ -25,20 +25,27 @@ request(server+'/__cordova/manifest.json', function (error, response, body) {
 
 	async.eachLimit(manifest.manifest, 5, function(item, callback) {
 		if (!item.url) {
-			return;
+			return callback();
+		}
+
+		if (item.url.indexOf('/packages/rocketchat_livechat/') > -1) {
+			return callback();
 		}
 
 		var url = server + '/__cordova' + item.url;
 		var path = item.url.replace(/\?.+$/, '').split('/');
 		var name = path.pop();
+
 		path = path.join('/');
 		var dest = 'www/cache' + path;
 
 		request({url: url, encoding: null}, function (error, response, body) {
 			if (error) {
+				callback();
 				return console.log(url, error);
 			}
 			if (response.statusCode !== 200) {
+				callback();
 				return console.log(url, response.statusCode);
 			}
 

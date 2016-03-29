@@ -221,7 +221,8 @@ window.Servers = new class
 	downloadServer: (url, downloadServerCb) ->
 		initDownloadServer = =>
 			i = 0
-			total = servers[url].info.manifest.filter((item) -> item.downloaded isnt true).length
+			items = servers[url].info.manifest.filter (item) ->
+				return item?.url? and item.downloaded isnt true
 
 			download = (item, cb) =>
 				if not item?.url?
@@ -232,10 +233,10 @@ window.Servers = new class
 
 				@downloadFile url, item.url.replace(/\?.+$/, ''), (err, data) ->
 					item.downloaded = err is undefined
-					downloadServerCb?({done: false, count: i++, total: total})
+					downloadServerCb?({done: false, count: ++i, total: items.length})
 					cb(err, data)
 
-			async.eachLimit servers[url].info.manifest, 5, download, ->
+			async.eachLimit items, 5, download, ->
 				downloadServerCb?({done: true})
 
 
@@ -244,11 +245,16 @@ window.Servers = new class
 
 		if servers[url].oldInfo?
 			for item in servers[url].info.manifest
+				if item.path.indexOf('packages/rocketchat_livechat/') > -1
+					item.downloaded = true
+					continue
+
 				found = null
 				servers[url].oldInfo.manifest.some (oldItem) ->
 					if oldItem.path is item.path and oldItem.hash is item.hash
 						found = oldItem
 						return true
+
 				if found?
 					item.downloaded = true
 
@@ -256,6 +262,10 @@ window.Servers = new class
 
 		else if cacheManifest?.manifest?
 			for item in servers[url].info.manifest
+				if item.path.indexOf('packages/rocketchat_livechat/') > -1
+					item.downloaded = true
+					continue
+
 				found = null
 				cacheManifest.manifest.some (oldItem) ->
 					if oldItem.path is item.path and oldItem.hash is item.hash
