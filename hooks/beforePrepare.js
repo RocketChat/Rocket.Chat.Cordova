@@ -52,7 +52,7 @@ module.exports = function(context) {
 		orientations: ['portrait', 'landscape'],
 		label: false,
 		crop: false,
-		fix: false,
+		fix: true,
 		nine: false
 	};
 

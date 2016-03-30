@@ -72,10 +72,10 @@
         <splash width="750" height="1334" src="resources/splash/Resources/iphone/Default-667h@2x.png" />
         <splash width="1242" height="2208" src="resources/splash/Resources/iphone/Default-Portrait-736h@3x.png" />
         <splash width="2208" height="1242" src="resources/splash/Resources/iphone/Default-Landscape-736h@3x.png" />
-        <splash width="768" height="1004" src="resources/splash/Resources/iphone/Default-Portrait.png" />
-        <splash width="1536" height="2008" src="resources/splash/Resources/iphone/Default-Portrait@2x.png" />
-        <splash width="1024" height="748" src="resources/splash/Resources/iphone/Default-Landscape.png" />
-        <splash width="2048" height="1496" src="resources/splash/Resources/iphone/Default-Landscape@2x.png" />
+        <splash width="768" height="1024" src="resources/splash/Resources/iphone/Default-Portrait.png" />
+        <splash width="1536" height="2048" src="resources/splash/Resources/iphone/Default-Portrait@2x.png" />
+        <splash width="1024" height="768" src="resources/splash/Resources/iphone/Default-Landscape.png" />
+        <splash width="2048" height="1536" src="resources/splash/Resources/iphone/Default-Landscape@2x.png" />
     </platform>
     <preference name="xwalkVersion" value="15+" />
     <preference name="xwalkCommandLine" value="--disable-pull-to-refresh-effect" />
