@@ -80,6 +80,7 @@
     <preference name="xwalkVersion" value="15+" />
     <preference name="xwalkCommandLine" value="--disable-pull-to-refresh-effect" />
     <preference name="xwalkMode" value="embedded" />
+    <preference name="xwalkMultipleApk" value="true" />
     <preference name="webviewbounce" value="false" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="AutoHideSplashScreen" value="false" />
@@ -113,5 +114,5 @@
     <plugin name="cordova-plugin-inappbrowser" spec="1.3.0" />
     <plugin name="cordova-plugin-dialogs" spec="1.2.0" />
     <plugin name="cordova-plugin-appinfo" spec="2.0.3" />
-    <preference name="xwalkMultipleApk" value="true" />
+    <plugin name="cordova-plugin-actionsheet" spec="~2.2.2" />
 </widget>
