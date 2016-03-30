@@ -125,12 +125,15 @@ window.addEventListener "onNewVersion", (e) ->
 			return
 
 		onConfirm = (buttonIndex) ->
-			if buttonIndex isnt 1
-				return
+			if buttonIndex is 1
+				Servers.startLocalServer window.urlToUpdate
 
-			Servers.startLocalServer "index.html?updateServer=#{encodeURIComponent(url)}&version=#{encodeURIComponent(version)}"
+			window.urlToUpdate = undefined
 
-		navigator.notification.confirm cordovai18n("There_is_a_new_version_available_do_you_want_to_update_now_question"), onConfirm, cordovai18n("New_version"), [cordovai18n("Update"), cordovai18n("Cancel")]
+		if not window.urlToUpdate?
+			navigator.notification.confirm cordovai18n("There_is_a_new_version_available_do_you_want_to_update_now_question"), onConfirm, cordovai18n("New_version"), [cordovai18n("Update"), cordovai18n("Cancel")]
+
+		window.urlToUpdate = "index.html?updateServer=#{encodeURIComponent(url)}&version=#{encodeURIComponent(version)}"
 
 
 document.addEventListener "deviceready", ->
