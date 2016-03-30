@@ -2,8 +2,25 @@
     top: 0px !important;
 }
 
-#serverList {
+.server-list-overlay {
     background-color: rgba(0,0,0,.5);
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    -webkit-transition: all .2s ease-in-out;
+    z-index: 100;
+    display: none;
+}
+
+.server-list-open .server-list-overlay {
+    display: block;
+}
+
+#serverList {
     position: fixed;
     height: 100%;
     width: 100%;
@@ -16,7 +33,7 @@
     justify-content: center;
     flex-direction: column;
     -webkit-transition: all .2s ease-in-out;
-    z-index: 100;
+    z-index: 1000;
 }
 
 #serverList .panel {
@@ -54,15 +71,11 @@
 }
 
 #serverList ul li .delete-btn {
-    background-color: rgb(195, 37, 38);
     display: block;
-    border-radius: 40px;
-    text-align: center;
-    line-height: 40px;
-    font-size: 32px;
-    color: white;
     cursor: pointer;
     min-width: 45px;
+    width: 45px;
+    height: 45px;
     margin-left: 5px;
 }
 
@@ -71,15 +84,9 @@
 }
 
 #serverList ul li.addServer .add-btn {
-    background-color: rgb(37, 195, 38);
-    display: block;
-    border-radius: 40px;
-    text-align: center;
-    line-height: 38px;
+    text-align: right;
     height: 45px;
     width: 45px;
-    font-size: 32px;
-    color: white;
     cursor: pointer;
 }
 

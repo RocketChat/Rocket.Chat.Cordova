@@ -2,7 +2,8 @@ addSwipeEventToOpenServerList = ($el) ->
 	started = undefined
 
 	$el.on 'touchstart', (e) ->
-		if e.originalEvent.touches.length is 2
+		if e.originalEvent.touches.length >= 2
+			e.preventDefault()
 			started =
 				date: Date.now()
 				pageX: e.originalEvent.touches[0].pageX
@@ -10,6 +11,7 @@ addSwipeEventToOpenServerList = ($el) ->
 
 	$el.on 'touchmove', (e) ->
 		if started?
+			e.preventDefault()
 			if Date.now() - started.date < 2000
 				if Math.abs(e.originalEvent.touches[0].pageX - started.pageX) < 50
 					if Math.abs(e.originalEvent.touches[0].pageY - started.pageY) > 100
@@ -32,6 +34,8 @@ window.toggleServerList = (open) ->
 window.refreshServerList = ->
 	serverList = document.querySelector("#serverList")
 	serverList?.remove()
+	overlay = document.querySelector(".server-list-overlay")
+	overlay?.remove()
 
 	serverList = """
 		<div id="serverList">
@@ -43,6 +47,7 @@ window.refreshServerList = ->
 		</div>
 	"""
 
+	document.body.appendChild $('<div class="server-list-overlay"></div>')[0]
 	document.body.appendChild $(serverList)[0]
 	ul = document.querySelector("#serverList ul")
 
@@ -50,7 +55,11 @@ window.refreshServerList = ->
 		li = """
 			<li class="server">
 				<div data-name="#{server.name}" data-url="#{server.url}" class="name">#{server.name}</div>
-				<div data-name="#{server.name}" data-url="#{server.url}" class="delete-btn">-</div>
+				<div data-name="#{server.name}" data-url="#{server.url}" class="delete-btn">
+					<svg aria-hidden="true" role="img" version="1.1" viewBox="0 0 360 360" style="width: 100%; height: 100%;">
+						<path fill="#C31919" d="M180.224,0C80.689,0,0,80.689,0,180.223c0,99.535,80.689,180.225,180.224,180.225 c99.536,0,180.225-80.689,180.225-180.225C360.449,80.689,279.759,0,180.224,0z M253.953,196.608H106.496V163.84h147.457V196.608z"></path>
+					</svg>
+				</div>
 			</li>
 		"""
 
@@ -59,7 +68,11 @@ window.refreshServerList = ->
 	li = """
 		<li class="addServer">
 			<div class="name"></div>
-			<div class="add-btn">+</div>
+			<div class="add-btn">
+				<svg aria-hidden="true" role="img" version="1.1" viewBox="0 0 360 360" style="width: 100%; height: 100%;">
+					<path fill="#19C319" d="M180.224,0C80.689,0,0,80.689,0,180.223c0,99.535,80.689,180.225,180.224,180.225 c99.536,0,180.225-80.689,180.225-180.225C360.449,80.689,279.759,0,180.224,0z M253.953,196.608h-57.344v57.343h-32.768v-57.343 h-57.345V163.84h57.345v-57.344h32.768v57.344h57.344V196.608z"></path>
+				</svg>
+			</div>
 		</li>
 	"""
 	ul.appendChild $(li)[0]

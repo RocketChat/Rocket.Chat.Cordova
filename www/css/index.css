@@ -126,26 +126,26 @@ body {
     background-color: #f7f7f7;
 }
 
-.loading .view {
-    -webkit-filter: blur(2px);
-}
+// .loading .view {
+//     -webkit-filter: blur(2px);
+// }
 
-.server-list-open .view {
-    -webkit-filter: blur(2px);
-}
+// .server-list-open .view {
+//     -webkit-filter: blur(2px);
+// }
 
 .overlay {
     display: none;
-    background: rgba(0, 0, 0, .4);
     left: 0px;
     right: 0px;
     top: 0px;
     bottom: 0px;
     position: fixed;
     -webkit-transition: all .2s ease-in-out;
+    z-index: 1000;
 }
 
-.server-list-open .overlay {
+.loading .server-list-overlay {
     display: block;
 }
 
