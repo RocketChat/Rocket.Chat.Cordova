@@ -32,50 +32,64 @@ window.toggleServerList = (open) ->
 
 
 window.refreshServerList = ->
-	serverList = document.querySelector("#serverList")
-	serverList?.remove()
-	overlay = document.querySelector(".server-list-overlay")
-	overlay?.remove()
+	navigator.appInfo.getAppInfo (appInfo) ->
+		serverList = document.querySelector("#serverList")
 
-	serverList = """
-		<div id="serverList">
-			<div class="panel">
-				<div class="toggle">#{cordovai18n('Server_List')}</div>
-				<ul>
-				</ul>
+		if not serverList?
+			$(document.body).on 'click', '#serverList .toggle', ->
+				$('#serverList .panels').toggleClass('rotate')
+
+		serverList?.remove()
+		overlay = document.querySelector(".server-list-overlay")
+		overlay?.remove()
+
+		serverList = """
+			<div id="serverList">
+				<div class="panels">
+					<div class="panel">
+						<div class="toggle">#{cordovai18n('Server_List')}</div>
+						<ul>
+						</ul>
+					</div>
+					<div class="panel back">
+						<div class="toggle">#{cordovai18n('Information')}</div>
+						<ul>
+							<li>Version: <span style="float: right;">#{appInfo.version}</span></li>
+							<li>Build: <span style="float: right;">#{appInfo.build}</span></li>
+						</ul>
+					</div>
+				</div>
 			</div>
-		</div>
-	"""
+		"""
 
-	document.body.appendChild $('<div class="server-list-overlay"></div>')[0]
-	document.body.appendChild $(serverList)[0]
-	ul = document.querySelector("#serverList ul")
+		document.body.appendChild $('<div class="server-list-overlay"></div>')[0]
+		document.body.appendChild $(serverList)[0]
+		ul = document.querySelector("#serverList ul")
 
-	for server in Servers.getServers()
+		for server in Servers.getServers()
+			li = """
+				<li class="server">
+					<div data-name="#{server.name}" data-url="#{server.url}" class="name">#{server.name}</div>
+					<div data-name="#{server.name}" data-url="#{server.url}" class="delete-btn">
+						<svg aria-hidden="true" role="img" version="1.1" viewBox="0 0 360 360" style="width: 100%; height: 100%;">
+							<path fill="#C31919" d="M180.224,0C80.689,0,0,80.689,0,180.223c0,99.535,80.689,180.225,180.224,180.225 c99.536,0,180.225-80.689,180.225-180.225C360.449,80.689,279.759,0,180.224,0z M253.953,196.608H106.496V163.84h147.457V196.608z"></path>
+						</svg>
+					</div>
+				</li>
+			"""
+			ul.appendChild $(li)[0]
+
 		li = """
-			<li class="server">
-				<div data-name="#{server.name}" data-url="#{server.url}" class="name">#{server.name}</div>
-				<div data-name="#{server.name}" data-url="#{server.url}" class="delete-btn">
+			<li class="addServer">
+				<div class="name"></div>
+				<div class="add-btn">
 					<svg aria-hidden="true" role="img" version="1.1" viewBox="0 0 360 360" style="width: 100%; height: 100%;">
-						<path fill="#C31919" d="M180.224,0C80.689,0,0,80.689,0,180.223c0,99.535,80.689,180.225,180.224,180.225 c99.536,0,180.225-80.689,180.225-180.225C360.449,80.689,279.759,0,180.224,0z M253.953,196.608H106.496V163.84h147.457V196.608z"></path>
+						<path fill="#19C319" d="M180.224,0C80.689,0,0,80.689,0,180.223c0,99.535,80.689,180.225,180.224,180.225 c99.536,0,180.225-80.689,180.225-180.225C360.449,80.689,279.759,0,180.224,0z M253.953,196.608h-57.344v57.343h-32.768v-57.343 h-57.345V163.84h57.345v-57.344h32.768v57.344h57.344V196.608z"></path>
 					</svg>
 				</div>
 			</li>
 		"""
-
 		ul.appendChild $(li)[0]
-
-	li = """
-		<li class="addServer">
-			<div class="name"></div>
-			<div class="add-btn">
-				<svg aria-hidden="true" role="img" version="1.1" viewBox="0 0 360 360" style="width: 100%; height: 100%;">
-					<path fill="#19C319" d="M180.224,0C80.689,0,0,80.689,0,180.223c0,99.535,80.689,180.225,180.224,180.225 c99.536,0,180.225-80.689,180.225-180.225C360.449,80.689,279.759,0,180.224,0z M253.953,196.608h-57.344v57.343h-32.768v-57.343 h-57.345V163.84h57.345v-57.344h32.768v57.344h57.344V196.608z"></path>
-				</svg>
-			</div>
-		</li>
-	"""
-	ul.appendChild $(li)[0]
 
 
 onServerClick = (e) ->
@@ -147,7 +161,7 @@ document.addEventListener "deviceready", ->
 	$(document).on 'click', '#serverList .server .delete-btn', onServerDeleteClick
 	$(document).on 'click', '#serverList .addServer', onAddServerClick
 
-	$(document).on 'click', "#serverList", (e) ->
+	$(document).on 'click', "#serverList:not(.toggle)", (e) ->
 		if $(e.target).is('#serverList')
 			toggleServerList(false)
 

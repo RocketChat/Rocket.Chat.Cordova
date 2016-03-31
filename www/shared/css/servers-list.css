@@ -34,6 +34,7 @@
     flex-direction: column;
     -webkit-transition: all .2s ease-in-out;
     z-index: 1000;
+    perspective: 1000;
 }
 
 #serverList .panel {
@@ -41,7 +42,7 @@
     border-radius: 5px;
     box-shadow: 0px 0px 20px rgba(0,0,0,.3);
     overflow: hidden;
-    width: 80%;
+    width: 100%;
     -webkit-transition: all .2s ease-in-out;
 }
 
@@ -55,6 +56,15 @@
     display: flex;
     border-bottom: 1px solid #ccc;
     padding: 5px 0;
+}
+
+#serverList ul li span {
+    flex-grow: 1;
+    text-align: right;
+}
+
+#serverList ul li:last-child {
+    border: none;
 }
 
 #serverList ul li .name {
@@ -96,4 +106,28 @@
     color: #444;
     text-align: center;
     font-size: 20px;
+}
+
+#serverList .panels {
+    width: 80%;
+    transition: 0.6s;
+    transform-style: preserve-3d;
+}
+
+#serverList .panels.rotate {
+    transform: rotateY(180deg);
+}
+
+#serverList .panel {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform: rotateY(0deg);
+}
+
+#serverList .panel.back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    transform: rotateY(180deg);
 }
