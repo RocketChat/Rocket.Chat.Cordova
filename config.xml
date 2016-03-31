@@ -117,4 +117,5 @@
     <plugin name="cordova-plugin-appinfo" spec="2.0.3" />
     <plugin name="cordova-plugin-actionsheet" spec="~2.2.2" />
     <plugin name="com.verso.cordova.clipboard" spec="https://github.com/VersoSolutions/CordovaClipboard" />
+    <plugin name="cordova-plugin-1password" spec="~0.1.4" />
 </widget>
