@@ -157,3 +157,29 @@ document.addEventListener "deviceready", ->
 			e.preventDefault()
 
 	addSwipeEventToOpenServerList $(document)
+
+	ThreeDeeTouch.onHomeIconPressed = (payload) ->
+		navigator.splashscreen.show()
+
+		Servers.onLoad ->
+			if payload.type is 'new'
+				window.AUTOLOAD = false
+				navigator.splashscreen.hide()
+				return Servers.startLocalServer "index.html?addServer"
+
+			host = payload.type.replace /\/$/, ''
+			if Servers.serverExists(host) isnt true
+				navigator.splashscreen.hide()
+				return
+
+			activeServer = Servers.getActiveServer()
+			if activeServer? and activeServer.url is host and window.Meteor?
+				navigator.splashscreen.hide()
+				return
+
+			window.AUTOLOAD = false
+			navigator.splashscreen.hide()
+			Servers.startServer host, (err, url) ->
+				if err?
+					# TODO err
+					return console.log err

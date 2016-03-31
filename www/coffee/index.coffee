@@ -3,7 +3,23 @@ Bugsnag.metaData =
 	platformVersion: cordova.platformVersion
 	deviceVersion: window.device?.version
 
-AUTOLOAD = true
+window.AUTOLOAD = true
+
+window.updateQuickActions = ->
+	ThreeDeeTouch.isAvailable (avail) ->
+		if avail isnt true
+			return
+
+		actions = []
+
+		for server in Servers.getServers()
+			actions.push
+				type: server.url
+				title: server.name
+				iconType: 'Home'
+
+		ThreeDeeTouch.configureQuickActions(actions)
+
 
 window.registerServer = (serverAddress) ->
 	serverAddress ?= $('#serverAddress').val().trim().toLowerCase()
@@ -42,6 +58,7 @@ window.registerServer = (serverAddress) ->
 				, 1500
 
 			refreshServerList()
+			window.updateQuickActions()
 
 			$('.loading-text').text cordovai18n("Downloading_files")
 			Servers.downloadServer serverAddress, (status) ->
@@ -124,7 +141,7 @@ window.configurePush = ->
 		if Servers.serverExists(host) isnt true
 			return
 
-		AUTOLOAD = false
+		window.AUTOLOAD = false
 
 		if not data.additionalData.ejson?.rid?
 			return
@@ -139,6 +156,7 @@ window.configurePush = ->
 			when 'd'
 				path = 'direct/' + data.additionalData.ejson.sender.username
 
+		navigator.splashscreen.hide()
 		Servers.startServer host, path, (err, url) ->
 			if err?
 				# TODO err
@@ -193,11 +211,16 @@ document.addEventListener "deviceready", ->
 	Servers.onLoad ->
 		configurePush()
 		refreshServerList()
-		navigator.splashscreen.hide()
 		if query.updateServer?
+			navigator.splashscreen.hide()
 			return updateServer(decodeURIComponent(query.updateServer), decodeURIComponent(query.version))
+
+		window.updateQuickActions()
 
 		if not query.addServer?
 			setTimeout ->
-				loadLastActiveServer() if AUTOLOAD is true
-			, 200
+				navigator.splashscreen.hide()
+				loadLastActiveServer() if window.AUTOLOAD is true
+			, 300
+		else
+			navigator.splashscreen.hide()
