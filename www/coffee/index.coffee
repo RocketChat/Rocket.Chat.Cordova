@@ -10,6 +10,8 @@ window.updateQuickActions = ->
 		if avail isnt true
 			return
 
+		ThreeDeeTouch.enableLinkPreview()
+
 		actions = []
 
 		for server in Servers.getServers()
