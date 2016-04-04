@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget android-versionCode="223" id="com.konecty.rocket.chat" ios-CFBundleVersion="1" version="2.2.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget android-versionCode="232" id="com.konecty.rocket.chat" ios-CFBundleVersion="9" version="2.2.4" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Rocket.Chat</name>
     <description>
         Rocket.Chat mobile application
@@ -117,7 +117,7 @@
     <plugin name="cordova-plugin-appinfo" spec="2.0.3" />
     <plugin name="cordova-plugin-actionsheet" spec="~2.2.2" />
     <plugin name="com.verso.cordova.clipboard" spec="https://github.com/VersoSolutions/CordovaClipboard" />
-    <plugin name="cordova-plugin-1password" spec="~0.1.4" />
+    <plugin name="cordova-plugin-1password" spec="0.1.5" />
     <plugin name="cordova-plugin-3dtouch" spec="~1.3.4" />
     <plugin name="cordova-plugin-x-socialsharing" spec="~5.0.11" />
 </widget>
