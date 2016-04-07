@@ -64,6 +64,12 @@ window.registerServer = (serverAddress) ->
 
 			$('.loading-text').text cordovai18n("Downloading_files")
 			Servers.downloadServer serverAddress, (status) ->
+				if status.err?
+					Servers.deleteServer(serverAddress)
+					$(document.body).removeClass 'loading'
+					alert cordovai18n("Error_downloading_files_please_try_again_later")
+					return
+
 				if status.done is true
 					$('.loading-text').text cordovai18n("Loading_s", name)
 					Servers.save ->
@@ -88,6 +94,13 @@ updateServer = (url, version) ->
 
 	name = server.name
 	Servers.updateServer url, (status) ->
+		if status.err?
+			alert cordovai18n("Error_downloading_files_please_try_again_later")
+			$('.loading-text').text cordovai18n("Loading_s", server.name)
+			Servers.startServer url, ->
+				#
+			return
+
 		if status.done is true
 			$('.loading-text').text cordovai18n("Loading_s", server.name)
 			Servers.save()
