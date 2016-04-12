@@ -199,10 +199,15 @@ window.Servers = new class
 				return cb err
 
 			if servers[url].info.version isnt info.version
+				oldInfo = servers[url].oldInfo
 				servers[url].oldInfo = servers[url].info
 				servers[url].info = info
 
-				@downloadServer url, cb
+				@downloadServer url, (status) ->
+					if status?.err?
+						servers[url].info = servers[url].oldInfo
+						servers[url].oldInfo = oldInfo
+					cb(status)
 
 
 	getFileTransfer: ->
@@ -219,6 +224,16 @@ window.Servers = new class
 
 
 	downloadServer: (url, downloadServerCb) ->
+		copyDownloadedFiles = (copyDownloadedFilesCb) =>
+			items = servers[url].info.manifest.filter (item) ->
+				return item.copied is false
+
+			copy = (item, cb) =>
+				copyFile 'file://'+item.copyFrom, item.copyTo, cb
+
+			async.each items, copy, (err) ->
+				copyDownloadedFilesCb()
+
 		initDownloadServer = =>
 			i = 0
 			items = servers[url].info.manifest.filter (item) ->
@@ -233,11 +248,20 @@ window.Servers = new class
 
 				@downloadFile url, item.url.replace(/\?.+$/, ''), (err, data) ->
 					item.downloaded = err is undefined
+					if data?
+						item.copied = false
+						item.copyFrom = data.from
+						item.copyTo = data.to
+
 					downloadServerCb?({done: false, count: ++i, total: items.length})
 					cb(err, data)
 
-			async.eachLimit items, 5, download, ->
-				downloadServerCb?({done: true})
+			async.eachLimit items, 5, download, (err) ->
+				if err?
+					downloadServerCb?({err: err})
+				else
+					copyDownloadedFiles =>
+						downloadServerCb?({done: true, count: items.length, total: items.length})
 
 
 		filesToCopy = 0
@@ -314,14 +338,18 @@ window.Servers = new class
 			attempts++
 
 			url = encodeURI "#{baseUrl}/__cordova#{path}?#{@random()}"
-			pathToSave = @uriToPath(cordova.file.dataDirectory) + @baseUrlToDir(baseUrl) + '/' + encodeURI(path)
+			pathToSave = @uriToPath(cordova.file.dataDirectory) + @baseUrlToDir(baseUrl) + '_temp' + encodeURI(path)
+			pathToSaveFinal = @uriToPath(cordova.file.dataDirectory) + @baseUrlToDir(baseUrl) + encodeURI(path)
 
 			# console.log "start downloading", url, ', saving at', pathToSave
 
 			downloadSuccess = (entry) =>
 				if entry?
 					console.log("done downloading " + path)
-					cb null, entry
+					cb null, {
+						from: pathToSave
+						to: @baseUrlToDir(baseUrl) + encodeURI(path)
+					}
 
 			downloadError = (err) =>
 				if attempts < 5
@@ -329,7 +357,7 @@ window.Servers = new class
 					return tryDownload()
 
 				console.log('downloadFile err', err)
-				cb null, err
+				cb err, null
 
 			ft.download url, pathToSave, downloadSuccess, downloadError, true
 
