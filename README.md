@@ -22,7 +22,7 @@ echo 'window.ANDROID_SENDER_ID = "YOUR-ANDROID-ID-HERE";' > www/shared/js/androi
 ```
 
 
-#### Prepare - Install plataforms and plugins
+#### Prepare - Install platforms and plugins
 ```shell
 cordova prepare
 ```
@@ -53,4 +53,4 @@ Running: `npm install ticons underscore` may be necessary.
 ## I can't connect to my server instance
 If you are running your server using the command `meteor` you should define the URL where the mobile application will try to connect `meteor --mobile-server http://192.168.1.10:3000`, replace **http://192.168.1.10:3000** by your IP or domain.
 
-This is necessary becouse the mobile application download all files to run locally and then start the connection with your server, as you are running as develop mode this is necessary.
+This is necessary because the mobile application download all files to run locally and then start the connection with your server, as you are running as develop mode this is necessary.
