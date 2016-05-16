@@ -103,7 +103,7 @@
     <plugin name="cordova-plugin-legacy-whitelist" spec="1.1.1" />
     <plugin name="cordova-plugin-console" spec="1.0.2" />
     <plugin name="cordova-plugin-splashscreen" spec="3.2.1" />
-    <plugin name="ionic-plugin-keyboard" spec="2.0.1" />
+    <plugin name="ionic-plugin-keyboard" spec="2.2.0" />
     <plugin name="cordova-plugin-statusbar" spec="2.1.2" />
     <plugin name="cordova-plugin-facebook4" spec="1.7.0">
         <variable name="APP_ID" value="835103589938459" />
