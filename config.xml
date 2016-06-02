@@ -92,6 +92,7 @@
     <preference name="deployment-target" value="8.0" />
     <preference name="AndroidLaunchMode" value="singleTask" />
     <preference name="Orientation" value="all" />
+    <preference name="AppendUserAgent" value="git/" /><!-- 'git' is a whitelisted user agent for Sandstorm -->
     <hook src="hooks/beforePrepare.js" type="before_prepare" />
     <engine name="ios" spec="4.1.0" />
     <engine name="android" spec="5.1.1" />
