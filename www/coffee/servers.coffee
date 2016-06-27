@@ -337,14 +337,14 @@ window.Servers = new class
 
 			if urlObj.auth
 				schemalessUrl = baseUrl.replace('http://', '').replace('https://', '')
-				file = file.replace(/(__meteor_runtime_config__ = JSON.+$)/gm, """
-					$1
+				file = file.replace(/(^\s*__meteor_runtime_config__ = JSON.+$)/gm, """
+					/* sandstorm workaround */ $1
 				__meteor_runtime_config__.ROOT_URL = '#{baseUrl}';
 				__meteor_runtime_config__.DDP_DEFAULT_CONNECTION_URL = '#{baseUrl}';
 				__meteor_runtime_config__.SANDSTORM_API_TOKEN = '#{urlObj.auth}';
 				__meteor_runtime_config__.SANDSTORM_API_HOST = '#{baseUrl}';
 
-				window._OriginalWebSocket = window.WebSocket;
+				window._OriginalWebSocket = window._OriginalWebSocket || window.WebSocket;
 				window.WebSocket = function SandstormWebSocket (url, protocols) {
 					url = url.replace('#{schemalessUrl}',
 					"#{schemalessUrl}/.sandstorm-token/#{urlObj.auth}");
