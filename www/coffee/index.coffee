@@ -24,7 +24,14 @@ window.updateQuickActions = ->
 
 
 window.registerServer = (serverAddress) ->
-	serverAddress ?= $('#serverAddress').val().trim().toLowerCase()
+	serverAddress ?= $('#serverAddress').val().trim()
+
+	# handle Sandstorm webkeys
+	hashIndex = serverAddress.lastIndexOf '#'
+	if hashIndex != -1
+		baseUrl = serverAddress.slice 0, hashIndex
+		auth = serverAddress.slice hashIndex + 1
+		serverAddress = baseUrl.replace("http://", "http://sandstorm:#{auth}@").replace("https://", "https://sandstorm:#{auth}@")
 
 	if serverAddress.length is 0
 		serverAddress = 'https://demo.rocket.chat'
