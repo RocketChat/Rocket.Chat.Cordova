@@ -57,10 +57,10 @@ This is necessary because the mobile application download all files to run local
 
 
 ## Assets
-- `1024x1024` **icon-android.png** (can use transparent background)
-- `1024x1024` **icon-ios.png**
-- `2208x2208` **splash-android.png**
-- `2208x2208` **splash-ipad.png**
-- `2208x2208` **splash-iphone.png**
+- `1024 x 1024` **icon-android.png** (can use transparent background)
+- `1024 x 1024` **icon-ios.png**
+- `2208 x 2208` **splash-android.png**
+- `2208 x 2208` **splash-ipad.png**
+- `2208 x 2208` **splash-iphone.png**
 
 Examples https://github.com/RocketChat/Rocket.Chat.Cordova/tree/develop/assets
