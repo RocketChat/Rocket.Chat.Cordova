@@ -54,3 +54,13 @@ Running: `npm install ticons underscore` may be necessary.
 If you are running your server using the command `meteor` you should define the URL where the mobile application will try to connect `meteor --mobile-server http://192.168.1.10:3000`, replace **http://192.168.1.10:3000** by your IP or domain.
 
 This is necessary because the mobile application download all files to run locally and then start the connection with your server, as you are running as develop mode this is necessary.
+
+
+## Assets
+- `1024x1024` **icon-android.png** (can use transparent background)
+- `1024x1024` **icon-ios.png**
+- `2208x2208` **splash-android.png**
+- `2208x2208` **splash-ipad.png**
+- `2208x2208` **splash-iphone.png**
+
+Examples https://github.com/RocketChat/Rocket.Chat.Cordova/tree/develop/assets
