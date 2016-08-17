@@ -12,10 +12,11 @@ perl -pe 's/(android-versionCode=)\"(\d+)\"/ q{android-versionCode="} . (1 + $2)
 perl -pe 's/(ios-CFBundleVersion=)\"(\d+)\"/ q{ios-CFBundleVersion="} . (1 + $2) . q{"} /ge' -i config.xml
 
 node hooks/downloadCache.js
-cordova build ios
-cordova build android
-cordova compile ios --release --device
-cordova compile android --release --device
 
-open -R platforms/ios/build/device/*.ipa
+cordova build android
+cordova compile android --release --device
 open -R platforms/android/build/outputs/apk/android-armv7-release.apk
+
+cordova build ios
+cordova compile ios --release --device
+open -R platforms/ios/build/device/*.ipa
