@@ -332,6 +332,15 @@ window.Servers = new class
 	fixIndexFile: (indexDir, baseUrl, cb) ->
 		urlObj = @validateUrl baseUrl
 		readFile indexDir, "index.html", (err, file) =>
+			if err?
+				Bugsnag.notify "readIndexFileError", "Error fixing index file, index file read error",
+					err: err
+				return cb err
+
+			if not file?
+				Bugsnag.notify "readIndexFileNotFound", "Error fixing index file, index file not found"
+				cb 'index.html not found'
+
 			file = file.replace(/<script text="text\/javascript" src="\/shared\/.+\n/gm, '')
 			file = file.replace(/<link rel="stylesheet" href="\/shared\/.+\n/gm, '')
 
@@ -500,7 +509,9 @@ window.Servers = new class
 			cb? error
 			console.log 'failed to start server:', error
 
-		@fixIndexFile cordova.file.dataDirectory + @baseUrlToDir(baseUrl), baseUrl, ->
+		@fixIndexFile cordova.file.dataDirectory + @baseUrlToDir(baseUrl), baseUrl, (error) ->
+			if error?
+				cb? error
 			httpd.startServer options, success, failure
 
 
