@@ -68,6 +68,17 @@
 
         <script type="text/javascript">
             FastClick.attach(document.body);
+            function handleOpenURL(url) {
+              if (url.indexOf('clientapp-rocketchat:') !== 0) {
+                return;
+              }
+              window.AUTOLOAD = false;
+              url = url.replace("%23", "#"); // iOS escapes the # character. Unescape it.
+              url = url.slice('clientapp-rocketchat:'.length);
+              Servers.onLoad(function () {
+                registerServer(url);
+              });
+            }
         </script>
     </body>
 </html>

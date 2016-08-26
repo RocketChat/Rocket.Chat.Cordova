@@ -138,4 +138,7 @@
         <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.673693445664-pa3k48sg81r89rn65e9rlnu4gpmm5vem" />
     </plugin>
     <plugin name="cordova-custom-config" spec="~2.0.3" />
+    <plugin name="cordova-plugin-customurlscheme" spec="~4.2.0">
+      <variable name="URL_SCHEME" value="clientapp-rocketchat" />
+    </plugin>
 </widget>
