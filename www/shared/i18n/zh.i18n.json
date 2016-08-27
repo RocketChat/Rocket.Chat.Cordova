@@ -3,8 +3,8 @@
   "Connect": "连接",
   "Delete": "删除",
   "Delete_server_s_question": "删除服务地址 %s?",
-  "Downloading_files": "正在下载文件...",
-  "Downloading_files_s_s": "正在下载文件...<br/>( %s / %s )",
+  "Downloading_files": "正在下载文件",
+  "Downloading_files_s_s": "正在下载文件<br/>%s / %s",
   "Error_downloading_files_please_try_again_later": "文件下载失败,请稍后重试",
   "Failed_to_connect_to_server_s_s": "无法连接: %s. %s",
   "Failed_to_register_the_server_s_s": "无法注册服务地址 %s: $s",
@@ -26,8 +26,8 @@
   "The_URL_configured_in_your_server_s_is_not_the_same_that_you_are_using_here": "URL中配置您的服务器( %s )和你用的不是一样。",
   "There_is_a_new_version_available_do_you_want_to_update_now_question": "有新版本可用,你现在想要更新吗?",
   "Update": "更新",
-  "Updating_files": "更新文件...",
-  "Updating_files_s_s": "更新文件...<br/>( %s / %s )",
-  "Validating_server": "验证服务器...",
+  "Updating_files": "更新文件",
+  "Updating_files_s_s": "更新文件<br/>%s / %s",
+  "Validating_server": "验证服务器",
   "Warning": "警告"
 }

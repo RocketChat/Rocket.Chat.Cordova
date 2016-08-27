@@ -145,8 +145,12 @@ body {
     z-index: 1000;
 }
 
-.loading .server-list-overlay {
-    display: block;
+// .loading .server-list-overlay {
+//     display: block;
+// }
+
+.loading #startView {
+    display: none;
 }
 
 .loading .overlay {
@@ -158,6 +162,9 @@ body {
     flex-direction: column;
     justify-content: center;
     height: 100%;
+    text-align: center;
+    font-size: 30px;
+    color: #888;
 }
 
 .loading .loading-box {
@@ -165,62 +172,25 @@ body {
 }
 
 .loading-text {
-    color: #fff;
     text-transform: uppercase;
     text-align: center;
     font-weight: bold;
-    margin-bottom: 70px;
+    font-size: 14px;
+    font-size: 12px;
+    margin-top: 10px;
 }
 
-.spinner {
-    margin: 10px auto;
-    width: 50px;
-    height: 40px;
-    text-align: center;
-    font-size: 10px;
+.progress-bar {
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    margin: 0 50px;
+    overflow: hidden;
+    display: none;
 }
 
-.spinner > div {
-    background-color: #fff;
-    height: 100%;
-    width: 6px;
-    display: inline-block;
-
-    -webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
-    animation: sk-stretchdelay 1.2s infinite ease-in-out;
-}
-
-.spinner .rect2 {
-    -webkit-animation-delay: -1.1s;
-    animation-delay: -1.1s;
-}
-
-.spinner .rect3 {
-    -webkit-animation-delay: -1.0s;
-    animation-delay: -1.0s;
-}
-
-.spinner .rect4 {
-    -webkit-animation-delay: -0.9s;
-    animation-delay: -0.9s;
-}
-
-.spinner .rect5 {
-    -webkit-animation-delay: -0.8s;
-    animation-delay: -0.8s;
-}
-
-@-webkit-keyframes sk-stretchdelay {
-    0%, 40%, 100% { -webkit-transform: scaleY(0.4) }
-    20% { -webkit-transform: scaleY(1.0) }
-}
-
-@keyframes sk-stretchdelay {
-    0%, 40%, 100% {
-        transform: scaleY(0.4);
-        -webkit-transform: scaleY(0.4);
-    }  20% {
-        transform: scaleY(1.0);
-        -webkit-transform: scaleY(1.0);
-    }
+.progress-bar-fill {
+    height: 4px;
+    background-color: #aaa;
+    width: 0%;
+    transition: width .2s;
 }

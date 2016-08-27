@@ -3,8 +3,8 @@
   "Connect": "Connect",
   "Delete": "Delete",
   "Delete_server_s_question": "Delete server %s?",
-  "Downloading_files": "Downloading files...",
-  "Downloading_files_s_s": "Downloading files...<br/>( %s / %s )",
+  "Downloading_files": "Downloading files",
+  "Downloading_files_s_s": "Downloading files<br/>%s / %s",
   "Error_downloading_files_please_try_again_later": "Error downloading files, please try again later",
   "Failed_to_connect_to_server_s_s": "Failed to connect to server: %s. %s",
   "Failed_to_register_the_server_s_s": "Failed to register the server %s: $s",
@@ -26,8 +26,8 @@
   "The_URL_configured_in_your_server_s_is_not_the_same_that_you_are_using_here": "The URL configured in your server (%s) is not the same that you are using here",
   "There_is_a_new_version_available_do_you_want_to_update_now_question": "There is a new version available, do you want to update now?",
   "Update": "Update",
-  "Updating_files": "Updating files...",
-  "Updating_files_s_s": "Updating files...<br/>( %s / %s )",
-  "Validating_server": "Validating server...",
+  "Updating_files": "Updating files",
+  "Updating_files_s_s": "Updating files<br/>%s / %s",
+  "Validating_server": "Validating server",
   "Warning": "Warning"
 }
