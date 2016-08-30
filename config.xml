@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget android-versionCode="242" id="com.konecty.rocket.chat" ios-CFBundleVersion="10" version="2.4.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget android-versionCode="242" id="com.konecty.rocket.chat" ios-CFBundleVersion="10" version="2.4.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
     <name>Rocket.Chat</name>
     <description>
         Rocket.Chat mobile application
@@ -45,6 +45,7 @@
         <splash density="land-xhdpi" height="640" src="resources/splash/Resources/android/images/res-long-land-xhdpi/default.png" width="960" />
         <splash density="land-xxhdpi" height="960" src="resources/splash/Resources/android/images/res-long-land-xxhdpi/default.png" width="1600" />
         <splash density="land-xxxhdpi" height="1280" src="resources/splash/Resources/android/images/res-long-land-xxxhdpi/default.png" width="1920" />
+        <preference name="Orientation" value="default" />
         <config-file parent="/*" target="AndroidManifest.xml">
             <uses-permission android:name="android.permission.RECORD_AUDIO" />
             <uses-permission android:name="android.permission.RECORD_VIDEO" />
@@ -81,6 +82,33 @@
         <splash height="2048" src="resources/splash/Resources/iphone/Default-Portrait@2x.png" width="1536" />
         <splash height="768" src="resources/splash/Resources/iphone/Default-Landscape.png" width="1024" />
         <splash height="1536" src="resources/splash/Resources/iphone/Default-Landscape@2x.png" width="2048" />
+        <preference name="Orientation" value="all" />
+        <config-file parent="ITSAppUsesNonExemptEncryption" platform="ios" target="*-Info.plist">
+            <false />
+        </config-file>
+        <config-file parent="LSApplicationQueriesSchemes" platform="ios" target="*-Info.plist">
+            <array>
+                <string>fbauth</string>
+            </array>
+        </config-file>
+        <config-file parent="NSAppTransportSecurity" platform="ios" target="*-Info.plist">
+            <dict>
+                <key>NSAllowsArbitraryLoads</key>
+                <true />
+            </dict>
+        </config-file>
+        <config-file parent="UIApplicationShortcutItems" platform="ios" target="*-Info.plist">
+            <array>
+                <dict>
+                    <key>UIApplicationShortcutItemIconType</key>
+                    <string>UIApplicationShortcutIconTypeAdd</string>
+                    <key>UIApplicationShortcutItemTitle</key>
+                    <string>Add new server</string>
+                    <key>UIApplicationShortcutItemType</key>
+                    <string>new</string>
+                </dict>
+            </array>
+        </config-file>
     </platform>
     <preference name="xwalkVersion" value="15+" />
     <preference name="xwalkCommandLine" value="--disable-pull-to-refresh-effect" />
@@ -96,12 +124,12 @@
     <preference name="StatusBarBackgroundColor" value="#000000" />
     <preference name="deployment-target" value="8.0" />
     <preference name="AndroidLaunchMode" value="singleTask" />
-    <preference name="Orientation" value="all" />
     <hook src="hooks/beforePrepare.js" type="before_prepare" />
     <engine name="ios" spec="4.1.0" />
     <engine name="android" spec="5.1.1" />
     <plugin name="com.meteor.cordova-update" spec="https://github.com/RocketChat/com.meteor.cordova-update" />
     <plugin name="com.verso.cordova.clipboard" spec="https://github.com/VersoSolutions/CordovaClipboard" />
+    <plugin name="cordova-sharingreceptor" spec="https://github.com/burstaholic/cordova-sharingreceptor" />
     <plugin name="cordova-plugin-1password" spec="0.1.5" />
     <plugin name="cordova-plugin-3dtouch" spec="~1.3.4" />
     <plugin name="cordova-plugin-actionsheet" spec="~2.2.2" />
@@ -118,8 +146,6 @@
     <plugin name="cordova-plugin-legacy-whitelist" spec="1.1.1" />
     <plugin name="cordova-plugin-media" spec="~2.3.0" />
     <plugin name="cordova-plugin-media-capture" spec="~1.3.0" />
-    <plugin name="cordova-plugin-rocket-chat" spec="https://github.com/RocketChat/cordova-plugin-rocket-chat" />
-    <plugin name="cordova-plugin-sharingreceptor" spec="https://github.com/burstaholic/cordova-sharingreceptor.git" />
     <plugin name="cordova-plugin-splashscreen" spec="3.2.1" />
     <plugin name="cordova-plugin-statusbar" spec="2.1.2" />
     <plugin name="cordova-plugin-x-socialsharing" spec="~5.0.11" />
