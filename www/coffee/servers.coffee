@@ -363,6 +363,17 @@ window.Servers = new class
 						return new _OriginalWebSocket(url);
 					}
 				};
+
+				XMLHttpRequest._originalOpen = XMLHttpRequest._originalOpen || XMLHttpRequest.prototype.open;
+				XMLHttpRequest.prototype.open = function () {
+				  var res = XMLHttpRequest._originalOpen.apply(this, arguments);
+					if (arguments[1].indexOf("#{baseUrl}") === 0 && arguments[1].indexOf("#{baseUrl}/.sandstorm-login") !== 0) {
+						// Only send sandstorm auth for urls in the base url.
+						// Confusingly, /.sandstorm-login already sets the auth header, so skip that route.
+						this.setRequestHeader("Authorization", "Bearer #{urlObj.auth}");
+					}
+					return res;
+				}
 				""")
 			file = file.replace /(<\/head>)/gm, """
 				<link rel="stylesheet" href="/shared/css/servers-list.css"/>
