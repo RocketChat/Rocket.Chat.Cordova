@@ -125,8 +125,8 @@
     <preference name="deployment-target" value="9.0" />
     <preference name="AndroidLaunchMode" value="singleTask" />
     <hook src="hooks/beforePrepare.js" type="before_prepare" />
-    <engine name="ios" spec="4.1.0" />
     <engine name="android" spec="5.1.1" />
+    <engine name="ios" spec="4.3.1" />
     <plugin name="com.meteor.cordova-update" spec="https://github.com/RocketChat/com.meteor.cordova-update" />
     <plugin name="com.verso.cordova.clipboard" spec="https://github.com/VersoSolutions/CordovaClipboard" />
     <plugin name="cordova-sharingreceptor" spec="https://github.com/burstaholic/cordova-sharingreceptor" />
