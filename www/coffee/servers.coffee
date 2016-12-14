@@ -325,9 +325,8 @@ window.Servers = new class
 						if filesToCopy is copiedFiles
 							initDownloadServer()
 
-		else
+		if filesToCopy is 0
 			initDownloadServer()
-
 
 	fixIndexFile: (indexDir, baseUrl, cb) ->
 		urlObj = @validateUrl baseUrl
