@@ -8,6 +8,7 @@ This application only connects with servers that were compiled with mobile platf
 #### Requirements
  * npm
  * nodejs 0.12
+ * ImageMagick (with support for legacy utilities)
 
 #### Install dependencies
 ```shell
