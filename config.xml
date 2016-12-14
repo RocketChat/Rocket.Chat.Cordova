@@ -122,7 +122,7 @@
     <preference name="FadeSplashScreen" value="false" />
     <preference name="StatusBarStyle" value="blackopaque" />
     <preference name="StatusBarBackgroundColor" value="#000000" />
-    <preference name="deployment-target" value="8.0" />
+    <preference name="deployment-target" value="9.0" />
     <preference name="AndroidLaunchMode" value="singleTask" />
     <hook src="hooks/beforePrepare.js" type="before_prepare" />
     <engine name="ios" spec="4.1.0" />
