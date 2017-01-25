@@ -4,7 +4,7 @@
     <description>
         Rocket.Chat mobile application
     </description>
-    <author email="support@rocket.chat" href="http://rocket.chat">
+    <author email="support@rocket.chat" href="https://rocket.chat">
         Rocket.Chat
     </author>
     <content src="index.html" />
