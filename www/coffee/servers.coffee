@@ -325,7 +325,9 @@ window.Servers = new class
 						if filesToCopy is copiedFiles
 							initDownloadServer()
 
-		if filesToCopy is 0
+			if filesToCopy is 0
+				initDownloadServer()
+		else
 			initDownloadServer()
 
 	fixIndexFile: (indexDir, baseUrl, cb) ->
