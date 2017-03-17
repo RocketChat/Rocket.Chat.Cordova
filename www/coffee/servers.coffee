@@ -214,7 +214,7 @@ window.Servers = new class
 
 		@getManifest url, (err, info) =>
 			if err
-				return cb err
+				return cb {err:err}
 
 			if servers[url].info.version isnt info.version
 				oldInfo = servers[url].oldInfo
