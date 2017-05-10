@@ -214,7 +214,7 @@ window.Servers = new class
 
 		@getManifest url, (err, info) =>
 			if err
-				return cb err
+				return cb {err:err}
 
 			if servers[url].info.version isnt info.version
 				oldInfo = servers[url].oldInfo
@@ -226,7 +226,8 @@ window.Servers = new class
 						servers[url].info = servers[url].oldInfo
 						servers[url].oldInfo = oldInfo
 					cb(status)
-
+			else 
+				return cb {done: true}
 
 	getFileTransfer: ->
 		@fileTransfer ?= new FileTransfer()
@@ -325,7 +326,9 @@ window.Servers = new class
 						if filesToCopy is copiedFiles
 							initDownloadServer()
 
-		if filesToCopy is 0
+			if filesToCopy is 0
+				initDownloadServer()
+		else
 			initDownloadServer()
 
 	fixIndexFile: (indexDir, baseUrl, cb) ->
