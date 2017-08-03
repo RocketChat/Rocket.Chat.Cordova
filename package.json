@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "async": "^1.5.2",
+    "cordova-custom-config": "^4.0.2",
     "glob": "^5.0.14",
     "nopt": "^3.0.4",
     "q": "^1.4.1",
