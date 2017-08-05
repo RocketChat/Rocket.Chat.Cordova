@@ -15,6 +15,8 @@ node hooks/downloadCache.js
 
 cordova build android
 cordova compile android --release --device
+$ANDROID_HOME/build-tools/26.0.1/apksigner sign --ks RocketChat.keystore platforms/android/build/outputs/apk/android-armv7-release.apk
+$ANDROID_HOME/build-tools/26.0.1/apksigner sign --ks RocketChat.keystore platforms/android/build/outputs/apk/android-x86-release.apk
 open -R platforms/android/build/outputs/apk/android-armv7-release.apk
 
 cordova build ios

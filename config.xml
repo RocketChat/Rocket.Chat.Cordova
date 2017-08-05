@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget android-versionCode="243" id="com.konecty.rocket.chat" ios-CFBundleVersion="13" version="2.5.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+<widget android-versionCode="261" id="com.konecty.rocket.chat" ios-CFBundleVersion="21" version="2.6.0" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Rocket.Chat</name>
     <description>
         Rocket.Chat mobile application
@@ -134,7 +134,10 @@
     <plugin name="cordova-plugin-3dtouch" spec="~1.3.5" />
     <plugin name="cordova-plugin-actionsheet" spec="~2.3.1" />
     <plugin name="cordova-plugin-appinfo" spec="2.1.0" />
-    <plugin name="cordova-plugin-camera" spec="~2.3.1" />
+    <plugin name="cordova-plugin-camera" spec="~2.3.1">
+        <variable name="CAMERA_USAGE_DESCRIPTION" value="Upload photos directly from the camera" />
+        <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value="Upload photos from library" />
+    </plugin>
     <plugin name="cordova-plugin-console" spec="1.0.5" />
     <plugin name="cordova-plugin-crosswalk-webview" spec="2.1.0" />
     <plugin name="cordova-plugin-device" spec="1.1.4" />
@@ -165,6 +168,6 @@
     </plugin>
     <plugin name="cordova-custom-config" spec="~3.1.2" />
     <plugin name="cordova-plugin-customurlscheme" spec="~4.2.0">
-      <variable name="URL_SCHEME" value="clientapp-rocketchat" />
+        <variable name="URL_SCHEME" value="clientapp-rocketchat" />
     </plugin>
 </widget>
