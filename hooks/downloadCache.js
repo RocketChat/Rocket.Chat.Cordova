@@ -7,7 +7,7 @@ var async = require('async');
 
 execSync("rm -rf www/cache/*");
 
-var server = 'https://chat.rocket.chat';
+var server = 'https://stable.rocket.chat';
 
 request(server+'/__cordova/manifest.json', function (error, response, body) {
 	if (error || response.statusCode !== 200) {
