@@ -1,0 +1,17 @@
+platform :ios do
+  desc "Build App for development"
+  lane :build do |options|
+    xcodebuild(
+      project: "./platforms/ios/Rocket.Chat.xcodeproj",
+      scheme: "Rocket.Chat",
+      configuration: "Debug",
+      clean: options[:clean],
+      build: true,
+      destination: "generic/platform=iOS",
+      build_settings: {
+        "CODE_SIGNING_REQUIRED" => "NO",
+        "CODE_SIGN_IDENTITY" => ""
+      }
+    )
+  end
+end
