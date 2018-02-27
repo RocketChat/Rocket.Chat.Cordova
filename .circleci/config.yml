@@ -5,8 +5,6 @@ jobs:
       xcode: "8.3.3"
     environment:
       BASH_ENV: "~/.nvm/nvm.sh"
-    docker:
-      - image: circleci/node:8
     steps:
       - checkout
       - run:
