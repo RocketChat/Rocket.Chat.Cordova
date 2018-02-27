@@ -3,15 +3,12 @@ jobs:
   build:
     macos:
       xcode: "8.3.3"
-
     environment:
       BASH_ENV: "~/.nvm/nvm.sh"
-  
     docker:
       - image: circleci/node:8
     steps:
       - checkout
-      
       - run:
         name: Install Node 8
         command: |
@@ -20,16 +17,15 @@ jobs:
           # https://github.com/creationix/nvm/issues/1394
           set +e
           nvm install 8
+      - run:
+          name: Update Fastlane
+          command: |
+            brew update
+            brew install ruby
+            sudo gem install fastlane
 
-    - run:
-        name: Update Fastlane
-        command: |
-          brew update
-          brew install ruby
-          sudo gem install fastlane
-
-    - run:
-        name: Install NPM modules
-        command: |
-          rm -rf node_modules
-          npm install
+      - run:
+          name: Install NPM modules
+          command: |
+            rm -rf node_modules
+            npm install
