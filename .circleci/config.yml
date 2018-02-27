@@ -21,21 +21,29 @@ jobs:
             brew update
             brew install ruby
             sudo gem install fastlane
-
       - run:
-          name: Install Cordova
+          name: Install ImageMagick
           command: |
-            sudo npm install -g cordova
+            brew install imagemagick
+      - run:
+          name: Install global dependencies
+          command: |
+            sudo npm install -g cordova coffee-script
       - run:
           name: Install NPM modules
           command: |
             rm -rf node_modules
             npm install
       - run:
+          name: Create configuration files
+          command: |
+            echo 'Bugsnag.apiKey = "YOUR-API-KEY-HERE";' > www/js/bugsnag_apikey.js
+            echo 'window.ANDROID_SENDER_ID = "YOUR-ANDROID-ID-HERE";' > www/shared/js/android_sender_id.js
+      - run:
           name: Cordova build
           command: |
             cordova platform add ios
-            cordova build ios
+            cordova prepare
 
 
       # - run:
