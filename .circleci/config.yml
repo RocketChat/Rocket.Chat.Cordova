@@ -1,8 +1,38 @@
+defaults: &defaults
+  working_directory: ~/repo-cordova
+
 version: 2
 jobs:
-   build:
-     docker:
-       - image: circleci/node:8
-     steps:
-       - checkout
-       - run: echo "hello world 2"
+	build:
+		macos:
+			xcode: "8.3.3"
+
+		environment:
+			BASH_ENV: "~/.nvm/nvm.sh"
+	
+		docker:
+			- image: circleci/node:8
+		steps:
+			- checkout
+			
+			- run:
+				name: Install Node 8
+				command: |
+					curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh | bash
+					source ~/.nvm/nvm.sh
+					# https://github.com/creationix/nvm/issues/1394
+					set +e
+					nvm install 8
+
+		- run:
+				name: Update Fastlane
+				command: |
+					brew update
+					brew install ruby
+					sudo gem install fastlane
+
+		- run:
+				name: Install NPM modules
+				command: |
+					rm -rf node_modules
+					npm install
