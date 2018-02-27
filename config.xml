@@ -125,9 +125,6 @@
     <preference name="deployment-target" value="9.0" />
     <preference name="AndroidLaunchMode" value="singleTask" />
     <hook src="hooks/beforePrepare.js" type="before_prepare" />
-    <engine name="android" spec="5.2.2" />
-    <engine name="ios" spec="4.3.1" />
-    <plugin name="com.meteor.cordova-update" spec="https://github.com/RocketChat/com.meteor.cordova-update" />
     <plugin name="com.verso.cordova.clipboard" spec="https://github.com/danielsogl/cordova-plugin-clipboard" />
     <plugin name="cordova-sharingreceptor" spec="https://github.com/burstaholic/cordova-sharingreceptor" />
     <plugin name="cordova-plugin-1password" spec="0.1.5" />
@@ -170,4 +167,7 @@
     <plugin name="cordova-plugin-customurlscheme" spec="~4.2.0">
         <variable name="URL_SCHEME" value="clientapp-rocketchat" />
     </plugin>
+    <plugin name="com.meteor.cordova-update" spec="https://github.com/RocketChat/com.meteor.cordova-update.git" />
+    <engine name="android" spec="5.2.2" />
+    <engine name="ios" spec="^4.3.1" />
 </widget>
