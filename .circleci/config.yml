@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  ios-build:
     macos:
       xcode: "8.3.3"
     environment:
@@ -44,10 +44,10 @@ jobs:
           command: |
             rm -rf platforms
             rm -rf plugins
-            cordova prepare
-            cordova build ios
+            cordova platform add ios
+            # cordova build ios
             # cordova prepare
-            # fastlane ios build
+            fastlane ios build
 
 
       # - run:
