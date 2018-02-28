@@ -2,7 +2,7 @@ platform :ios do
   desc "Build App for development"
   lane :build do |options|
     xcodebuild(
-      project: "./platforms/ios/Rocket.Chat.xcodeproj",
+      workspace: "./platforms/ios/Rocket.Chat.xcworkspace",
       scheme: "Rocket.Chat",
       configuration: "Debug",
       clean: options[:clean],
