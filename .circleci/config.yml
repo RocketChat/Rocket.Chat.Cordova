@@ -18,12 +18,12 @@ jobs:
             # https://github.com/creationix/nvm/issues/1394
             set +e
             nvm install 8
-      - run:
-          name: Update Fastlane
-          command: |
-            brew update
-            brew install ruby
-            sudo gem install fastlane
+      # - run:
+      #     name: Update Fastlane
+      #     command: |
+      #       brew update
+      #       brew install ruby
+      #       sudo gem install fastlane
       - run:
           name: Install ImageMagick
           command: |
@@ -76,12 +76,12 @@ jobs:
             # https://github.com/creationix/nvm/issues/1394
             set +e
             nvm install 8
-      - run:
-          name: Update Fastlane
-          command: |
-            brew update
-            brew install ruby
-            sudo gem install fastlane
+      # - run:
+      #     name: Update Fastlane
+      #     command: |
+      #       brew update
+      #       brew install ruby
+      #       sudo gem install fastlane
       - run:
           name: Install ImageMagick
           command: |
