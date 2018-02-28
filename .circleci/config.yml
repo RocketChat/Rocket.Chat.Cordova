@@ -67,17 +67,17 @@ jobs:
   android-build:
     <<: *defaults
     docker:
-      - image: circleci/android:api-23-alpha
+      - image: circleci/android:api-26-node8-alpha
     environment:
       BASH_ENV: "~/.nvm/nvm.sh"
     steps:
       - checkout
-      - run:
-          name: Install Node 8
-          command: |
-            curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh | bash
-            source ~/.nvm/nvm.sh
-            nvm install 8
+      # - run:
+      #     name: Install Node 8
+      #     command: |
+      #       curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh | bash
+      #       source ~/.nvm/nvm.sh
+      #       nvm install 8
       # - run:
       #     name: Update Fastlane
       #     command: |
@@ -89,6 +89,10 @@ jobs:
           command: |
             sudo apt-get update
             sudo apt-get install imagemagick
+      - run:
+          name: Install Gradle
+          command: |
+            sudo apt-get gradle
       - run:
           name: Install global dependencies
           command: |
