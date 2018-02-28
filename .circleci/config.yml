@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  ios-build:
+  build:
     macos:
       xcode: "8.3.3"
     environment:
