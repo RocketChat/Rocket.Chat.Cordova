@@ -8,6 +8,7 @@
     "com.meteor.cordova-update": "git+https://github.com/RocketChat/com.meteor.cordova-update.git",
     "com.verso.cordova.clipboard": "https://github.com/danielsogl/cordova-plugin-clipboard",
     "cordova-android": "5.2.2",
+    "cordova-clipboard": "git+https://github.com/ibnclaudius/CordovaClipboard.git",
     "cordova-custom-config": "^3.3.0",
     "cordova-ios": "^4.5.4",
     "cordova-plugin-1password": "^0.1.5",
