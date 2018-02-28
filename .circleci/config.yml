@@ -47,8 +47,8 @@ jobs:
           command: |
             rm -rf platforms
             rm -rf plugins
-            cordova platform add ios
-            # cordova prepare
+            rm -rf resources
+            cordova prepare ios
       - run:
           name: Fastlane build
           command: |
