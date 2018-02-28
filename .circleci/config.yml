@@ -49,16 +49,17 @@ jobs:
             rm -rf plugins
             rm -rf resources
             cordova prepare ios
-      - run:
-          name: Fastlane build
-          command: |
-            export LC_ALL=en_US.UTF-8
-            export LANG=en_US.UTF-8
-            # if [[ $MATCH_KEYCHAIN_NAME ]]; then
-            #   fastlane ios release
-            # else
-            fastlane ios build
-            # fi
+            exit 0
+      # - run:
+      #     name: Fastlane build
+      #     command: |
+      #       export LC_ALL=en_US.UTF-8
+      #       export LANG=en_US.UTF-8
+      #       # if [[ $MATCH_KEYCHAIN_NAME ]]; then
+      #       #   fastlane ios release
+      #       # else
+      #       fastlane ios build
+      #       # fi
 
 workflows:
   version: 2
