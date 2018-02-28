@@ -65,4 +65,4 @@ workflows:
   version: 2
   build:
     jobs:
-      - ios-build:
+      - ios-build
