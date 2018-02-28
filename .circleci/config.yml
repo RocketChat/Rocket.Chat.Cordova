@@ -113,7 +113,7 @@ jobs:
             cordova build android
 
             mkdir -p /tmp/build
-            mv app/build/outputs /tmp/build/
+            mv platforms/android/build/outputs/apk /tmp/build/outputs
 
       - store_artifacts:
           path: /tmp/build/outputs
