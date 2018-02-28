@@ -42,10 +42,12 @@ jobs:
       - run:
           name: Cordova build
           command: |
-            rm -rf platforms/ios
-            cordova platform add ios
+            rm -rf platforms
+            rm -rf plugins
             cordova prepare
-            fastlane ios build
+            cordova build ios
+            # cordova prepare
+            # fastlane ios build
 
 
       # - run:
