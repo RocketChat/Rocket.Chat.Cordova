@@ -47,8 +47,12 @@ jobs:
             cordova platform add ios
             # cordova build ios
             # cordova prepare
+      - run:
+          name: Fastlane
+          command: |
+            export LC_ALL=en_US.UTF-8
+            export LANG=en_US.UTF-8
             fastlane ios build
-
 
       # - run:
       #     name: Fastlane Build
