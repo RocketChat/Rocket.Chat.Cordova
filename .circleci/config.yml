@@ -78,8 +78,6 @@ jobs:
             curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh | bash
             source ~/.nvm/nvm.sh
             nvm install 8
-            sudo apt-get update
-            sudo apt-get install npm
       # - run:
       #     name: Update Fastlane
       #     command: |
@@ -89,11 +87,12 @@ jobs:
       - run:
           name: Install ImageMagick
           command: |
+            sudo apt-get update
             sudo apt-get install imagemagick
       - run:
           name: Install global dependencies
           command: |
-            sudo npm install -g cordova coffee-script
+            npm install -g cordova coffee-script
       - run:
           name: Install NPM modules
           command: |
