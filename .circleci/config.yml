@@ -87,7 +87,6 @@ jobs:
           command: |
             sudo apt-get update
             sudo apt-get install imagemagick
-            brew install imagemagick
       - run:
           name: Install global dependencies
           command: |
