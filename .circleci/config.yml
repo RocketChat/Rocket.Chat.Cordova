@@ -18,11 +18,14 @@ jobs:
             # https://github.com/creationix/nvm/issues/1394
             set +e
             nvm install 8
+      - run:
+          name: Install Ruby
+          command: |
+            brew update
+            brew install ruby
       # - run:
-      #     name: Update Fastlane
+      #     name: Install Fastlane
       #     command: |
-      #       brew update
-      #       brew install ruby
       #       sudo gem install fastlane
       - run:
           name: Install ImageMagick
@@ -60,6 +63,7 @@ jobs:
       #       # else
       #       fastlane ios build
       #       # fi
+  
   android-build:
     <<: *defaults
     docker:
@@ -74,6 +78,8 @@ jobs:
             curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh | bash
             source ~/.nvm/nvm.sh
             nvm install 8
+            sudo apt-get update
+            sudo apt-get install npm
       # - run:
       #     name: Update Fastlane
       #     command: |
@@ -83,7 +89,6 @@ jobs:
       - run:
           name: Install ImageMagick
           command: |
-            sudo apt-get update
             sudo apt-get install imagemagick
       - run:
           name: Install global dependencies
