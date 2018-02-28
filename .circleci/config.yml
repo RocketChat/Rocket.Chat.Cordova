@@ -40,18 +40,18 @@ jobs:
             echo 'Bugsnag.apiKey = "YOUR-API-KEY-HERE";' > www/js/bugsnag_apikey.js
             echo 'window.ANDROID_SENDER_ID = "YOUR-ANDROID-ID-HERE";' > www/shared/js/android_sender_id.js
       - run:
-          name: Cordova build
+          name: Cordova configuration
           command: |
             rm -rf platforms
             rm -rf plugins
             cordova platform add ios
-            # cordova build ios
-            # cordova prepare
+            cordova prepare
       - run:
-          name: Fastlane
+          name: Fastlane build
           command: |
             export LC_ALL=en_US.UTF-8
             export LANG=en_US.UTF-8
+            agvtool new-version -all $CIRCLE_BUILD_NUM
             fastlane ios build
 
       # - run:
