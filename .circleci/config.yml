@@ -49,7 +49,7 @@ jobs:
             rm -rf plugins
             rm -rf resources
             cordova prepare ios
-            exit 0
+            cordova build ios
       # - run:
       #     name: Fastlane build
       #     command: |
