@@ -115,12 +115,12 @@ jobs:
             rm -rf resources
             cordova prepare android
 
-            if [[ $KEYSTORE ]]; then
-              echo $KEYSTORE_BASE64 | base64 --decode > ./$KEYSTORE
-              cordova build android --release -- --keystore=./$KEYSTORE --storePassword=$KEYSTORE_PASSWORD --alias=$KEY_ALIAS --password=$KEY_PASSWORD
-            else
+            # if [[ $KEYSTORE ]]; then
+              # echo $KEYSTORE_BASE64 | base64 --decode > ./$KEYSTORE
+              # cordova build android --release -- --keystore=./$KEYSTORE --storePassword=$KEYSTORE_PASSWORD --alias=$KEY_ALIAS --password=$KEY_PASSWORD
+            # else
               cordova build android
-            fi
+            # fi
 
             mkdir -p /tmp/build
             mv platforms/android/build/outputs/apk /tmp/build/outputs
