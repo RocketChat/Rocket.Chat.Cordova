@@ -89,10 +89,10 @@ jobs:
           command: |
             sudo apt-get update
             sudo apt-get install imagemagick
-      - run:
-          name: Install Gradle
-          command: |
-            sudo apt-get install gradle
+      # - run:
+      #     name: Install Gradle
+      #     command: |
+      #       sudo apt-get install gradle
       - run:
           name: Install global dependencies
           command: |
