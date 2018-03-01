@@ -105,8 +105,8 @@ jobs:
       - run:
           name: Create configuration files
           command: |
-            echo 'Bugsnag.apiKey = "YOUR-API-KEY-HERE";' > www/js/bugsnag_apikey.js
-            echo 'window.ANDROID_SENDER_ID = "YOUR-ANDROID-ID-HERE";' > www/shared/js/android_sender_id.js
+            echo "Bugsnag.apiKey = '$BUGSNAG_API_KEY';" > www/js/bugsnag_apikey.js
+            echo "window.ANDROID_SENDER_ID = '$ANDROID_SENDER_ID';" > www/shared/js/android_sender_id.js
       - run:
           name: Cordova build
           command: |
@@ -114,7 +114,13 @@ jobs:
             rm -rf plugins
             rm -rf resources
             cordova prepare android
-            cordova build android
+
+            if [[ $KEYSTORE ]]; then
+              echo $KEYSTORE_BASE64 | base64 --decode > ./$KEYSTORE
+              cordova build android --release -- --keystore=./$KEYSTORE --storePassword=$KEYSTORE_PASSWORD --alias=$KEY_ALIAS --password=$KEY_PASSWORD
+            else
+              cordova build android
+            fi
 
             mkdir -p /tmp/build
             mv platforms/android/build/outputs/apk /tmp/build/outputs
