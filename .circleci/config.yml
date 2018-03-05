@@ -92,6 +92,7 @@ jobs:
       - run:
           name: Install Gradle
           command: |
+            export TERM=xterm
             wget https://services.gradle.org/distributions/gradle-2.13-all.zip
             sudo mkdir /opt/gradle
             sudo unzip -d /opt/gradle/ gradle-2.13-all.zip
