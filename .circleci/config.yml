@@ -43,8 +43,8 @@ jobs:
       - run:
           name: Create configuration files
           command: |
-            echo 'Bugsnag.apiKey = "YOUR-API-KEY-HERE";' > www/js/bugsnag_apikey.js
-            echo 'window.ANDROID_SENDER_ID = "YOUR-ANDROID-ID-HERE";' > www/shared/js/android_sender_id.js
+            echo "Bugsnag.apiKey = '$BUGSNAG_API_KEY';" > www/js/bugsnag_apikey.js
+            echo "window.ANDROID_SENDER_ID = '$ANDROID_SENDER_ID';" > www/shared/js/android_sender_id.js
       - run:
           name: Cordova configuration
           command: |
@@ -78,12 +78,6 @@ jobs:
             curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh | bash
             source ~/.nvm/nvm.sh
             nvm install 8
-      # - run:
-      #     name: Update Fastlane
-      #     command: |
-      #       brew update
-      #       brew install ruby
-      #       sudo gem install fastlane
       - run:
           name: Install ImageMagick
           command: |
@@ -140,5 +134,5 @@ workflows:
   version: 2
   build:
     jobs:
-      # - ios-build
+      - ios-build
       - android-build
