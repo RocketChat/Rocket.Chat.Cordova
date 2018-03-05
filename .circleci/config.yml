@@ -96,13 +96,11 @@ jobs:
             wget https://services.gradle.org/distributions/gradle-2.13-all.zip
             sudo mkdir /opt/gradle
             sudo unzip -d /opt/gradle/ gradle-2.13-all.zip
-            # export PATH=$PATH:/opt/gradle/gradle-2.13/bin
-            # gradle -v
+            export PATH=$PATH:/opt/gradle/gradle-2.13/bin
             mkdir -p /opt/android/sdk/tools/templates/gradle/wrapper
             cd /opt/android/sdk/tools/templates/gradle/wrapper
-            /opt/gradle/gradle-2.13/bin/gradle wrapper
+            gradle wrapper
             cd ~/repo
-            # sudo apt-get install gradle
       - run:
           name: Install global dependencies
           command: |
@@ -125,12 +123,12 @@ jobs:
             rm -rf resources
             cordova prepare android
 
-            # if [[ $KEYSTORE ]]; then
-              # echo $KEYSTORE_BASE64 | base64 --decode > ./$KEYSTORE
-              # cordova build android --release -- --keystore=./$KEYSTORE --storePassword=$KEYSTORE_PASSWORD --alias=$KEY_ALIAS --password=$KEY_PASSWORD
-            # else
+            if [[ $KEYSTORE ]]; then
+              echo $KEYSTORE_BASE64 | base64 --decode > ./$KEYSTORE
+              cordova build android --release -- --keystore=./$KEYSTORE --storePassword=$KEYSTORE_PASSWORD --alias=$KEY_ALIAS --password=$KEY_PASSWORD
+            else
               cordova build android
-            # fi
+            fi
 
             mkdir -p /tmp/build
             mv platforms/android/build/outputs/apk /tmp/build/outputs
