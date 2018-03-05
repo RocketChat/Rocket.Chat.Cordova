@@ -96,6 +96,11 @@ jobs:
             sudo mkdir /opt/gradle
             sudo unzip -d /opt/gradle/ gradle-2.13-all.zip
             export PATH=$PATH:/opt/gradle/gradle-2.13/bin
+            gradle -v
+            mkdir -p /opt/android/sdk/tools/templates/gradle/wrapper
+            cd /opt/android/sdk/tools/templates/gradle/wrapper
+            gradle wrapper
+            cd ~/repo
             # sudo apt-get install gradle
       - run:
           name: Install global dependencies
