@@ -99,7 +99,7 @@ jobs:
             # gradle -v
             mkdir -p /opt/android/sdk/tools/templates/gradle/wrapper
             cd /opt/android/sdk/tools/templates/gradle/wrapper
-            /opt/gradle/bin/gradle wrapper
+            /opt/gradle/gradle-2.13/bin/gradle wrapper
             cd ~/repo
             # sudo apt-get install gradle
       - run:
