@@ -23,10 +23,10 @@ jobs:
           command: |
             brew update
             brew install ruby
-      # - run:
-      #     name: Install Fastlane
-      #     command: |
-      #       sudo gem install fastlane
+      - run:
+          name: Install Fastlane
+          command: |
+            sudo gem install fastlane
       - run:
           name: Install ImageMagick
           command: |
@@ -52,7 +52,8 @@ jobs:
             rm -rf plugins
             rm -rf resources
             cordova prepare ios
-            cordova build ios
+            fastlane ios release
+            # cordova build ios
       # - run:
       #     name: Fastlane build
       #     command: |
@@ -135,4 +136,12 @@ workflows:
   build:
     jobs:
       - ios-build
+      - ios-testflight:
+          requires:
+            - ios-build
+          filters:
+            branches:
+              only:
+                - develop
+                - master
       - android-build
