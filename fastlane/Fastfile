@@ -10,59 +10,76 @@ platform :ios do
     )
   end
 
-  desc "Build App for development"
+  desc "Build App"
   lane :build do |options|
-    xcodebuild(
-      workspace: "./platforms/ios/Rocket.Chat.xcworkspace",
+    project_path = "./platforms/ios/Rocket.Chat.xcodeproj"
+    workspace_path = "./platforms/ios/Rocket.Chat.xcworkspace"
+    match(
+      type: "appstore",
+      git_url: "git@github.com:RocketChat/Rocket.Chat.Cordova.FastLane.git",
+    )
+    pem()
+    sigh()
+    upgrade_super_old_xcode_project(
+      path: project_path,
+    )
+    disable_automatic_code_signing(path: project_path)
+    update_project_provisioning(
+      xcodeproj: project_path,
+      build_configuration: "Release"
+    )
+    gym(
+      workspace: workspace_path,
       scheme: "Rocket.Chat",
-      configuration: "Debug",
-      clean: options[:clean],
-      build: true,
-      destination: "generic/platform=iOS",
-      build_settings: {
-        "CODE_SIGNING_REQUIRED" => "NO",
-        "CODE_SIGN_IDENTITY" => ""
-      }
+      output_directory: "./platforms/ios/"
     )
   end
 
-  desc "Submit a new Beta Build to Apple TestFlight"
-  desc "This will also make sure the profile is up to date"
-  lane :beta do
-    # match(
-    #   type: "appstore",
-    #   git_url: "git@github.com:RocketChat/Rocket.Chat.ReactNative.FastLane.git"
-    # ) # more information: https://codesigning.guide
-    # pem()
-    match(
-      type: "appstore",
-      git_url: "git@github.com:RocketChat/Rocket.Chat.Cordova.FastLane.git",
-      verbose: true
-    )
-    # cordova(platform: 'ios')
-    pem()
-    gym(
-      workspace: "./platforms/ios/Rocket.Chat.xcworkspace",
-      scheme: "Rocket.Chat"
-    ) # Build your app - more options available
-    pilot
+  # desc "Submit a new Beta Build to Apple TestFlight"
+  # desc "This will also make sure the profile is up to date"
+  # lane :beta do
+  #   match(
+  #     type: "appstore",
+  #     git_url: "git@github.com:RocketChat/Rocket.Chat.Cordova.FastLane.git",
+  #   )
+  #   pem()
+  #   sigh()
+  #   upgrade_super_old_xcode_project(
+  #     path: "./platforms/ios/Rocket.Chat.xcodeproj",
+  #   )
+  #   disable_automatic_code_signing(path: "./platforms/ios/Rocket.Chat.xcodeproj")
+  #   update_project_provisioning(
+  #     xcodeproj: "./platforms/ios/Rocket.Chat.xcodeproj",
+  #     build_configuration: "Release"
+  #   )
+  #   gym(
+  #     workspace: "./platforms/ios/Rocket.Chat.xcworkspace",
+  #     scheme: "Rocket.Chat"
+  #   )
+  #   pilot()
+  # end
 
-    # sh "your_script.sh"
-    # You can also use other beta testing services here (run `fastlane actions`)
-  end
-
-  desc "Build App for release"
-  lane :release do
-    match(
-      type: "appstore",
-      git_url: "git@github.com:RocketChat/Rocket.Chat.Cordova.FastLane.git",
-    ) # more information: https://codesigning.guide
-    pem()
-    gym(
-      workspace: "./platforms/ios/Rocket.Chat.xcworkspace",
-      scheme: "Rocket.Chat"
-    ) # Build your app - more options available
-  end
+  # desc "Build App for release"
+  # lane :release do
+  #   match(
+  #     type: "appstore",
+  #     git_url: "git@github.com:RocketChat/Rocket.Chat.Cordova.FastLane.git",
+  #   )
+  #   pem()
+  #   sigh()
+  #   upgrade_super_old_xcode_project(
+  #     path: "./platforms/ios/Rocket.Chat.xcodeproj",
+  #   )
+  #   disable_automatic_code_signing(path: "./platforms/ios/Rocket.Chat.xcodeproj")
+  #   update_project_provisioning(
+  #     xcodeproj: "./platforms/ios/Rocket.Chat.xcodeproj",
+  #     build_configuration: "Release"
+  #   )
+  #   gym(
+  #     workspace: "./platforms/ios/Rocket.Chat.xcworkspace",
+  #     scheme: "Rocket.Chat"
+  #   )
+  # end
 
   after_all do |lane|
     # This block is called, only if the executed lane was successful
@@ -70,7 +87,7 @@ platform :ios do
     # slack(
     #   message: "Successfully deployed new App Update."
     # )
-    delete_keychain(name: 'name') #ENV["MATCH_KEYCHAIN_NAME"])
+    delete_keychain(name: ENV["MATCH_KEYCHAIN_NAME"])
   end
 
   error do |lane, exception|
@@ -78,7 +95,7 @@ platform :ios do
     #   message: exception.message,
     #   success: false
     # )
-    delete_keychain(name: 'name') #ENV["MATCH_KEYCHAIN_NAME"])
+    delete_keychain(name: ENV["MATCH_KEYCHAIN_NAME"])
   end
 
 end

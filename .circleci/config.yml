@@ -3,68 +3,6 @@ defaults: &defaults
 
 version: 2
 jobs:
-  ios-build:
-    macos:
-      xcode: "8.3.3"
-    environment:
-      BASH_ENV: "~/.nvm/nvm.sh"
-    steps:
-      - checkout
-      - run:
-          name: Install Node 8
-          command: |
-            curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh | bash
-            source ~/.nvm/nvm.sh
-            # https://github.com/creationix/nvm/issues/1394
-            set +e
-            nvm install 8
-      - run:
-          name: Install Ruby
-          command: |
-            brew update
-            brew install ruby
-      - run:
-          name: Install Fastlane
-          command: |
-            sudo gem install fastlane
-      - run:
-          name: Install ImageMagick
-          command: |
-            brew install imagemagick
-      - run:
-          name: Install global dependencies
-          command: |
-            sudo npm install -g cordova coffee-script
-      - run:
-          name: Install NPM modules
-          command: |
-            rm -rf node_modules
-            npm install
-      - run:
-          name: Create configuration files
-          command: |
-            echo "Bugsnag.apiKey = '$BUGSNAG_API_KEY';" > www/js/bugsnag_apikey.js
-            echo "window.ANDROID_SENDER_ID = '$ANDROID_SENDER_ID';" > www/shared/js/android_sender_id.js
-      - run:
-          name: Cordova configuration
-          command: |
-            rm -rf platforms
-            rm -rf plugins
-            rm -rf resources
-            cordova prepare ios
-            fastlane ios release
-            # cordova build ios
-      # - run:
-      #     name: Fastlane build
-      #     command: |
-      #       export LC_ALL=en_US.UTF-8
-      #       export LANG=en_US.UTF-8
-      #       # if [[ $MATCH_KEYCHAIN_NAME ]]; then
-      #       #   fastlane ios release
-      #       # else
-      #       fastlane ios build
-      #       # fi
-  
   android-build:
     <<: *defaults
     docker:
@@ -131,6 +69,88 @@ jobs:
       - store_artifacts:
           path: /tmp/build/outputs
 
+  ios-build:
+    macos:
+      xcode: "9.0"
+    environment:
+      BASH_ENV: "~/.nvm/nvm.sh"
+    steps:
+      - checkout
+      - run:
+          name: Install Node 8
+          command: |
+            curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh | bash
+            source ~/.nvm/nvm.sh
+            # https://github.com/creationix/nvm/issues/1394
+            set +e
+            nvm install 8
+      - run:
+          name: Install Ruby
+          command: |
+            brew update
+            brew install ruby
+      - run:
+          name: Install Fastlane
+          command: |
+            sudo gem install fastlane
+      - run:
+          name: Install ImageMagick
+          command: |
+            brew install imagemagick
+      - run:
+          name: Install global dependencies
+          command: |
+            sudo npm install -g cordova coffee-script
+      - run:
+          name: Install NPM modules
+          command: |
+            rm -rf node_modules
+            npm install
+      - run:
+          name: Create configuration files
+          command: |
+            echo "Bugsnag.apiKey = '$BUGSNAG_API_KEY';" > www/js/bugsnag_apikey.js
+            echo "window.ANDROID_SENDER_ID = '$ANDROID_SENDER_ID';" > www/shared/js/android_sender_id.js
+      - run:
+          name: Cordova configuration
+          command: |
+            rm -rf platforms
+            rm -rf plugins
+            rm -rf resources
+            cordova prepare ios
+            fastlane ios build
+      
+      - store_artifacts:
+          path: ios/RocketChat.ipa
+
+      - persist_to_workspace:
+          root: .
+          paths:
+            - platforms/ios/*.ipa
+            - fastlane/report.xml
+  
+  ios-testflight:
+    macos:
+      xcode: "9.0"
+
+    steps:
+      - checkout
+
+      - attach_workspace:
+          at: ios
+
+      - run:
+          name: Update Fastlane
+          command: |
+            brew update
+            brew install ruby
+            sudo gem install fastlane
+
+      - run:
+          name: Fastlane Tesflight Upload
+          command: |
+            cd ios
+            fastlane pilot upload --ipa platforms/ios/RocketChat.ipa --changelog "$(sh ../.circleci/changelog.sh)"
 workflows:
   version: 2
   build:
@@ -139,9 +159,9 @@ workflows:
       - ios-testflight:
           requires:
             - ios-build
-          filters:
-            branches:
-              only:
-                - develop
-                - master
+          # filters:
+          #   branches:
+          #     only:
+          #       - develop
+          #       - master
       - android-build
