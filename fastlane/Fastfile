@@ -19,7 +19,7 @@ platform :ios do
       git_url: "git@github.com:RocketChat/Rocket.Chat.Cordova.FastLane.git",
     )
     pem()
-    sigh()
+    # sigh()
     upgrade_super_old_xcode_project(
       path: project_path,
     )
