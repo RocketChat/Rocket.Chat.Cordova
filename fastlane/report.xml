@@ -5,37 +5,27 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: match" time="9.808028">
+      <testcase classname="fastlane.lanes" name="0: match" time="13.064394">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: pem" time="2.815063">
+      <testcase classname="fastlane.lanes" name="1: pem" time="3.153143">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: sigh" time="6.479126">
+      <testcase classname="fastlane.lanes" name="2: upgrade_super_old_xcode_project" time="0.177386">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="3: upgrade_super_old_xcode_project" time="0.218373">
+      <testcase classname="fastlane.lanes" name="3: automatic_code_signing" time="0.204715">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="4: automatic_code_signing" time="0.198289">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="5: update_project_provisioning" time="0.189634">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="6: gym" time="49.445794">
+      <testcase classname="fastlane.lanes" name="4: gym" time="57.549166">
         
       </testcase>
     
