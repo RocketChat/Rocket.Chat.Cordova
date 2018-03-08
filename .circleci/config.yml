@@ -85,14 +85,12 @@ jobs:
             set +e
             nvm install 8
       - run:
-          name: Install Ruby
+          name: Update Fastlane
           command: |
             brew update
             brew install ruby
-      - run:
-          name: Install Fastlane
-          command: |
             sudo gem install fastlane
+            bundle install
       - run:
           name: Install ImageMagick
           command: |
@@ -118,7 +116,7 @@ jobs:
             rm -rf plugins
             rm -rf resources
             cordova prepare ios
-            fastlane ios build
+            bundle exec fastlane ios build
       
       - store_artifacts:
           path: ios/RocketChat.ipa
@@ -145,12 +143,13 @@ jobs:
             brew update
             brew install ruby
             sudo gem install fastlane
+            bundle install
 
       - run:
           name: Fastlane Tesflight Upload
           command: |
             cd ios
-            fastlane pilot upload --ipa platforms/ios/RocketChat.ipa --changelog "$(sh ../.circleci/changelog.sh)"
+            bundle exec fastlane pilot upload --ipa platforms/ios/RocketChat.ipa --changelog "$(sh ../.circleci/changelog.sh)"
 workflows:
   version: 2
   build:
