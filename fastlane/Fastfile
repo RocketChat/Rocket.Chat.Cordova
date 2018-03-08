@@ -1,14 +1,14 @@
 platform :ios do
-  # before_all do
-  #   # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
-  #   # cocoapods
-  #   # carthage
-  #   create_keychain(
-  #     name: ENV["MATCH_KEYCHAIN_NAME"],
-  #     password: ENV["MATCH_KEYCHAIN_PASSWORD"],
-  #     timeout: 1200
-  #   )
-  # end
+  before_all do
+    # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
+    # cocoapods
+    # carthage
+    create_keychain(
+      name: ENV["MATCH_KEYCHAIN_NAME"],
+      password: ENV["MATCH_KEYCHAIN_PASSWORD"],
+      timeout: 1200
+    )
+  end
 
   desc "Build App"
   lane :build do |options|
