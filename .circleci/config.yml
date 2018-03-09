@@ -149,7 +149,7 @@ jobs:
           name: Fastlane Tesflight Upload
           command: |
             cd ios
-            bundle exec fastlane pilot upload --ipa platforms/ios/Rocket.Chat.ipa --changelog "$(sh ../.circleci/changelog.sh)"
+            bundle exec fastlane pilot upload --ipa platforms/ios/Rocket.Chat.ipa --changelog "$(sh ../.circleci/changelog.sh)" --username="$PILOT_USERNAME"
 workflows:
   version: 2
   build:
