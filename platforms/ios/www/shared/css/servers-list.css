@@ -1,0 +1,133 @@
+.server-list-open #serverList {
+    top: 0px !important;
+}
+
+.server-list-overlay {
+    background-color: rgba(0,0,0,.5);
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    -webkit-transition: all .2s ease-in-out;
+    z-index: 100;
+    display: none;
+}
+
+.server-list-open .server-list-overlay {
+    display: block;
+}
+
+#serverList {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 120%;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    -webkit-transition: all .2s ease-in-out;
+    z-index: 1000;
+    perspective: 1000;
+}
+
+#serverList .panel {
+    background-color: #f7f7f7;
+    border-radius: 5px;
+    box-shadow: 0px 0px 20px rgba(0,0,0,.3);
+    overflow: hidden;
+    width: 100%;
+    -webkit-transition: all .2s ease-in-out;
+}
+
+#serverList ul {
+    list-style: none;
+    padding: 5px 10px;
+    margin: 0px;
+}
+
+#serverList ul li {
+    display: flex;
+    border-bottom: 1px solid #ccc;
+    padding: 5px 0;
+}
+
+#serverList ul li span {
+    flex-grow: 1;
+    text-align: right;
+}
+
+#serverList ul li:last-child {
+    border: none;
+}
+
+#serverList ul li .name {
+    display: block;
+    text-align: left;
+    line-height: 45px;
+    font-size: 18px;
+    color: #444;
+    cursor: pointer;
+    padding: 0 10px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    flex-grow: 1;
+}
+
+#serverList ul li .delete-btn {
+    display: block;
+    cursor: pointer;
+    min-width: 45px;
+    width: 45px;
+    height: 45px;
+    margin-left: 5px;
+}
+
+#serverList ul li.addServer {
+    border: none;
+}
+
+#serverList ul li.addServer .add-btn {
+    text-align: right;
+    height: 45px;
+    width: 45px;
+    cursor: pointer;
+}
+
+#serverList .toggle {
+    background-color: #ddd;
+    line-height: 44px;
+    color: #444;
+    text-align: center;
+    font-size: 20px;
+}
+
+#serverList .panels {
+    width: 80%;
+    transition: 0.6s;
+    transform-style: preserve-3d;
+}
+
+#serverList .panels.rotate {
+    transform: rotateY(180deg);
+}
+
+#serverList .panel {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform: rotateY(0deg);
+}
+
+#serverList .panel.back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    transform: rotateY(180deg);
+}

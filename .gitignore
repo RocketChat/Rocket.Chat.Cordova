@@ -87,7 +87,7 @@ Android/assets/
 
 www/shared/js_compiled
 www/cache
-platforms
+platforms/android
 resources/icons
 resources/splash
 plugins

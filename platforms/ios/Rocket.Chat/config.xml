@@ -1,0 +1,219 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget android-versionCode="261" id="com.konecty.rocket.chat" ios-CFBundleVersion="22" version="2.6.0" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <feature name="LocalStorage">
+        <param name="ios-package" value="CDVLocalStorage" />
+    </feature>
+    <feature name="HandleOpenUrl">
+        <param name="ios-package" value="CDVHandleOpenURL" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="IntentAndNavigationFilter">
+        <param name="ios-package" value="CDVIntentAndNavigationFilter" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="GestureHandler">
+        <param name="ios-package" value="CDVGestureHandler" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="CordovaUpdate">
+        <param name="ios-package" value="CordovaUpdate" />
+    </feature>
+    <feature name="Clipboard">
+        <param name="ios-package" value="CDVClipboard" />
+    </feature>
+    <feature name="OnePassword">
+        <param name="ios-package" value="OnePassword" />
+    </feature>
+    <feature name="ThreeDeeTouch">
+        <param name="ios-package" value="ThreeDeeTouch" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="ActionSheet">
+        <param name="ios-package" value="ActionSheet" />
+    </feature>
+    <feature name="AppInfo">
+        <param name="ios-package" value="AppInfo" />
+    </feature>
+    <feature name="Camera">
+        <param name="ios-package" value="CDVCamera" />
+    </feature>
+    <feature name="Console">
+        <param name="ios-package" value="CDVLogger" />
+    </feature>
+    <feature name="Device">
+        <param name="ios-package" value="CDVDevice" />
+    </feature>
+    <feature name="Notification">
+        <param name="ios-package" value="CDVNotification" />
+    </feature>
+    <feature name="File">
+        <param name="ios-package" value="CDVFile" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="FileTransfer">
+        <param name="ios-package" value="CDVFileTransfer" />
+    </feature>
+    <feature name="Geolocation">
+        <param name="ios-package" value="CDVLocation" />
+    </feature>
+    <feature name="InAppBrowser">
+        <param name="ios-package" value="CDVInAppBrowser" />
+    </feature>
+    <feature name="Media">
+        <param name="ios-package" value="CDVSound" />
+    </feature>
+    <feature name="Capture">
+        <param name="ios-package" value="CDVCapture" />
+    </feature>
+    <feature name="SplashScreen">
+        <param name="ios-package" value="CDVSplashScreen" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="StatusBar">
+        <param name="ios-package" value="CDVStatusBar" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="SocialSharing">
+        <param name="ios-package" value="SocialSharing" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="Keyboard">
+        <param name="ios-package" onload="true" value="IonicKeyboard" />
+    </feature>
+    <feature name="PushNotification">
+        <param name="ios-package" value="PushPlugin" />
+    </feature>
+    <feature name="FacebookConnectPlugin">
+        <param name="ios-package" value="FacebookConnectPlugin" />
+        <param name="onload" value="true" />
+    </feature>
+    <plugin name="FacebookConnectPlugin" value="FacebookConnectPlugin" />
+    <access origin="https://m.facebook.com" />
+    <access origin="https://graph.facebook.com" />
+    <access origin="https://api.facebook.com" />
+    <access origin="https://*.fbcdn.net" />
+    <access origin="https://*.akamaihd.net" />
+    <feature name="TwitterConnect">
+        <param name="ios-package" value="TwitterConnect" />
+    </feature>
+    <feature name="GooglePlus">
+        <param name="ios-package" value="GooglePlus" />
+        <param name="onload" value="true" />
+    </feature>
+    <access origin="https://accounts.google.com/*" />
+    <name>Rocket.Chat</name>
+    <description>
+        Rocket.Chat mobile application
+    </description>
+    <author email="support@rocket.chat" href="https://rocket.chat">
+        Rocket.Chat
+    </author>
+    <content src="index.html" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="geo:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="market:*" />
+    <access launch-external="true" origin="tel:*" />
+    <access launch-external="true" origin="geo:*" />
+    <access launch-external="true" origin="mailto:*" />
+    <access launch-external="true" origin="sms:*" />
+    <access launch-external="true" origin="market:*" />
+    <access origin="file:*" />
+    <access origin="blob:*" />
+    <access origin="cdv:*" />
+    <access origin="gap:*" />
+    <access origin="*" />
+    <allow-navigation href="http://*/*" />
+    <allow-navigation href="https://*/*" />
+    <allow-navigation href="data:*" />
+    <hook src="hooks/beforePrepare.js" type="before_prepare" />
+    <allow-intent href="itms:*" />
+    <allow-intent href="itms-apps:*" />
+    <icon height="29" src="resources/icons/Resources/iphone/appicon-Small.png" width="29" />
+    <icon height="40" src="resources/icons/Resources/iphone/appicon-Small-40.png" width="40" />
+    <icon height="50" src="resources/icons/Resources/iphone/appicon-Small-50.png" width="50" />
+    <icon height="57" src="resources/icons/Resources/iphone/appicon.png" width="57" />
+    <icon height="58" src="resources/icons/Resources/iphone/appicon-Small@2x.png" width="58" />
+    <icon height="60" src="resources/icons/Resources/iphone/appicon-60.png" width="60" />
+    <icon height="72" src="resources/icons/Resources/iphone/appicon-72.png" width="72" />
+    <icon height="76" src="resources/icons/Resources/iphone/appicon-76.png" width="76" />
+    <icon height="80" src="resources/icons/Resources/iphone/appicon-Small-40@2x.png" width="80" />
+    <icon height="87" src="resources/icons/Resources/iphone/appicon-Small@3x.png" width="87" />
+    <icon height="100" src="resources/icons/Resources/iphone/appicon-Small-50@2x.png" width="100" />
+    <icon height="114" src="resources/icons/Resources/iphone/appicon@2x.png" width="114" />
+    <icon height="120" src="resources/icons/Resources/iphone/appicon-60@2x.png" width="120" />
+    <icon height="144" src="resources/icons/Resources/iphone/appicon-72@2x.png" width="144" />
+    <icon height="152" src="resources/icons/Resources/iphone/appicon-76@2x.png" width="152" />
+    <icon height="167" src="resources/icons/Resources/iphone/appicon-83.5@2x.png" width="167" />
+    <icon height="180" src="resources/icons/Resources/iphone/appicon-60@3x.png" width="180" />
+    <icon height="1024" src="resources/icons/Resources/iphone/icon-1024.png" width="1024" />
+    <splash height="480" src="resources/splash/Resources/iphone/Default.png" width="320" />
+    <splash height="960" src="resources/splash/Resources/iphone/Default@2x.png" width="640" />
+    <splash height="1136" src="resources/splash/Resources/iphone/Default-568h@2x.png" width="640" />
+    <splash height="1334" src="resources/splash/Resources/iphone/Default-667h@2x.png" width="750" />
+    <splash height="2208" src="resources/splash/Resources/iphone/Default-Portrait-736h@3x.png" width="1242" />
+    <splash height="1242" src="resources/splash/Resources/iphone/Default-Landscape-736h@3x.png" width="2208" />
+    <splash height="1024" src="resources/splash/Resources/iphone/Default-Portrait.png" width="768" />
+    <splash height="2048" src="resources/splash/Resources/iphone/Default-Portrait@2x.png" width="1536" />
+    <splash height="768" src="resources/splash/Resources/iphone/Default-Landscape.png" width="1024" />
+    <splash height="1536" src="resources/splash/Resources/iphone/Default-Landscape@2x.png" width="2048" />
+    <config-file parent="ITSAppUsesNonExemptEncryption" platform="ios" target="*-Info.plist">
+        <false />
+    </config-file>
+    <config-file parent="LSApplicationQueriesSchemes" platform="ios" target="*-Info.plist">
+        <array>
+            <string>fbauth</string>
+        </array>
+    </config-file>
+    <config-file parent="NSAppTransportSecurity" platform="ios" target="*-Info.plist">
+        <dict>
+            <key>NSAllowsArbitraryLoads</key>
+            <true />
+        </dict>
+    </config-file>
+    <config-file parent="UIApplicationShortcutItems" platform="ios" target="*-Info.plist">
+        <array>
+            <dict>
+                <key>UIApplicationShortcutItemIconType</key>
+                <string>UIApplicationShortcutIconTypeAdd</string>
+                <key>UIApplicationShortcutItemTitle</key>
+                <string>Add new server</string>
+                <key>UIApplicationShortcutItemType</key>
+                <string>new</string>
+            </dict>
+        </array>
+    </config-file>
+    <preference name="AllowInlineMediaPlayback" value="false" />
+    <preference name="BackupWebStorage" value="cloud" />
+    <preference name="DisallowOverscroll" value="true" />
+    <preference name="EnableViewportScale" value="false" />
+    <preference name="KeyboardDisplayRequiresUserAction" value="true" />
+    <preference name="MediaPlaybackRequiresUserAction" value="false" />
+    <preference name="SuppressesIncrementalRendering" value="false" />
+    <preference name="SuppressesLongPressGesture" value="false" />
+    <preference name="Suppresses3DTouchGesture" value="false" />
+    <preference name="GapBetweenPages" value="0" />
+    <preference name="PageLength" value="0" />
+    <preference name="PaginationBreakingMode" value="page" />
+    <preference name="PaginationMode" value="unpaginated" />
+    <preference name="CameraUsesGeolocation" value="false" />
+    <preference name="StatusBarOverlaysWebView" value="false" />
+    <preference name="StatusBarStyle" value="blackopaque" />
+    <preference name="xwalkVersion" value="23" />
+    <preference name="xwalkCommandLine" value="--disable-pull-to-refresh-effect" />
+    <preference name="xwalkMode" value="embedded" />
+    <preference name="xwalkMultipleApk" value="true" />
+    <preference name="webviewbounce" value="false" />
+    <preference name="AutoHideSplashScreen" value="false" />
+    <preference name="ShowSplashScreenSpinner" value="false" />
+    <preference name="FadeSplashScreen" value="false" />
+    <preference name="StatusBarBackgroundColor" value="#000000" />
+    <preference name="deployment-target" value="9.0" />
+    <preference name="AndroidLaunchMode" value="singleTask" />
+    <preference name="TwitterConsumerKey" value="njl2I82AXrOo0YftZyKHyC8aV" />
+    <preference name="TwitterConsumerSecret" value="2RmFsMIZmOXY4mMQ1qTuoOOcOPDVtgNMbJLPFgigaYTPpQuVVQ" />
+    <preference name="Orientation" value="all" />
+</widget>
