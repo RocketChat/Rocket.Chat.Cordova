@@ -113,7 +113,7 @@ jobs:
           name: Cordova configuration
           command: |
             # rm -rf platforms
-            rm -rf plugins
+            # rm -rf plugins
             # rm -rf resources
             sed -i '.bkp' 's/ios-CFBundleVersion="[[:digit:]]*"/ios-CFBundleVersion="'$CIRCLE_BUILD_NUM'"/' config.xml
             cordova prepare ios
