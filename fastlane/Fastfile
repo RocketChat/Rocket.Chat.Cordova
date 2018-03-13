@@ -20,9 +20,9 @@ platform :ios do
     )
     pem()
     sigh()
-    upgrade_super_old_xcode_project(
-      path: project_path,
-    )
+    # upgrade_super_old_xcode_project(
+    #   path: project_path,
+    # )
     disable_automatic_code_signing(path: project_path)
     update_project_provisioning(
       xcodeproj: project_path,
