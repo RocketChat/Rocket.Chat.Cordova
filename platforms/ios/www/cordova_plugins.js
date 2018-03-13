@@ -538,7 +538,7 @@ module.exports.metadata =
     "cordova-plugin-facebook4": "1.7.4",
     "twitter-connect-plugin": "0.6.0",
     "cordova-plugin-googleplus": "5.1.1",
-    "cordova-custom-config": "4.0.2",
+    "cordova-custom-config": "3.1.4",
     "cordova-plugin-customurlscheme": "4.2.0",
     "cordova-plugin-compat": "1.2.0",
     "es6-promise-plugin": "4.2.2"

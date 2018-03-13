@@ -7,16 +7,7 @@
     "files": {}
   },
   "installed_plugins": {
-    "com.meteor.cordova-update": {
-      "PACKAGE_NAME": "com.konecty.rocket.chat"
-    },
-    "com.danielsogl.cordova.clipboard": {
-      "PACKAGE_NAME": "com.konecty.rocket.chat"
-    },
     "cordova-sharingreceptor": {
-      "PACKAGE_NAME": "com.konecty.rocket.chat"
-    },
-    "cordova-plugin-1password": {
       "PACKAGE_NAME": "com.konecty.rocket.chat"
     },
     "cordova-plugin-3dtouch": {
@@ -42,9 +33,6 @@
     "cordova-plugin-device": {
       "PACKAGE_NAME": "com.konecty.rocket.chat"
     },
-    "cordova-plugin-dialogs": {
-      "PACKAGE_NAME": "com.konecty.rocket.chat"
-    },
     "cordova-plugin-file": {
       "PACKAGE_NAME": "com.konecty.rocket.chat"
     },
@@ -63,12 +51,6 @@
     },
     "cordova-plugin-media": {
       "MICROPHONE_USAGE_DESCRIPTION": " ",
-      "PACKAGE_NAME": "com.konecty.rocket.chat"
-    },
-    "cordova-plugin-media-capture": {
-      "CAMERA_USAGE_DESCRIPTION": " ",
-      "MICROPHONE_USAGE_DESCRIPTION": " ",
-      "PHOTOLIBRARY_USAGE_DESCRIPTION": " ",
       "PACKAGE_NAME": "com.konecty.rocket.chat"
     },
     "cordova-plugin-splashscreen": {
@@ -91,19 +73,11 @@
       "APP_NAME": "Rocket.Chat",
       "PACKAGE_NAME": "com.konecty.rocket.chat"
     },
-    "twitter-connect-plugin": {
-      "FABRIC_KEY": "d28a3f04738fd742320f2ae1f2049bf85a5a6144",
-      "PACKAGE_NAME": "com.konecty.rocket.chat"
-    },
     "cordova-plugin-googleplus": {
       "REVERSED_CLIENT_ID": "com.googleusercontent.apps.673693445664-pa3k48sg81r89rn65e9rlnu4gpmm5vem",
       "PACKAGE_NAME": "com.konecty.rocket.chat"
     },
     "cordova-custom-config": {
-      "PACKAGE_NAME": "com.konecty.rocket.chat"
-    },
-    "cordova-plugin-customurlscheme": {
-      "URL_SCHEME": "clientapp-rocketchat",
       "PACKAGE_NAME": "com.konecty.rocket.chat"
     }
   },
@@ -115,4 +89,4 @@
       "PACKAGE_NAME": "com.konecty.rocket.chat"
     }
   }
-}aaa
+}
