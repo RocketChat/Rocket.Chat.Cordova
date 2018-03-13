@@ -62,8 +62,8 @@ build/*
 !default.mode2v3
 *.perspectivev3
 !default.perspectivev3
-*.xcworkspace
-!default.xcworkspace
+# *.xcworkspace
+# !default.xcworkspace
 xcuserdata
 profile
 *.moved-aside
@@ -88,8 +88,8 @@ Android/assets/
 www/shared/js_compiled
 www/cache
 platforms/android
-resources/icons
-resources/splash
+# resources/icons
+# resources/splash
 plugins
 RocketChat.keystore
 www/js/cache_manifest.js
