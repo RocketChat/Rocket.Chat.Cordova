@@ -19,15 +19,15 @@ platform :ios do
       git_url: "git@github.com:RocketChat/Rocket.Chat.Cordova.FastLane.git",
     )
     pem()
-    # sigh()
-    # upgrade_super_old_xcode_project(
-    #   path: project_path,
-    # )
-    # disable_automatic_code_signing(path: project_path)
-    # update_project_provisioning(
-    #   xcodeproj: project_path,
-    #   build_configuration: "Release"
-    # )
+    sigh()
+    upgrade_super_old_xcode_project(
+      path: project_path,
+    )
+    disable_automatic_code_signing(path: project_path)
+    update_project_provisioning(
+      xcodeproj: project_path,
+      build_configuration: "Release"
+    )
     gym(
       workspace: workspace_path,
       scheme: "Rocket.Chat",
