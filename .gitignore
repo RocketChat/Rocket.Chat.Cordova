@@ -88,9 +88,15 @@ Android/assets/
 www/shared/js_compiled
 www/cache
 platforms/android
-# resources/icons
-# resources/splash
-plugins
+platforms/ios/www
+platforms/ios/platform_www
+platforms/ios/CordovaLib
+platforms/ios/Rocket.Chat/Plugins
+resources/icons
+resources/splash
+plugins/*
+!plugins/ios.json
+!plugins/fetch.json
 RocketChat.keystore
 www/js/cache_manifest.js
 www/shared/js/android_sender_id.js
