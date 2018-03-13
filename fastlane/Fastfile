@@ -18,7 +18,6 @@ platform :ios do
       type: "appstore",
       git_url: "git@github.com:RocketChat/Rocket.Chat.Cordova.FastLane.git",
     )
-    pem()
     sigh()
     upgrade_super_old_xcode_project(
       path: project_path,
