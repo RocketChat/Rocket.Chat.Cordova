@@ -109,6 +109,12 @@
                 </dict>
             </array>
         </config-file>
+        <config-file parent="NSCameraUsageDescription" platform="ios" target="*-Info.plist">
+            <string>Upload photos directly from the camera</string>
+        </config-file>
+        <config-file parent="NSPhotoLibraryUsageDescription" platform="ios" target="*-Info.plist">
+            <string>Upload photos from library</string>
+        </config-file>
     </platform>
     <preference name="xwalkVersion" value="23" />
     <preference name="xwalkCommandLine" value="--disable-pull-to-refresh-effect" />
