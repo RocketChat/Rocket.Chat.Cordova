@@ -222,6 +222,7 @@ body.loading .loading-box {
 
 .new-apps button {
     border: none;
+    background: transparent;
 }
 
 .new-apps button.dismiss {
