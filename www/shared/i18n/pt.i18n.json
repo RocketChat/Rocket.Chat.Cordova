@@ -29,5 +29,8 @@
   "Updating_files": "Atualizando arquivos",
   "Updating_files_s_s": "Atualizando arquivos<br/>%s / %s",
   "Validating_server": "Validando servidor",
-  "Warning": "Atenção"
+  "Warning": "Atenção",
+  "new_native_apps_title": "Nossos novos apps nativos estão disponíveis",
+  "new_native_apps_description": "Eles são muito mais rápidos, experimente!",
+  "No_thanks": "Não, obrigado"
 }

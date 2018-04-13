@@ -226,7 +226,7 @@ window.Servers = new class
 						servers[url].info = servers[url].oldInfo
 						servers[url].oldInfo = oldInfo
 					cb(status)
-			else 
+			else
 				return cb {done: true}
 
 	getFileTransfer: ->

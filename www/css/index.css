@@ -214,6 +214,38 @@ body.loading .loading-box {
     animation-delay: -0.16s;
 }
 
+.overlay.new-apps {
+    background-color: #f7f7f7;
+    text-align: center;
+    padding: 20px;
+}
+
+.new-apps button {
+    border: none;
+}
+
+.new-apps button.dismiss {
+    font-size: 14px;
+    color: blue;
+}
+
+.download-link {
+    display: none;
+    padding: 20px 0;
+}
+
+.download-link img {
+    width: 135px;
+}
+
+.platform-ios .download-link.ios {
+    display: block;
+}
+
+.platform-android .download-link.android {
+    display: block;
+}
+
 @-webkit-keyframes loading-bouncedelay {
     0%,
     80%,
