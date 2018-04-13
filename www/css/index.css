@@ -217,7 +217,7 @@ body.loading .loading-box {
 .overlay.new-apps {
     background-color: #f7f7f7;
     text-align: center;
-    padding: 20px;
+    padding: 20px 40px;
 }
 
 .new-apps button {

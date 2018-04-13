@@ -256,12 +256,23 @@ document.addEventListener "deviceready", ->
 				navigator.splashscreen.hide()
 
 				if localStorage.getItem('new-apps-dismissed') == 'true'
+					window.ga.trackView('Main')
 					loadLastActiveServer() if window.AUTOLOAD is true
 				else
+					window.ga.trackEvent('NewApps', 'Show')
+					window.ga.trackView('NewApps')
 					$('.new-apps').css('display', 'block')
+
+					$('.new-apps .download-link button').on 'click', () ->
+						window.ga.trackEvent('NewApps', 'Download')
+
+					$('.new-apps button.dismiss').on 'click', () ->
+						window.ga.trackEvent('NewApps', 'Dismiss')
+
 					$('.new-apps button').on 'click', () ->
 						$('.new-apps').css('display', 'none')
 						localStorage.setItem('new-apps-dismissed', 'true')
+						window.ga.trackView('Main')
 						loadLastActiveServer() if window.AUTOLOAD is true
 
 			, 300

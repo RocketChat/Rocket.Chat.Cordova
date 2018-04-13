@@ -48,6 +48,7 @@ jobs:
           command: |
             echo "Bugsnag.apiKey = '$BUGSNAG_API_KEY';" > www/js/bugsnag_apikey.js
             echo "window.ANDROID_SENDER_ID = '$ANDROID_SENDER_ID';" > www/shared/js/android_sender_id.js
+            echo "window.GOOGLE_ANALYTICS_ID = '$GOOGLE_ANALYTICS_ID';" > www/shared/js/google_analytics_id.js
       - run:
           name: Cordova build
           command: |
@@ -109,6 +110,7 @@ jobs:
           command: |
             echo "Bugsnag.apiKey = '$BUGSNAG_API_KEY';" > www/js/bugsnag_apikey.js
             echo "window.ANDROID_SENDER_ID = '$ANDROID_SENDER_ID';" > www/shared/js/android_sender_id.js
+            echo "window.GOOGLE_ANALYTICS_ID = '$GOOGLE_ANALYTICS_ID';" > www/shared/js/google_analytics_id.js
       - run:
           name: Cordova configuration
           command: |
@@ -118,7 +120,7 @@ jobs:
             sed -i '.bkp' 's/ios-CFBundleVersion="[[:digit:]]*"/ios-CFBundleVersion="'$CIRCLE_BUILD_NUM'"/' config.xml
             cordova prepare ios
             bundle exec fastlane ios build
-      
+
       - store_artifacts:
           path: ios/RocketChat.ipa
 
@@ -127,7 +129,7 @@ jobs:
           paths:
             - platforms/ios/*.ipa
             - fastlane/report.xml
-  
+
   ios-testflight:
     macos:
       xcode: "9.0"
