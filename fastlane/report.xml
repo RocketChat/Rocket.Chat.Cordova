@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="fastlane.lanes">
+    
+    
+    
+      
+      <testcase classname="fastlane.lanes" name="0: match" time="13.064394">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="1: pem" time="3.153143">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="2: upgrade_super_old_xcode_project" time="0.177386">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="3: automatic_code_signing" time="0.204715">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="4: gym" time="57.549166">
+        
+      </testcase>
+    
+  </testsuite>
+</testsuites>
