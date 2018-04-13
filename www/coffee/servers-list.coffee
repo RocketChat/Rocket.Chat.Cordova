@@ -152,10 +152,10 @@ window.addEventListener "onNewVersion", (e) ->
 
 document.addEventListener "deviceready", ->
 	if window.GOOGLE_ANALYTICS_ID?
-		window.ga.startTrackerWithId(window.GOOGLE_ANALYTICS_ID, 1)
-		window.ga.setAppVersion(window.device?.version)
+		window.cordovaga.startTrackerWithId(window.GOOGLE_ANALYTICS_ID, 1)
+		window.cordovaga.setAppVersion(window.device?.version)
 
-	window.ga.trackView('Main')
+	window.cordovaga.trackView('Main')
 
 	# if device.platform.toLowerCase() is 'ios'
 	# 	cordova.plugins.iosrtc.registerGlobals()

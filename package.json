@@ -8,7 +8,7 @@
     "cordova-android": "5.2.2",
     "cordova-custom-config": "^4.0.2",
     "cordova-ios": "4.3.1",
-    "cordova-plugin-google-analytics": "^1.8.3",
+    "cordova-plugin-google-analytics": "git+https://github.com/RocketChat/google-analytics-plugin.git",
     "glob": "^5.0.14",
     "nopt": "^3.0.4",
     "q": "^1.4.1",

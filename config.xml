@@ -174,7 +174,7 @@
     <plugin name="cordova-plugin-customurlscheme" spec="~4.2.0">
         <variable name="URL_SCHEME" value="clientapp-rocketchat" />
     </plugin>
-    <plugin name="cordova-plugin-google-analytics" spec="^1.8.3" />
+    <plugin name="cordova-plugin-google-analytics" spec="https://github.com/RocketChat/google-analytics-plugin.git" />
     <engine name="android" spec="5.2.2" />
     <engine name="ios" spec="4.3.1" />
 </widget>
