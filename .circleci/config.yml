@@ -1,0 +1,167 @@
+defaults: &defaults
+  working_directory: ~/repo
+
+version: 2
+jobs:
+  android-build:
+    <<: *defaults
+    docker:
+      - image: circleci/android:api-23-alpha
+    environment:
+      BASH_ENV: "~/.nvm/nvm.sh"
+    steps:
+      - checkout
+      - run:
+          name: Install Node 8
+          command: |
+            curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh | bash
+            source ~/.nvm/nvm.sh
+            nvm install 8
+      - run:
+          name: Install ImageMagick
+          command: |
+            sudo apt-get update
+            sudo apt-get install imagemagick
+      - run:
+          name: Install Gradle
+          command: |
+            export TERM=xterm
+            wget https://services.gradle.org/distributions/gradle-2.13-all.zip
+            sudo mkdir /opt/gradle
+            sudo unzip -d /opt/gradle/ gradle-2.13-all.zip
+            export PATH=$PATH:/opt/gradle/gradle-2.13/bin
+            mkdir -p /opt/android/sdk/tools/templates/gradle/wrapper
+            cd /opt/android/sdk/tools/templates/gradle/wrapper
+            gradle wrapper
+            cd ~/repo
+      - run:
+          name: Install global dependencies
+          command: |
+            npm install -g cordova coffee-script
+      - run:
+          name: Install NPM modules
+          command: |
+            rm -rf node_modules
+            npm install
+      - run:
+          name: Create configuration files
+          command: |
+            echo "Bugsnag.apiKey = '$BUGSNAG_API_KEY';" > www/js/bugsnag_apikey.js
+            echo "window.ANDROID_SENDER_ID = '$ANDROID_SENDER_ID';" > www/shared/js/android_sender_id.js
+      - run:
+          name: Cordova build
+          command: |
+            rm -rf platforms
+            rm -rf plugins
+            rm -rf resources
+            cordova prepare android
+
+            if [[ $KEYSTORE ]]; then
+              echo $KEYSTORE_BASE64 | base64 --decode > ./$KEYSTORE
+              cordova build android --release -- --keystore=./$KEYSTORE --storePassword=$KEYSTORE_PASSWORD --alias=$KEY_ALIAS --password=$KEY_PASSWORD
+            else
+              cordova build android
+            fi
+
+            mkdir -p /tmp/build
+            mv platforms/android/build/outputs/apk /tmp/build/outputs
+
+      - store_artifacts:
+          path: /tmp/build/outputs
+
+  ios-build:
+    macos:
+      xcode: "9.0"
+    environment:
+      BASH_ENV: "~/.nvm/nvm.sh"
+    steps:
+      - checkout
+      - run:
+          name: Install Node 8
+          command: |
+            curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh | bash
+            source ~/.nvm/nvm.sh
+            # https://github.com/creationix/nvm/issues/1394
+            set +e
+            nvm install 8
+      - run:
+          name: Update Fastlane
+          command: |
+            brew update
+            brew install ruby
+            sudo gem install fastlane
+            bundle install
+      - run:
+          name: Install ImageMagick
+          command: |
+            brew install imagemagick
+      - run:
+          name: Install global dependencies
+          command: |
+            sudo npm install -g cordova coffee-script
+      - run:
+          name: Install NPM modules
+          command: |
+            rm -rf node_modules
+            npm install
+      - run:
+          name: Create configuration files
+          command: |
+            echo "Bugsnag.apiKey = '$BUGSNAG_API_KEY';" > www/js/bugsnag_apikey.js
+            echo "window.ANDROID_SENDER_ID = '$ANDROID_SENDER_ID';" > www/shared/js/android_sender_id.js
+      - run:
+          name: Cordova configuration
+          command: |
+            rm -rf platforms
+            rm -rf plugins
+            rm -rf resources
+            sed -i '.bkp' 's/ios-CFBundleVersion="[[:digit:]]*"/ios-CFBundleVersion="'$CIRCLE_BUILD_NUM'"/' config.xml
+            cordova prepare ios
+            bundle exec fastlane ios build
+      
+      - store_artifacts:
+          path: ios/RocketChat.ipa
+
+      - persist_to_workspace:
+          root: .
+          paths:
+            - platforms/ios/*.ipa
+            - fastlane/report.xml
+  
+  ios-testflight:
+    macos:
+      xcode: "9.0"
+
+    steps:
+      - checkout
+
+      - attach_workspace:
+          at: ios
+
+      - run:
+          name: Update Fastlane
+          command: |
+            brew update
+            brew install ruby
+            sudo gem install fastlane
+            bundle install
+
+      - run:
+          name: Fastlane Tesflight Upload
+          command: |
+            cd ios
+            bundle exec fastlane pilot upload --ipa platforms/ios/Rocket.Chat.ipa --changelog "$(sh ../.circleci/changelog.sh)"
+workflows:
+  version: 2
+  build:
+    jobs:
+      - ios-build
+      - ios-testflight:
+          requires:
+            - ios-build
+          # filters:
+          #   branches:
+          #     only:
+          #       - develop
+          #       - master
+      - android-build

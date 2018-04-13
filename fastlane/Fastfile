@@ -1,0 +1,100 @@
+platform :ios do
+  before_all do
+    # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
+    # cocoapods
+    # carthage
+    create_keychain(
+      name: ENV["MATCH_KEYCHAIN_NAME"],
+      password: ENV["MATCH_KEYCHAIN_PASSWORD"],
+      timeout: 1200
+    )
+  end
+
+  desc "Build App"
+  lane :build do |options|
+    project_path = "./platforms/ios/Rocket.Chat.xcodeproj"
+    workspace_path = "./platforms/ios/Rocket.Chat.xcworkspace"
+    match(
+      type: "appstore",
+      git_url: "git@github.com:RocketChat/Rocket.Chat.Cordova.FastLane.git",
+    )
+    sigh()
+    upgrade_super_old_xcode_project(
+      path: project_path,
+    )
+    disable_automatic_code_signing(path: project_path)
+    update_project_provisioning(
+      xcodeproj: project_path,
+      build_configuration: "Release"
+    )
+    gym(
+      workspace: workspace_path,
+      scheme: "Rocket.Chat",
+      output_directory: "./platforms/ios/"
+    )
+  end
+
+  # desc "Submit a new Beta Build to Apple TestFlight"
+  # desc "This will also make sure the profile is up to date"
+  # lane :beta do
+  #   match(
+  #     type: "appstore",
+  #     git_url: "git@github.com:RocketChat/Rocket.Chat.Cordova.FastLane.git",
+  #   )
+  #   pem()
+  #   sigh()
+  #   upgrade_super_old_xcode_project(
+  #     path: "./platforms/ios/Rocket.Chat.xcodeproj",
+  #   )
+  #   disable_automatic_code_signing(path: "./platforms/ios/Rocket.Chat.xcodeproj")
+  #   update_project_provisioning(
+  #     xcodeproj: "./platforms/ios/Rocket.Chat.xcodeproj",
+  #     build_configuration: "Release"
+  #   )
+  #   gym(
+  #     workspace: "./platforms/ios/Rocket.Chat.xcworkspace",
+  #     scheme: "Rocket.Chat"
+  #   )
+  #   pilot()
+  # end
+
+  # desc "Build App for release"
+  # lane :release do
+  #   match(
+  #     type: "appstore",
+  #     git_url: "git@github.com:RocketChat/Rocket.Chat.Cordova.FastLane.git",
+  #   )
+  #   pem()
+  #   sigh()
+  #   upgrade_super_old_xcode_project(
+  #     path: "./platforms/ios/Rocket.Chat.xcodeproj",
+  #   )
+  #   disable_automatic_code_signing(path: "./platforms/ios/Rocket.Chat.xcodeproj")
+  #   update_project_provisioning(
+  #     xcodeproj: "./platforms/ios/Rocket.Chat.xcodeproj",
+  #     build_configuration: "Release"
+  #   )
+  #   gym(
+  #     workspace: "./platforms/ios/Rocket.Chat.xcworkspace",
+  #     scheme: "Rocket.Chat"
+  #   )
+  # end
+
+  after_all do |lane|
+    # This block is called, only if the executed lane was successful
+
+    # slack(
+    #   message: "Successfully deployed new App Update."
+    # )
+    delete_keychain(name: ENV["MATCH_KEYCHAIN_NAME"])
+  end
+
+  error do |lane, exception|
+    # slack(
+    #   message: exception.message,
+    #   success: false
+    # )
+    delete_keychain(name: ENV["MATCH_KEYCHAIN_NAME"])
+  end
+
+end

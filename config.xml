@@ -109,6 +109,12 @@
                 </dict>
             </array>
         </config-file>
+        <config-file parent="NSCameraUsageDescription" platform="ios" target="*-Info.plist">
+            <string>Upload photos directly from the camera</string>
+        </config-file>
+        <config-file parent="NSPhotoLibraryUsageDescription" platform="ios" target="*-Info.plist">
+            <string>Upload photos from library</string>
+        </config-file>
     </platform>
     <preference name="xwalkVersion" value="23" />
     <preference name="xwalkCommandLine" value="--disable-pull-to-refresh-effect" />
@@ -126,7 +132,7 @@
     <preference name="AndroidLaunchMode" value="singleTask" />
     <hook src="hooks/beforePrepare.js" type="before_prepare" />
     <plugin name="com.meteor.cordova-update" spec="https://github.com/RocketChat/com.meteor.cordova-update" />
-    <plugin name="com.verso.cordova.clipboard" spec="https://github.com/danielsogl/cordova-plugin-clipboard" />
+    <plugin name="com.danielsogl.cordova.clipboard" spec="https://github.com/danielsogl/cordova-plugin-clipboard.git" />
     <plugin name="cordova-sharingreceptor" spec="https://github.com/burstaholic/cordova-sharingreceptor" />
     <plugin name="cordova-plugin-1password" spec="0.1.5" />
     <plugin name="cordova-plugin-3dtouch" spec="~1.3.5" />
