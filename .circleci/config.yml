@@ -54,7 +54,8 @@ jobs:
           command: |
             rm -rf platforms
             rm -rf plugins
-            rm -rf resources
+            rm -rf resources/icons
+            rm -rf resources/splash
             node hooks/downloadCache.js
             cordova prepare android
 
@@ -117,7 +118,8 @@ jobs:
           command: |
             rm -rf platforms
             rm -rf plugins
-            rm -rf resources
+            rm -rf resources/icons
+            rm -rf resources/splash
             sed -i '.bkp' 's/ios-CFBundleVersion="[[:digit:]]*"/ios-CFBundleVersion="'$CIRCLE_BUILD_NUM'"/' config.xml
             node hooks/downloadCache.js
             cordova prepare ios
@@ -154,7 +156,7 @@ jobs:
           name: Fastlane Tesflight Upload
           command: |
             cd ios
-            bundle exec fastlane pilot upload --ipa platforms/ios/Rocket.Chat.ipa --changelog "$(sh ../.circleci/changelog.sh)"
+            bundle exec fastlane pilot upload --ipa platforms/ios/Rocket.Chat\ Cordova\ Legacy.ipa --changelog "$(sh ../.circleci/changelog.sh)"
 workflows:
   version: 2
   build:
