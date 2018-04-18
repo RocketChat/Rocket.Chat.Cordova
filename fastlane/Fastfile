@@ -12,8 +12,8 @@ platform :ios do
 
   desc "Build App"
   lane :build do |options|
-    project_path = "./platforms/ios/Rocket.Chat\ Cordova\ Legacy.xcodeproj"
-    workspace_path = "./platforms/ios/Rocket.Chat\ Cordova\ Legacy.xcworkspace"
+    project_path = "./platforms/ios/RC\ Legacy.xcodeproj"
+    workspace_path = "./platforms/ios/RC\ Legacy.xcworkspace"
     match(
       type: "appstore",
       git_url: "git@github.com:RocketChat/Rocket.Chat.Cordova.FastLane.git",
@@ -44,15 +44,15 @@ platform :ios do
   #   pem()
   #   sigh()
   #   upgrade_super_old_xcode_project(
-  #     path: "./platforms/ios/Rocket.Chat\ Cordova\ Legacy.xcodeproj",
+  #     path: "./platforms/ios/RC\ Legacy.xcodeproj",
   #   )
-  #   disable_automatic_code_signing(path: "./platforms/ios/Rocket.Chat\ Cordova\ Legacy.xcodeproj")
+  #   disable_automatic_code_signing(path: "./platforms/ios/RC\ Legacy.xcodeproj")
   #   update_project_provisioning(
-  #     xcodeproj: "./platforms/ios/Rocket.Chat\ Cordova\ Legacy.xcodeproj",
+  #     xcodeproj: "./platforms/ios/RC\ Legacy.xcodeproj",
   #     build_configuration: "Release"
   #   )
   #   gym(
-  #     workspace: "./platforms/ios/Rocket.Chat\ Cordova\ Legacy.xcworkspace",
+  #     workspace: "./platforms/ios/RC\ Legacy.xcworkspace",
   #     scheme: "Rocket.Chat"
   #   )
   #   pilot()
@@ -67,15 +67,15 @@ platform :ios do
   #   pem()
   #   sigh()
   #   upgrade_super_old_xcode_project(
-  #     path: "./platforms/ios/Rocket.Chat\ Cordova\ Legacy.xcodeproj",
+  #     path: "./platforms/ios/RC\ Legacy.xcodeproj",
   #   )
-  #   disable_automatic_code_signing(path: "./platforms/ios/Rocket.Chat\ Cordova\ Legacy.xcodeproj")
+  #   disable_automatic_code_signing(path: "./platforms/ios/RC\ Legacy.xcodeproj")
   #   update_project_provisioning(
-  #     xcodeproj: "./platforms/ios/Rocket.Chat\ Cordova\ Legacy.xcodeproj",
+  #     xcodeproj: "./platforms/ios/RC\ Legacy.xcodeproj",
   #     build_configuration: "Release"
   #   )
   #   gym(
-  #     workspace: "./platforms/ios/Rocket.Chat\ Cordova\ Legacy.xcworkspace",
+  #     workspace: "./platforms/ios/RC\ Legacy.xcworkspace",
   #     scheme: "Rocket.Chat"
   #   )
   # end

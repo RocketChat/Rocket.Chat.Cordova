@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget android-versionCode="3002" id="com.konecty.rocket.chat" ios-CFBundleVersion="23" version="2.8.0" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Rocket.Chat Cordova Legacy</name>
+<widget android-versionCode="3003" id="com.konecty.rocket.chat" ios-CFBundleVersion="24" version="2.9.0" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>RC Legacy</name>
     <description>
-        Rocket.Chat mobile application
+        Rocket.Chat Cordova HTML web app wrapper
     </description>
     <author email="support@rocket.chat" href="https://rocket.chat">
         Rocket.Chat
