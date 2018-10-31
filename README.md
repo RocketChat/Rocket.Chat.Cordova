@@ -8,7 +8,7 @@ Please see our native mobile apps:
 - iOS - [here](https://github.com/RocketChat/Rocket.Chat.iOS)
 - Android - [here](https://github.com/RocketChat/Rocket.Chat.Android)
 
-Both apps can be found in their respective app stores by searching for: `Rocket.Chat+`
+Both apps can be found in their respective app stores by searching for: `Rocket.Chat`
 
 
 # !!!Attention!!!
@@ -31,7 +31,6 @@ npm install
 echo 'Bugsnag.apiKey = "YOUR-API-KEY-HERE";' > www/js/bugsnag_apikey.js
 echo 'window.ANDROID_SENDER_ID = "YOUR-ANDROID-ID-HERE";' > www/shared/js/android_sender_id.js
 ```
-
 
 #### Prepare - Install platforms and plugins
 ```shell
