@@ -33,7 +33,6 @@ echo 'Bugsnag.apiKey = "YOUR-API-KEY-HERE";' > www/js/bugsnag_apikey.js
 echo 'window.ANDROID_SENDER_ID = "YOUR-ANDROID-ID-HERE";' > www/shared/js/android_sender_id.js
 ```
 
-
 #### Prepare - Install platforms and plugins
 ```shell
 cordova prepare
