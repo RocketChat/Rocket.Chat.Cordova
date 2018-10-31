@@ -1,8 +1,8 @@
 # Rocket.Chat.Cordova
 Rocket.Chat Cross-Platform Mobile Application via Cordova
 
-# Important Notice
-After the end of March (3/18) this application will be deprecated.  
+# DEPRECATED
+As of March (3/18) this application has been deprecated and is no longer maintained. 
 
 Please see our native mobile apps:
 - iOS - [here](https://github.com/RocketChat/Rocket.Chat.iOS)
@@ -10,11 +10,12 @@ Please see our native mobile apps:
 
 Both apps can be found in their respective app stores by searching for: `Rocket.Chat`
 
+Cordova app will not be able to connect to Rocket.Chat server 0.72.0 and higher as support has been removed.
 
-# !!!Attention!!!
-This application only connects with servers that were compiled with mobile platforms enabled
 
-# How to run
+
+### Development
+
 #### Requirements
  * npm
  * nodejs 0.12
