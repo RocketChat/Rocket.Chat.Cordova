@@ -3,11 +3,12 @@
     <head>
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <!-- <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width"> -->
+        <meta name="viewport" content="initial-scale=1, width=device-width, height=device-height, viewport-fit=cover">
         <link rel="stylesheet" type="text/css" href="css/index.css">
         <link rel="stylesheet" type="text/css" href="shared/css/servers-list.css">
         <link rel="stylesheet" type="text/css" href="branding/css/branding.css">
-        <title>Rocket.Chat</title>
+        <title>Rocket.Chat Cordova Legacy</title>
         <script type="text/javascript" src="js/bugsnag.js"></script>
         <script type="text/javascript" src="js/bugsnag_apikey.js"></script>
         <script type="text/javascript" src="js/jquery.js"></script>
@@ -51,12 +52,35 @@
             </div>
         </section>
 
+        <section class="overlay new-apps">
+            <div>
+                <div class="logo">
+                    <img src="icons/icon.png" />
+                </div>
+                <h1></h1>
+                <div class="description">
+                </div>
+                <div class="download-link ios">
+                    <button onclick="window.open('https://itunes.apple.com/app/rocket-chat/id1148741252', '_system');">
+                        <img src="img/itunes-store.svg" />
+                    </button>
+                </div>
+                <div class="download-link android">
+                    <button onclick="window.open('https://play.google.com/store/apps/details?id=chat.rocket.android', '_system');">
+                        <img src="img/google-play.svg" />
+                    </button>
+                </div>
+                <button class="dismiss"></button>
+            </div>
+        </section>
+
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/cache_manifest.js"></script>
         <script type="text/javascript" src="js/lodash.js"></script>
         <script type="text/javascript" src="js/async.js"></script>
         <script type="text/javascript" src="js/fastclick.js"></script>
         <script type="text/javascript" src="shared/js/android_sender_id.js"></script>
+        <script type="text/javascript" src="shared/js/google_analytics_id.js"></script>
         <script type="text/javascript" src="shared/js_compiled/utils.js"></script>
         <script type="text/javascript" src="shared/js_compiled/servers.js"></script>
         <script type="text/javascript" src="shared/js_compiled/servers-list.js"></script>

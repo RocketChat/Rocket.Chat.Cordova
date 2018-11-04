@@ -48,12 +48,16 @@ jobs:
           command: |
             echo "Bugsnag.apiKey = '$BUGSNAG_API_KEY';" > www/js/bugsnag_apikey.js
             echo "window.ANDROID_SENDER_ID = '$ANDROID_SENDER_ID';" > www/shared/js/android_sender_id.js
+            echo "window.GOOGLE_ANALYTICS_ID = '$GOOGLE_ANALYTICS_ID';" > www/shared/js/google_analytics_id.js
       - run:
           name: Cordova build
           command: |
             rm -rf platforms
             rm -rf plugins
-            rm -rf resources
+            rm -rf resources/icons
+            rm -rf resources/splash
+            sed -i.bkp 's/android-versionCode="[[:digit:]]*"/android-versionCode="'3$CIRCLE_BUILD_NUM'"/' config.xml
+            node hooks/downloadCache.js
             cordova prepare android
 
             if [[ $KEYSTORE ]]; then
@@ -109,16 +113,19 @@ jobs:
           command: |
             echo "Bugsnag.apiKey = '$BUGSNAG_API_KEY';" > www/js/bugsnag_apikey.js
             echo "window.ANDROID_SENDER_ID = '$ANDROID_SENDER_ID';" > www/shared/js/android_sender_id.js
+            echo "window.GOOGLE_ANALYTICS_ID = '$GOOGLE_ANALYTICS_ID';" > www/shared/js/google_analytics_id.js
       - run:
           name: Cordova configuration
           command: |
             rm -rf platforms
             rm -rf plugins
-            rm -rf resources
+            rm -rf resources/icons
+            rm -rf resources/splash
             sed -i '.bkp' 's/ios-CFBundleVersion="[[:digit:]]*"/ios-CFBundleVersion="'$CIRCLE_BUILD_NUM'"/' config.xml
+            node hooks/downloadCache.js
             cordova prepare ios
             bundle exec fastlane ios build
-      
+
       - store_artifacts:
           path: ios/RocketChat.ipa
 
@@ -127,7 +134,7 @@ jobs:
           paths:
             - platforms/ios/*.ipa
             - fastlane/report.xml
-  
+
   ios-testflight:
     macos:
       xcode: "9.0"
@@ -150,7 +157,7 @@ jobs:
           name: Fastlane Tesflight Upload
           command: |
             cd ios
-            bundle exec fastlane pilot upload --ipa platforms/ios/Rocket.Chat.ipa --changelog "$(sh ../.circleci/changelog.sh)"
+            bundle exec fastlane pilot upload --ipa platforms/ios/RC\ Legacy.ipa --changelog "$(sh ../.circleci/changelog.sh)"
 workflows:
   version: 2
   build:

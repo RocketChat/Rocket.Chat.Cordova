@@ -226,7 +226,7 @@ window.Servers = new class
 						servers[url].info = servers[url].oldInfo
 						servers[url].oldInfo = oldInfo
 					cb(status)
-			else 
+			else
 				return cb {done: true}
 
 	getFileTransfer: ->
@@ -378,8 +378,10 @@ window.Servers = new class
 				}
 				""")
 			file = file.replace /(<\/head>)/gm, """
+				<meta name="viewport" content="initial-scale=1, width=device-width, height=device-height, viewport-fit=cover">
 				<link rel="stylesheet" href="/shared/css/servers-list.css"/>
 				<script text="text/javascript" src="/shared/js/android_sender_id.js"></script>
+				<script text="text/javascript" src="/shared/js/google_analytics_id.js"></script>
 				<script text="text/javascript" src="/shared/js/share.js"></script>
 				<script text="text/javascript" src="/shared/js_compiled/i18n.js"></script>
 				<script text="text/javascript" src="/shared/js_compiled/utils.js"></script>

@@ -29,5 +29,8 @@
   "Updating_files": "Atualizando arquivos",
   "Updating_files_s_s": "Atualizando arquivos<br/>%s / %s",
   "Validating_server": "Validando servidor",
-  "Warning": "Atenção"
+  "Warning": "Atenção",
+  "new_native_apps_title": "Atualize o Rocket.Chat",
+  "new_native_apps_description": "Atualize para o nosso novo app nativo mais leve e rápido",
+  "No_thanks": "Não, obrigado"
 }

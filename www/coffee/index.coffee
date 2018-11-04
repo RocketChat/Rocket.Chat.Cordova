@@ -204,6 +204,15 @@ window.loadLastActiveServer = ->
 
 
 document.addEventListener "deviceready", ->
+	if device.platform is 'iOS'
+		$(document.body).addClass('platform-ios')
+	else
+		$(document.body).addClass('platform-android')
+
+	$('.new-apps h1').text cordovai18n("new_native_apps_title")
+	$('.new-apps .description').text cordovai18n("new_native_apps_description")
+	$('.new-apps button.dismiss').text cordovai18n("No_thanks")
+
 	navigator.appInfo.getAppInfo (appInfo) ->
 		Bugsnag.appVersion = appInfo.version
 		Bugsnag.metaData.version = appInfo.version
@@ -245,7 +254,27 @@ document.addEventListener "deviceready", ->
 		if not query.addServer?
 			setTimeout ->
 				navigator.splashscreen.hide()
-				loadLastActiveServer() if window.AUTOLOAD is true
+
+				if localStorage.getItem('new-apps-dismissed') == 'true'
+					cordova.plugins.ga.trackView('Main')
+					loadLastActiveServer() if window.AUTOLOAD is true
+				else
+					cordova.plugins.ga.trackEvent('NewApps', 'Show')
+					cordova.plugins.ga.trackView('NewApps')
+					$('.new-apps').css('display', 'block')
+
+					$('.new-apps .download-link button').on 'click', () ->
+						cordova.plugins.ga.trackEvent('NewApps', 'Download')
+
+					$('.new-apps button.dismiss').on 'click', () ->
+						cordova.plugins.ga.trackEvent('NewApps', 'Dismiss')
+
+					$('.new-apps button').on 'click', () ->
+						$('.new-apps').css('display', 'none')
+						localStorage.setItem('new-apps-dismissed', 'true')
+						cordova.plugins.ga.trackView('Main')
+						loadLastActiveServer() if window.AUTOLOAD is true
+
 			, 300
 		else
 			navigator.splashscreen.hide()
